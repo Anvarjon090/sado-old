@@ -1,6 +1,6 @@
 # Evaluation
 
-Evaluate VoiceStudio models with standard TTS metrics: WER (intelligibility), SIM-o (speaker similarity), and UTMOS (naturalness).
+Evaluate Sado models with standard TTS metrics: WER (intelligibility), SIM-o (speaker similarity), and UTMOS (naturalness).
 
 ## Supported Test Sets
 

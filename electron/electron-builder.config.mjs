@@ -15,7 +15,7 @@ const { version } = JSON.parse(readFileSync(resolve(here, '../package.json'), 'u
 // point at. Packaging rehearsals from main are stamped stable too; they are
 // review artifacts and are never published.
 const updateChannel =
-  process.env.VOICESTUDIO_UPDATE_CHANNEL || `electron-stable-${process.platform}-${process.arch}`;
+  process.env.SADO_UPDATE_CHANNEL || `electron-stable-${process.platform}-${process.arch}`;
 if (!/^electron-stable-(?:win32|darwin|linux)-(?:x64|arm64)$/.test(updateChannel)) {
   throw new Error(`Unsupported Electron update channel: ${updateChannel}`);
 }
@@ -31,10 +31,10 @@ const defaultRustTarget =
     'darwin-x64': 'x86_64-apple-darwin',
     'linux-x64': 'x86_64-unknown-linux-gnu',
   }[`${process.platform}-${process.arch}`] ?? null;
-const rustTarget = process.env.VOICESTUDIO_RUST_TARGET || defaultRustTarget;
+const rustTarget = process.env.SADO_RUST_TARGET || defaultRustTarget;
 const uvExtension = rustTarget?.includes('windows') ? '.exe' : '';
-const uvSource = process.env.VOICESTUDIO_BUNDLED_UV
-  ? resolve(process.env.VOICESTUDIO_BUNDLED_UV)
+const uvSource = process.env.SADO_BUNDLED_UV
+  ? resolve(process.env.SADO_BUNDLED_UV)
   : rustTarget
     ? resolve(here, `build/uv/uv-${rustTarget}${uvExtension}`)
     : null;
@@ -52,11 +52,11 @@ const notarizeMac = Boolean(
 
 /** @type {import('electron-builder').Configuration} */
 export default {
-  appId: 'com.voicestudio.desktop',
-  productName: 'VoiceStudio',
+  appId: 'com.sado.desktop',
+  productName: 'Sado',
   extraMetadata: { version },
   directories: { output: 'release', buildResources: 'build' },
-  artifactName: 'VoiceStudio-Electron-${version}-${os}-${arch}.${ext}',
+  artifactName: 'Sado-Electron-${version}-${os}-${arch}.${ext}',
   // The default FUSE2 runtime cannot start on distros without libfuse.so.2.
   // v26's pinned static runtime keeps AppImage mounting independent of FUSE2.
   toolsets: { appimage: '1.0.3' },
@@ -126,7 +126,7 @@ export default {
   },
   linux: {
     // Linux targets rewrite ${arch} to x86_64/amd64; feeds use Node's x64.
-    artifactName: 'VoiceStudio-Electron-${version}-linux-x64.${ext}',
+    artifactName: 'Sado-Electron-${version}-linux-x64.${ext}',
     icon: 'build/icons/icon.png',
     syncDesktopName: true,
     target: ['AppImage', 'deb'],

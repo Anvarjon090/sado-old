@@ -1,7 +1,7 @@
-# VoiceStudio Corporate Contributor License Agreement 1.0
+# Sado Corporate Contributor License Agreement 1.0
 
 This Agreement lets an organisation license the Contributions its employees
-and contractors make to VoiceStudio. It does not transfer the organisation's
+and contractors make to Sado. It does not transfer the organisation's
 copyright. Each covered individual also signs the
 [Individual Contributor License Agreement 1.0](CLA-1.0.md) (the "Individual
 Agreement") on their first pull request.
@@ -12,7 +12,7 @@ and will need a new signature.
 ## How the organisation accepts
 
 An officer or other person authorised to bind the organisation completes the
-signature block below and emails a signed copy to `hi@voicestudio.sh`.
+signature block below and emails a signed copy to `hi@sado.sh`.
 The signature must be handwritten, or an electronic signature recognised by
 the Information Technology Act, 2000 or the law where the Corporation is
 established. The Maintainer keeps the
@@ -78,7 +78,7 @@ asserted, against the uses licensed in this Agreement.
 ## 5. Designated Contributors
 
 The Corporation keeps Schedule A current by emailing an updated list to
-`hi@voicestudio.sh`. Removing a person stops future Contributions from
+`hi@sado.sh`. Removing a person stops future Contributions from
 being covered. It does not affect licences already granted for earlier
 Contributions.
 

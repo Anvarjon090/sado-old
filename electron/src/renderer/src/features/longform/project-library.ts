@@ -89,5 +89,5 @@ export function createProjectLibrary(store: LongformDurableStore) {
   };
 }
 export const projectLibrary = createProjectLibrary(
-  createIndexedDbLongformStore(undefined, 'voicestudio.electron.longform.projects'),
+  createIndexedDbLongformStore(undefined, 'sado.electron.longform.projects'),
 );

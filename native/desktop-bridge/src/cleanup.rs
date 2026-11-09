@@ -46,7 +46,7 @@ fn recognizably_owned(path: &Path, home: Option<&Path>) -> bool {
         "OmniVoice",
         "omnivoice",
         ".omnivoice",
-        "VoiceStudio",
+        "Sado",
         "com.debpalash.omnivoice-studio",
         "huggingface",
     ];

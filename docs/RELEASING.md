@@ -1,4 +1,4 @@
-# Releasing VoiceStudio
+# Releasing Sado
 
 Electron is the only maintained desktop distribution. Tauri ended at v0.5.3;
 its signed updater feeds and installers are immutable compatibility assets.

@@ -1,7 +1,7 @@
 # Installer proposal: one approved plan and recoverable progress
 
 **Proposed design only.** Source-review baseline (2026-10-04):
-[`fb9a960c88744edc36daf2cf38d48df0971ee713`](https://github.com/debpalash/VoiceStudio/commit/fb9a960c88744edc36daf2cf38d48df0971ee713)
+[`fb9a960c88744edc36daf2cf38d48df0971ee713`](https://github.com/Anvarjon090/sado/commit/fb9a960c88744edc36daf2cf38d48df0971ee713)
 (app 0.5.6). This documentation-only change implements none of the behavior below.
 The branch was integrated with main on 2026-10-05; see the [integration refresh](review.md#integration-refresh-2026-10-05)
 for landed changes and current overlap. Historical probes remain pinned to their original baseline.
@@ -20,18 +20,18 @@ ownership-aware cleanup. Keep explicit setup consent, opt-in analytics and local
 operation with telemetry declined. No version bump, Tauri revival, required cloud
 service, cache migration or replacement installer framework is proposed.
 
-Packaged CPU-only x64 bootstrap already shipped in [#2500](https://github.com/debpalash/VoiceStudio/pull/2500).
+Packaged CPU-only x64 bootstrap already shipped in [#2500](https://github.com/Anvarjon090/sado/pull/2500).
 The Electron install/uninstall guides and stable-only update policy were aligned in
-[#2578](https://github.com/debpalash/VoiceStudio/pull/2578).
-Package-managed installs can disable the updater with `VOICESTUDIO_DISABLE_UPDATER=1`
-([#2557](https://github.com/debpalash/VoiceStudio/pull/2557)). Preserve these changes.
+[#2578](https://github.com/Anvarjon090/sado/pull/2578).
+Package-managed installs can disable the updater with `SADO_DISABLE_UPDATER=1`
+([#2557](https://github.com/Anvarjon090/sado/pull/2557)). Preserve these changes.
 Do not restore the removed Preview update channel or duplicate the landed and open
 work listed in the [review](review.md#integration-refresh-2026-10-05).
-[#2602](https://github.com/debpalash/VoiceStudio/pull/2602)'s disk-headroom, Rosetta
-and runtime package-progress changes and [#2605](https://github.com/debpalash/VoiceStudio/pull/2605)'s
+[#2602](https://github.com/Anvarjon090/sado/pull/2602)'s disk-headroom, Rosetta
+and runtime package-progress changes and [#2605](https://github.com/Anvarjon090/sado/pull/2605)'s
 source CPU selection/no-sync restarts and startup fixes have now merged. Draft
-[#2607](https://github.com/debpalash/VoiceStudio/pull/2607) builds Windows AMD/ROCm
-desktop integration on [#2600](https://github.com/debpalash/VoiceStudio/pull/2600)'s
+[#2607](https://github.com/Anvarjon090/sado/pull/2607) builds Windows AMD/ROCm
+desktop integration on [#2600](https://github.com/Anvarjon090/sado/pull/2600)'s
 source recipe. Reconcile its selector, interpreter and test overlap with the landed
 source/runtime changes before implementing runtime slices; the draft does not
 establish shipped or qualified Windows AMD support.

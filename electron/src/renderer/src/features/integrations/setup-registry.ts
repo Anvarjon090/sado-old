@@ -12,10 +12,10 @@ import type { ComponentType, ReactNode } from 'react';
 import { TwilioSetup, TWILIO_DOCS } from './twilio-setup';
 
 /**
- * Directory entries VoiceStudio actually works with, keyed by catalog slug.
+ * Directory entries Sado actually works with, keyed by catalog slug.
  *
  * An entry here is the only thing that earns a card the "Works with
- * VoiceStudio" badge and capability chips; every other catalog entry is an
+ * Sado" badge and capability chips; every other catalog entry is an
  * external link. Add a connector by adding one entry: its capabilities and
  * its copyable setup blocks for the current backend address.
  */
@@ -61,7 +61,7 @@ export interface IntegrationSetup {
   blocks: (baseUrl: string) => SetupBlock[] | null;
   /**
    * An interactive setup panel for connectors that are configured and run
-   * inside VoiceStudio rather than exported as snippets (e.g. Twilio). An
+   * inside Sado rather than exported as snippets (e.g. Twilio). An
    * entry needs copyable blocks, a panel, or both.
    */
   panel?: ComponentType<IntegrationPanelProps>;
@@ -69,7 +69,7 @@ export interface IntegrationSetup {
 
 const REPO_DOCS = 'https://github.com/debpalash/VoiceStudio/blob/main/docs';
 const DOCKER_HUB_IMAGE = 'palashdeb/omnivoice-studio';
-const GHCR_IMAGE = 'ghcr.io/debpalash/voicestudio';
+const GHCR_IMAGE = 'ghcr.io/debpalash/sado';
 
 function mcpClient(slug: keyof typeof MCP_CLIENTS): IntegrationSetup {
   return {
@@ -214,10 +214,10 @@ export const INTEGRATION_SETUPS: Record<string, IntegrationSetup> = {
           text: JSON.stringify(
             {
               mcpServers: {
-                voicestudio: {
+                sado: {
                   command: 'python',
                   args: ['-m', 'backend.mcp_shim'],
-                  cwd: '/path/to/VoiceStudio',
+                  cwd: '/path/to/Sado',
                   // The full base keeps https and any reverse-proxy path prefix.
                   env: {
                     OMNIVOICE_URL: base,
@@ -234,7 +234,7 @@ export const INTEGRATION_SETUPS: Record<string, IntegrationSetup> = {
       ];
     },
   },
-  'voicestudio-api': {
+  'sado-api': {
     capabilities: ['speechApi', 'transcriptionApi'],
     taglineKey: 'integrationCatalog.tagline.api',
     docs: `${REPO_DOCS}/api-auth.md`,
@@ -269,7 +269,7 @@ export const INTEGRATION_SETUPS: Record<string, IntegrationSetup> = {
             `curl ${base}/v1/audio/speech \\`,
             ...auth,
             '  -H "Content-Type: application/json" \\',
-            '  -d \'{"model":"tts-1","voice":"default","input":"Hello from VoiceStudio.","response_format":"wav"}\' \\',
+            '  -d \'{"model":"tts-1","voice":"default","input":"Hello from Sado.","response_format":"wav"}\' \\',
             '  --output speech.wav',
             '',
           ].join('\n'),
@@ -298,11 +298,11 @@ export const INTEGRATION_SETUPS: Record<string, IntegrationSetup> = {
             `    base_url="${base}/v1",`,
             policy === 'bearer'
               ? '    api_key=os.environ.get("OMNIVOICE_API_KEY", "not-needed"),'
-              : '    api_key="voicestudio",',
+              : '    api_key="sado",',
             ')',
             '',
             'with client.audio.speech.with_streaming_response.create(',
-            '    model="tts-1", voice="default", input="Hello from VoiceStudio.",',
+            '    model="tts-1", voice="default", input="Hello from Sado.",',
             '    response_format="wav",',
             ') as response:',
             '    response.stream_to_file("speech.wav")',
@@ -318,7 +318,7 @@ export const INTEGRATION_SETUPS: Record<string, IntegrationSetup> = {
   docker: container(DOCKER_HUB_IMAGE, `${REPO_DOCS}/install/docker.md`),
   'github-container-registry': container(GHCR_IMAGE, `${REPO_DOCS}/install/docker.md`),
   'openai-agents': {
-    // VoiceStudio serves the pipeline's speech-to-text and text-to-speech; the
+    // Sado serves the pipeline's speech-to-text and text-to-speech; the
     // agent's language model is a local OpenAI-compatible server of the user's.
     capabilities: ['speechApi', 'transcriptionApi', 'localLlm'],
     taglineKey: 'integrationCatalog.tagline.openaiAgents',

@@ -144,7 +144,7 @@ def test_contributing_states_the_open_source_commitment_limits():
     assert "Open Source\nInitiative" in agreement and "public source repository" in agreement
     section = (_REPO / ".github" / "CONTRIBUTING.md").read_text(encoding="utf-8").split("## Contribution licensing")[1]
     summary = " ".join(section.split("\n## ")[0].split())
-    assert "while your contribution is in the public VoiceStudio repository" in summary
+    assert "while your contribution is in the public Sado repository" in summary
     assert "AGPL-3.0 or another OSI-approved licence" in summary
 
 

@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="docs/logo.png" alt="VoiceStudio" width="88" />
-  <h1>VoiceStudio</h1>
+  <img src="docs/logo.png" alt="Sado" width="88" />
+  <h1>Sado</h1>
   <p>
-    <a href="https://trendshift.io/repositories/28176?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-28176" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/28176" alt="VoiceStudio 在 Trendshift 上的排名" width="220" height="48" /></a>
+    <a href="https://trendshift.io/repositories/28176?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-28176" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/28176" alt="Sado 在 Trendshift 上的排名" width="220" height="48" /></a>
   </p>
   <p><strong>开源的声音克隆、声音设计、视频配音、语音听写、转录与有声书创作，支持 646 种语言。</strong></p>
   <p>
-    <a href="https://voicestudio.sh/?utm_source=github&utm_medium=readme&utm_campaign=project">官网</a> ·
+    <a href="https://sado.sh/?utm_source=github&utm_medium=readme&utm_campaign=project">官网</a> ·
     <a href="https://github.com/debpalash/VoiceStudio/releases/latest">下载</a> ·
     <a href="#开始使用">开始使用</a> ·
     <a href="#文档">文档</a> ·
@@ -15,13 +15,13 @@
     <a href="README_JA.md">日本語</a>
   </p>
   <p>
-    <a href="https://github.com/debpalash/VoiceStudio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/debpalash/VoiceStudio/ci.yml?branch=main" alt="CI" /></a>
-    <a href="https://github.com/debpalash/VoiceStudio/releases/latest"><img src="https://img.shields.io/github/v/release/debpalash/VoiceStudio" alt="最新版本" /></a>
+    <a href="https://github.com/Anvarjon090/sado/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Anvarjon090/sado/ci.yml?branch=main" alt="CI" /></a>
+    <a href="https://github.com/debpalash/VoiceStudio/releases/latest"><img src="https://img.shields.io/github/v/release/Anvarjon090/sado" alt="最新版本" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="AGPL-3.0" /></a>
   </p>
 </div>
 
-![Electron 应用演示：声音克隆、声音设计、视频配音和模型管理](docs/media/electron/voicestudio.gif)
+![Electron 应用演示：声音克隆、声音设计、视频配音和模型管理](docs/media/electron/sado.gif)
 
 ## 你的声音，你的工作流。
 
@@ -30,7 +30,7 @@
 | 克隆一个声音，或设计属于你的声音 | 为视频配上时间轴对齐的配音 | 面向智能体的本地 API 与 MCP |
 | 用悬浮组件随时听写 | 故事、有声书与批量任务 | 可选的远程 worker |
 
-从 **VoiceStudio** 开始（默认引擎，基于 k2-fsa/OmniVoice），也可以选择其他引擎。详见[功能与引擎目录](docs/feature-catalog.md)。
+从 **Sado** 开始（默认引擎，基于 k2-fsa/OmniVoice），也可以选择其他引擎。详见[功能与引擎目录](docs/feature-catalog.md)。
 
 本地工作流在你的硬件上运行。远程服务为可选功能；使用情况分析须经同意才会启用。
 
@@ -50,7 +50,7 @@
   <tr><td align="center">声音设计</td><td align="center">本地模型</td></tr>
 </table>
 
-<img width="2628" height="1950" alt="VoiceStudio 桌面工作区" src="https://github.com/user-attachments/assets/b474497d-a453-49a3-a2dd-f023ec6b7659" />
+<img width="2628" height="1950" alt="Sado 桌面工作区" src="https://github.com/user-attachments/assets/b474497d-a453-49a3-a2dd-f023ec6b7659" />
 
 </details>
 
@@ -60,16 +60,16 @@
 
 ```sh
 # 最新 Electron 版本
-curl -fsSL https://voicestudio.sh/install | sh
+curl -fsSL https://sado.sh/install | sh
 
 # 指定已发布的 Electron 版本（替换 X.Y.Z）
-curl -fsSL https://voicestudio.sh/install | sh -s -- --version X.Y.Z
+curl -fsSL https://sado.sh/install | sh -s -- --version X.Y.Z
 
 # 构建当前 main 并安装桌面应用
-curl -fsSL https://voicestudio.sh/install | sh -s -- --main
+curl -fsSL https://sado.sh/install | sh -s -- --main
 
 # 卸载应用，保留你的数据
-curl -fsSL https://voicestudio.sh/install | sh -s -- --uninstall
+curl -fsSL https://sado.sh/install | sh -s -- --uninstall
 ```
 
 下载发行版需要 curl 与 SHA-256 工具。`--main` 需要 Git、Node.js 22+、Bun、Rust/Cargo
@@ -88,18 +88,18 @@ curl -fsSL https://voicestudio.sh/install | sh -s -- --uninstall
 粘贴到你的编码智能体（Claude Code、Codex、Cursor 等）：
 
 ```text
-Install the VoiceStudio Electron app on this device and verify it works, following
+Install the Sado Electron app on this device and verify it works, following
 https://github.com/debpalash/VoiceStudio/blob/main/docs/install/agent.md
 ```
 
-[智能体安装指南](docs/install/agent.md)涵盖硬件检测、复用现有数据、下载模型前先征得同意，以及一次测试生成。支持技能的智能体也可以运行 `npx skills add debpalash/VoiceStudio`。
+[智能体安装指南](docs/install/agent.md)涵盖硬件检测、复用现有数据、下载模型前先征得同意，以及一次测试生成。支持技能的智能体也可以运行 `npx skills add Anvarjon090/sado`。
 
 <details>
 <summary><strong>从源码运行 Electron 预览版</strong></summary>
 
 ```bash
-git clone https://github.com/debpalash/VoiceStudio.git
-cd VoiceStudio
+git clone https://github.com/Anvarjon090/sado.git
+cd Sado
 bun install
 bun run setup:api  # 启动 Electron 前先准备 Python 依赖
 bun run dev
@@ -122,13 +122,13 @@ bun run dev
 | 集成 | [本地 API](docs/speech-platform.md) · [MCP](docs/mcp.md) · [示例](examples/README.md) |
 | 参与开发 | [贡献指南](.github/CONTRIBUTING.md) · [Electron](electron/README.md) · [更新日志](CHANGELOG.md) |
 
-智能体技能：`npx skills add debpalash/VoiceStudio` — 音频工作流选 **voicestudio**，仓库维护选 **voicestudio-maintainer**。
+智能体技能：`npx skills add Anvarjon090/sado` — 音频工作流选 **sado**，仓库维护选 **sado-maintainer**。
 
 ## 赞助商
 
-<a href="https://forms.gle/2PYCvd39hbwijzX37"><img src="docs/media/sponsor-slot.svg" alt="你的品牌 —— 申请 VoiceStudio 推荐赞助展示位" width="640" /></a>
+<a href="https://forms.gle/2PYCvd39hbwijzX37"><img src="docs/media/sponsor-slot.svg" alt="你的品牌 —— 申请 Sado 推荐赞助展示位" width="640" /></a>
 
-**成为推荐合作伙伴。**[申请付费展示位](https://forms.gle/2PYCvd39hbwijzX37) · [发送邮件](mailto:partner@voicestudio.sh)
+**成为推荐合作伙伴。**[申请付费展示位](https://forms.gle/2PYCvd39hbwijzX37) · [发送邮件](mailto:partner@sado.sh)
 
 支持开发：[Ko-fi](https://ko-fi.com/debpalash) · [PayPal](https://paypal.me/palashCoder) · [赞助详情](SPONSORS.md)
 

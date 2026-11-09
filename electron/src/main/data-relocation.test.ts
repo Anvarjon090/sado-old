@@ -22,10 +22,10 @@ afterEach(async () => {
 });
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'VoiceStudio-relocation-test-'));
+  const root = await mkdtemp(join(tmpdir(), 'Sado-relocation-test-'));
   created.push(root);
   const source = join(root, 'OmniVoice', 'data');
-  const target = join(root, 'new-home', 'VoiceStudio');
+  const target = join(root, 'new-home', 'Sado');
   await mkdir(join(source, 'voices'), { recursive: true });
   await mkdir(dirname(target), { recursive: true });
   await writeFile(join(source, 'omnivoice.db'), 'database');

@@ -11,9 +11,9 @@ macOS, Windows and Linux.
 <!-- GSD:project-start source:PROJECT.md -->
 ## Project
 
-**VoiceStudio**
+**Sado**
 
-VoiceStudio is an open-source, fully-local ElevenLabs alternative — a desktop app for voice cloning, voice design, video dubbing, and real-time dictation across 646 languages. It runs entirely on the user's machine (CUDA/MPS/ROCm/CPU auto-detect), with no API keys, no accounts, and no cloud dependencies. It's an active beta with a growing user base who hit it with real workloads (50-video batches, multi-engine setups, edge-OS platforms) and report friction in GitHub Issues and Discord. The current version lives in the root `package.json` (the single source of truth — see Versioning); the latest stable tag is on the [Releases page](https://github.com/debpalash/VoiceStudio/releases/latest). With `AUTO_VERSION_BUMP` off (the current owner setting), `main` holds at the released version between releases.
+Sado is an open-source, fully-local ElevenLabs alternative — a desktop app for voice cloning, voice design, video dubbing, and real-time dictation across 646 languages. It runs entirely on the user's machine (CUDA/MPS/ROCm/CPU auto-detect), with no API keys, no accounts, and no cloud dependencies. It's an active beta with a growing user base who hit it with real workloads (50-video batches, multi-engine setups, edge-OS platforms) and report friction in GitHub Issues and Discord. The current version lives in the root `package.json` (the single source of truth — see Versioning); the latest stable tag is on the [Releases page](https://github.com/debpalash/VoiceStudio/releases/latest). With `AUTO_VERSION_BUMP` off (the current owner setting), `main` holds at the released version between releases.
 
 **Core Value:** **A first-run that actually works.** A user who downloads the installer (or clones the repo) should reach a working voice-cloning or dubbing output without hitting a wall — and when something does go wrong, the error or docs should tell them exactly what to do.
 
@@ -49,7 +49,7 @@ For anything new: prefer what's already pinned in `pyproject.toml` / `electron/p
 **Versioning (hard rule, owner-set 2026-06-11; single-source 2026-09-26):** **The root `package.json` is the SINGLE SOURCE OF TRUTH for the maintained Electron app version** — Electron's builder reads it directly and Vite injects `__APP_VERSION__` for the UI and bug reports. Two toolchain-required **mirrors** are kept equal to it and bumped in lockstep: `pyproject.toml` and `backend/core/version.py`'s `_FALLBACK_VERSION`. Guarded by `tests/test_app_version.py`. Version bumps are manual and happen only when the owner asks; until then, `main` may equal the latest released version. Consequences:
 - Every PR and preview build uses the canonical version. Preview artifacts add the workflow run number without changing the checked-in version.
 - Releasing = obtain owner approval for the version, bump the canonical version and maintained mirrors together, then tag that exact version from `main` after validation.
-- Docker: `ghcr.io/debpalash/voicestudio:latest` = **main** (rolling preview); `:X.Y.Z` + `:X.Y` + `:stable` = tagged releases. `:latest` is the preview channel by design — stable users pin `:stable` or a version tag. The former `ghcr.io/debpalash/omnivoice-studio` coordinate remains a compatibility alias.
+- Docker: `ghcr.io/debpalash/sado:latest` = **main** (rolling preview); `:X.Y.Z` + `:X.Y` + `:stable` = tagged releases. `:latest` is the preview channel by design — stable users pin `:stable` or a version tag. The former `ghcr.io/debpalash/omnivoice-studio` coordinate remains a compatibility alias.
 - Do not bump minor/major or invent RCs/codenames without the owner asking. No "defer to next version" labels — scope is absorbed or declined, never re-versioned.
 
 **Docs-sync (hard rule, owner-set 2026-06-11):** any change that alters something these docs describe — README.md, `.github/CONTRIBUTING.md`, `.github/SECURITY.md`, `.github/SUPPORT.md`, LICENSE, or `docs/**` (install flows, Docker tag semantics, platform support, versioning/release behavior, review process, supported versions) — must update those docs **in the same PR** as the change. If a doc impact is discovered after merge, the docs fix is the immediate next commit, not backlog. Stale docs are treated as bugs.
@@ -111,7 +111,7 @@ Direct repo edits are authorized (owner decision, 2026-07-08). The GSD command g
 
 ### Issue tracker
 
-GitHub Issues on `debpalash/VoiceStudio`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+GitHub Issues on `Anvarjon090/sado`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

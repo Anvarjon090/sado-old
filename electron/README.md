@@ -1,4 +1,4 @@
-# VoiceStudio — Electron desktop app
+# Sado — Electron desktop app
 
 Electron is the only maintained desktop app for voice cloning, stories, dubbing,
 transcription, voice design, and workflows. Tauri is archived at v0.5.3. For
@@ -37,7 +37,7 @@ supervises it (restart on crash, exit code 78 = port already in use). The
 child's stdin is the liveness signal — closing it makes the backend exit.
 
 Environment knobs: `OMNIVOICE_PORT` (backend port), `OMNIVOICE_UI_PORT`
-(renderer dev server, default 3902; `VOICESTUDIO_UI_PORT` is still accepted), `VOICESTUDIO_SKIP_BACKEND=1` (never
+(renderer dev server, default 3902; `SADO_UI_PORT` is still accepted), `SADO_SKIP_BACKEND=1` (never
 spawn, only attach), `OMNIVOICE_BACKEND_CMD` (argv override, JSON array or
 whitespace-separated), `OMNIVOICE_STARTUP_BUDGET_S` (default 300, or 600 on a
 host with four or fewer cores or 8 GB of RAM or less; measured from the spawn so
@@ -89,7 +89,7 @@ The renderer never fetches `127.0.0.1:3900` directly (no CORS games). It calls
 app-relative `/api/...`:
 
 - dev — the renderer dev server proxies `/api` to the backend;
-- prod — the renderer is served from the privileged `app://voicestudio/`
+- prod — the renderer is served from the privileged `app://sado/`
   scheme and the main process proxies `/api/*` with `net.fetch`.
 
 ## Quality gates
@@ -112,7 +112,7 @@ source of truth.
 
 ```
 src/main/       backend supervisor, app:// protocol + /api proxy, IPC, window
-src/preload/    contextBridge → window.voicestudio (typed in index.d.ts)
+src/preload/    contextBridge → window.sado (typed in index.d.ts)
 src/renderer/   React app: routes/, features/clone/, components/, lib/, hooks/
 CONTRACT.md     module contracts shared by main, preload and renderer
 ```
@@ -134,7 +134,7 @@ Layout references: T3 Code's `AppSidebarLayout`, `PreviewPanelShell`,
 The sidebar extends through the native title-bar row. Pane headers provide window
 drag regions and reserve space for native caption controls; engine status and
 theme switching live at the foot of the sidebar. The Electron shell reuses the
-canonical VoiceStudio artwork and platform icons retained with the archived shell;
+canonical Sado artwork and platform icons retained with the archived shell;
 its packaged uv tool is staged under `electron/build/uv`.
 
 Typography uses locally bundled Inter Variable with system UI fallbacks with shared roles: 14px/20px interface text,
@@ -157,7 +157,7 @@ Theme control row, with a labeled Settings link on the left and Theme on the rig
 
 The workspace footer shows Integrations, Become a Sponsor, and a right-aligned X.
 They open the integration directory, partner inquiry form, and dedicated
-VoiceStudio Pro page respectively. The sponsor hover/focus card shows dated
+Sado Pro page respectively. The sponsor hover/focus card shows dated
 GitHub reach data. The Pro page compares Free and Pro, opens website pricing,
 and offers licence activation and deactivation when the live product IDs are
 configured. Checkout remains gated until the paid tools and terms are ready.
@@ -171,18 +171,18 @@ Appearance and General have direct routes and share a breadcrumb header, searcha
 sidebar, max-w-4xl scroll frame, grouped sections, and consistent setting rows.
 Sidebar active/hover surfaces use the shared T3 theme tokens.
 
-The local palette library includes VoiceStudio Original, Canopy, Current, Hearth, and Orchid, with
-upstream light/dark color definitions with VoiceStudio display names from T3 Code (MIT). Each appearance keeps
+The local palette library includes Sado Original, Canopy, Current, Hearth, and Orchid, with
+upstream light/dark color definitions with Sado display names from T3 Code (MIT). Each appearance keeps
 its own selected palette. System mode follows live OS appearance changes; the
 sidebar toggle explicitly switches to light or dark. Choices persist under
-`voicestudio.theme.v2`, migrating the older light/dark setting. Studio restores
+`sado.theme.v2`, migrating the older light/dark setting. Studio restores
 the neutral palette. Semantic roles drive chrome, sidebar, overlays, controls,
 text, and waveform colors. No network request is needed to select a theme.
 
 Glass mode is an opt-in, persisted appearance setting for translucent in-app
 surfaces with palette-tinted background depth. It does not make the native window
 transparent to the desktop. Reduced-transparency preferences or missing backdrop
-filter support retain opaque surfaces. voicestudio-classic maps the original
+filter support retain opaque surfaces. sado-classic maps the original
 Tauri Gruvbox dark palette, with a complementary light variant.
 
 Glass materials use static palette lighting, fine edge highlights, and separate
@@ -265,7 +265,7 @@ Transcribe, Projects, Tools, and Integrations remain directly accessible.
 
 The Pro page opens the public pricing site. Licence activation requires the live
 Lemon Squeezy store, product, and variant IDs at build time:
-`VOICESTUDIO_PRO_STORE_ID`, `VOICESTUDIO_PRO_PRODUCT_ID`,
-`VOICESTUDIO_PRO_YEARLY_VARIANT_ID`, and `VOICESTUDIO_PRO_LIFETIME_VARIANT_ID`.
+`SADO_PRO_STORE_ID`, `SADO_PRO_PRODUCT_ID`,
+`SADO_PRO_YEARLY_VARIANT_ID`, and `SADO_PRO_LIFETIME_VARIANT_ID`.
 Builds without all four IDs keep activation
 unavailable. See `docs/specs/desktop-pro-page.md` for the checkout release gates.

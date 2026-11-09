@@ -1,11 +1,11 @@
 ---
-name: voicestudio
-description: Generate local speech with saved or designed voices, transcribe audio, and automate dubbing or narration workflows through VoiceStudio's REST API or MCP server. Use when the user wants to work with VoiceStudio audio or connect it to an agent or automation.
+name: sado
+description: Generate local speech with saved or designed voices, transcribe audio, and automate dubbing or narration workflows through Sado's REST API or MCP server. Use when the user wants to work with Sado audio or connect it to an agent or automation.
 ---
 
-# VoiceStudio
+# Sado
 
-Use the user's running [VoiceStudio](https://github.com/debpalash/VoiceStudio) backend. Prefer local processing; remote workers, cloud translation, model downloads, and external integrations require the user's choice. Installed models can run offline; do not promise that every configured workflow is offline.
+Use the user's running [Sado](https://github.com/Anvarjon090/sado) backend. Prefer local processing; remote workers, cloud translation, model downloads, and external integrations require the user's choice. Installed models can run offline; do not promise that every configured workflow is offline.
 
 ## Connect and discover
 

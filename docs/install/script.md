@@ -1,18 +1,18 @@
 # Shell installer (Electron)
 
 The shell installer supports macOS (Apple Silicon and Intel) and Linux x64.
-On Windows, download the `VoiceStudio-Electron-…-win-x64.exe` installer (or
+On Windows, download the `Sado-Electron-…-win-x64.exe` installer (or
 `…-win-arm64.exe` on a Snapdragon/ARM PC) from
 [Releases](https://github.com/debpalash/VoiceStudio/releases).
 
 Or use PowerShell (the endpoint detects PowerShell's user agent):
 
 ```powershell
-irm https://voicestudio.sh/install | iex
-$env:VOICESTUDIO_VERSION='X.Y.Z'; irm https://voicestudio.sh/install | iex
+irm https://sado.sh/install | iex
+$env:SADO_VERSION='X.Y.Z'; irm https://sado.sh/install | iex
 # Clear a previous version override before selecting main:
-Remove-Item Env:VOICESTUDIO_VERSION -ErrorAction SilentlyContinue
-$env:VOICESTUDIO_INSTALL_MODE='main'; irm https://voicestudio.sh/install | iex
+Remove-Item Env:SADO_VERSION -ErrorAction SilentlyContinue
+$env:SADO_INSTALL_MODE='main'; irm https://sado.sh/install | iex
 ```
 
 On ARM64 Windows the script installs the native ARM64 build and falls back to the x64 build when a release has none. Windows main builds also need Visual Studio C++ build tools (plus the ARM64 build tools on ARM). The script builds
@@ -21,13 +21,13 @@ overrides persist in the terminal; remove them to return to latest-release mode.
 
 ```sh
 # Latest stable Electron release
-curl -fsSL https://voicestudio.sh/install | sh
+curl -fsSL https://sado.sh/install | sh
 
 # A published Electron version, with or without a v prefix
-curl -fsSL https://voicestudio.sh/install | sh -s -- --version X.Y.Z
+curl -fsSL https://sado.sh/install | sh -s -- --version X.Y.Z
 
 # Clone main, build a desktop package, then install it
-curl -fsSL https://voicestudio.sh/install | sh -s -- --main
+curl -fsSL https://sado.sh/install | sh -s -- --main
 ```
 
 `--source` is an alias for `--main`. It cannot be combined with `--version`.
@@ -44,13 +44,13 @@ Missing packages, missing checksums, and checksum mismatches stop installation.
 The frozen `latest.json` Tauri updater feed is not used. Releases without an
 Electron package cannot be installed through this script.
 
-Quit VoiceStudio completely before replacing it (Command-Q on macOS). The shell
+Quit Sado completely before replacing it (Command-Q on macOS). The shell
 installer refuses to replace or uninstall a running app when `pgrep` is available,
 and checks again before replacing files. macOS refreshes the installed app's
 Launch Services registration so Launchpad can find the new version.
-macOS installs `VoiceStudio.app` in
+macOS installs `Sado.app` in
 `/Applications`, or `~/Applications` if `/Applications` is not writable.
-Linux installs `~/.local/bin/VoiceStudio`; include `~/.local/bin` in your PATH.
+Linux installs `~/.local/bin/Sado`; include `~/.local/bin` in your PATH.
 Current Electron source builds also read archived setup configuration for custom
 data/model folders and portable storage; explicit launch environment overrides
 still win. The backend retains its existing durable Settings precedence. No files
@@ -59,20 +59,20 @@ The existing app is replaced only after staging succeeds. User settings,
 projects, model downloads, and backend environments are not removed. Downgrades
 may not read data created by newer versions; back up important projects first.
 
-For isolated shell-installer testing, `VOICESTUDIO_INSTALL_DIR` selects an
+For isolated shell-installer testing, `SADO_INSTALL_DIR` selects an
 installation directory; it must be an absolute, existing, writable directory. Invalid overrides fail without falling back elsewhere.
 
 ## Uninstall
 
-Quit VoiceStudio, then run:
+Quit Sado, then run:
 
 ```sh
-curl -fsSL https://voicestudio.sh/install | sh -s -- --uninstall
+curl -fsSL https://sado.sh/install | sh -s -- --uninstall
 ```
 
 On macOS this removes the Electron app from `/Applications` and `~/Applications`;
-on Linux it removes the script-installed `~/.local/bin/VoiceStudio` AppImage.
-`VOICESTUDIO_INSTALL_DIR` restricts removal to a custom installation directory.
+on Linux it removes the script-installed `~/.local/bin/Sado` AppImage.
+`SADO_INSTALL_DIR` restricts removal to a custom installation directory.
 On macOS the app is unregistered and moved into a uniquely named folder in Trash;
 it is never kept as a hidden application under `/Applications`, where Launchpad
 can still discover it. Linux uses a hidden sibling recovery directory. The exact
@@ -81,14 +81,14 @@ reclaim disk space. Package-manager installations must be removed through their
 package manager. Archived Tauri apps are not removed.
 
 ```powershell
-Remove-Item Env:VOICESTUDIO_VERSION -ErrorAction SilentlyContinue
-$env:VOICESTUDIO_INSTALL_MODE='uninstall'; irm https://voicestudio.sh/install.ps1 | iex
+Remove-Item Env:SADO_VERSION -ErrorAction SilentlyContinue
+$env:SADO_INSTALL_MODE='uninstall'; irm https://sado.sh/install.ps1 | iex
 ```
 
 Windows skips archived Tauri registry entries and opens one verified Electron uninstall wizard.
 Use `-Silent` for unattended Windows install/uninstall (for example, CI); interactive setup remains the default. All platforms preserve
 settings, projects, backend environments and models. To delete app data, use
-VoiceStudio's in-app data-removal confirmation **before** uninstalling; the CLI
+Sado's in-app data-removal confirmation **before** uninstalling; the CLI
 does not guess custom storage locations or delete shared model caches.
 
 ## Building main
@@ -132,7 +132,7 @@ checks in the Electron release workflow.
 `deploy/install-worker/worker.mjs` bundles the tested shell and PowerShell
 scripts rather than fetching mutable `main` content at request time. Deploy
 with `bunx wrangler deploy --config deploy/install-worker/wrangler.jsonc` after
-testing. Both `voicestudio.sh/install*` routes are retained. Existing Worker
+testing. Both `sado.sh/install*` routes are retained. Existing Worker
 secrets are preserved. A deployment is needed for script updates to go live.
 
 Worker routing tests: `node --test tests/installer-worker.test.mjs` from

@@ -31,12 +31,12 @@ it('previews the official website only when the title is clicked', () => {
   browser.open.mockClear();
   render(<HomePage />);
   const title = screen.getByRole('link', { name: 'homeUi.title' });
-  expect(en.homeUi.title).toBe('VoiceStudio.sh Open Source');
-  expect(title).toHaveAttribute('href', 'https://voicestudio.sh');
+  expect(en.homeUi.title).toBe('Sado.sh Open Source');
+  expect(title).toHaveAttribute('href', 'https://sado.sh');
   fireEvent.mouseEnter(title);
   expect(browser.open).not.toHaveBeenCalled();
   fireEvent.click(title);
-  expect(browser.open).toHaveBeenCalledWith('https://voicestudio.sh');
+  expect(browser.open).toHaveBeenCalledWith('https://sado.sh');
 });
 
 it('names the feature Dubbing consistently while preserving the existing route', () => {

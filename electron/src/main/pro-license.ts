@@ -23,7 +23,7 @@ function configured(): boolean {
 async function request(action: 'activate' | 'validate' | 'deactivate', key: string, instanceId?: string): Promise<LicenseResponse> {
   const body = new URLSearchParams({ license_key: key });
   if (instanceId) body.set('instance_id', instanceId);
-  if (action === 'activate') body.set('instance_name', `VoiceStudio-${randomUUID()}`);
+  if (action === 'activate') body.set('instance_name', `Sado-${randomUUID()}`);
   const response = await fetch(`${LICENSE_API}/${action}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },

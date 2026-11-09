@@ -1,4 +1,4 @@
-# VoiceStudio — MLX Whisper Engine
+# Sado — MLX Whisper Engine
 
 MLX Whisper runs Whisper on the Apple Silicon GPU via MLX. It exists because
 CTranslate2 (whisperx / faster-whisper) has **no Metal build** — on a Mac
@@ -6,7 +6,7 @@ those engines transcribe on the CPU no matter what GPU is present. Measured
 on an M2 with whisper-large-v3, one 30 s dub chunk: **90.4 s on WhisperX
 (CPU) vs 20.5 s on MLX (GPU)** — which is why auto-detect picks MLX Whisper
 on every Apple Silicon machine
-([#1127](https://github.com/debpalash/VoiceStudio/issues/1127)).
+([#1127](https://github.com/Anvarjon090/sado/issues/1127)).
 
 ## Selecting it
 
@@ -29,7 +29,7 @@ on every Apple Silicon machine
 **Apple Silicon only.** A shared platform gate refuses Linux, Windows, and
 Intel Macs before any package import, so a stray `mlx-whisper` wheel on the
 wrong platform never reports itself available
-([#390](https://github.com/debpalash/VoiceStudio/issues/390)). All other
+([#390](https://github.com/Anvarjon090/sado/issues/390)). All other
 platforms use the CUDA/CPU engines instead.
 
 ## Model selection
@@ -44,10 +44,10 @@ platforms use the CUDA/CPU engines instead.
 
 ## Quirks
 
-- Audio is decoded through VoiceStudio's validated ffmpeg rather than the
+- Audio is decoded through Sado's validated ffmpeg rather than the
   bare `ffmpeg` PATH lookup mlx-whisper would do on its own — a clean
   from-source install with no system ffmpeg works fine
-  ([#479](https://github.com/debpalash/VoiceStudio/issues/479)).
+  ([#479](https://github.com/Anvarjon090/sado/issues/479)).
 - The model is warmed into unified memory in the background, so the first
   transcribe after startup doesn't pay the load cost.
 - In a packaged app, a native MLX library that fails to load is reported as

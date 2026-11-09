@@ -7,7 +7,7 @@ wizard. Historical tests below used a clean archive of that commit, not the inte
 
 ## Integration refresh: 2026-10-05
 
-The branch now includes main [`990f0627ba14dbb309b88c0051ebb953d3101800`](https://github.com/debpalash/VoiceStudio/commit/990f0627ba14dbb309b88c0051ebb953d3101800),
+The branch now includes main [`990f0627ba14dbb309b88c0051ebb953d3101800`](https://github.com/Anvarjon090/sado/commit/990f0627ba14dbb309b88c0051ebb953d3101800),
 including the CPU-budget change from #2611. This proposal adds no runtime behavior.
 This is a documentation integration refresh, not a rerun of the source probes or
 native acceptance. The findings, line-pinned evidence and local results below
@@ -39,7 +39,7 @@ test or hardware results below is claimed for that head.
   stable-only desktop updates. Retire old finding R11 (legacy install guides);
   do not propose restoring Preview or blanket uninstall-script changes
 - [#2557][pr2557]: package-managed installations can disable in-app updating via
-  `VOICESTUDIO_DISABLE_UPDATER=1`; the Linux guide covers the community AUR package
+  `SADO_DISABLE_UPDATER=1`; the Linux guide covers the community AUR package
 
 These merged changes do not establish native acceptance for this review.
 
@@ -174,19 +174,19 @@ packaged install/first-output/update/rollback, native picker/accessibility tools
 macOS/Windows/ARM/GPU hardware. Proposed designs and source-level defects are
 explicitly separate from platform acceptance.
 
-[baseline]: https://github.com/debpalash/VoiceStudio/commit/fb9a960c88744edc36daf2cf38d48df0971ee713
-[pr2500]: https://github.com/debpalash/VoiceStudio/pull/2500
-[pr2578]: https://github.com/debpalash/VoiceStudio/pull/2578
-[pr2557]: https://github.com/debpalash/VoiceStudio/pull/2557
-[pr2602]: https://github.com/debpalash/VoiceStudio/pull/2602
-[pr2585]: https://github.com/debpalash/VoiceStudio/pull/2585
-[pr2600]: https://github.com/debpalash/VoiceStudio/pull/2600
-[pr2605]: https://github.com/debpalash/VoiceStudio/pull/2605
-[pr2607]: https://github.com/debpalash/VoiceStudio/pull/2607
+[baseline]: https://github.com/Anvarjon090/sado/commit/fb9a960c88744edc36daf2cf38d48df0971ee713
+[pr2500]: https://github.com/Anvarjon090/sado/pull/2500
+[pr2578]: https://github.com/Anvarjon090/sado/pull/2578
+[pr2557]: https://github.com/Anvarjon090/sado/pull/2557
+[pr2602]: https://github.com/Anvarjon090/sado/pull/2602
+[pr2585]: https://github.com/Anvarjon090/sado/pull/2585
+[pr2600]: https://github.com/Anvarjon090/sado/pull/2600
+[pr2605]: https://github.com/Anvarjon090/sado/pull/2605
+[pr2607]: https://github.com/Anvarjon090/sado/pull/2607
 [cpu-selector]: https://github.com/debpalash/VoiceStudio/blob/441673e1ff5423e6713aef834ec0b1b62dc6c703/electron/scripts/torch-variant.mjs#L65-L88
 [cpu-launcher]: https://github.com/debpalash/VoiceStudio/blob/441673e1ff5423e6713aef834ec0b1b62dc6c703/scripts/setup-api.mjs#L18-L32
-[rocm-setup]: https://github.com/Pates2004/VoiceStudio/blob/265295e7e1b1687308314aefe27e219c5994e95f/scripts/setup.py#L163-L172
-[rocm-source]: https://github.com/Pates2004/VoiceStudio/blob/265295e7e1b1687308314aefe27e219c5994e95f/docs/install/windows-rocm-source.md
+[rocm-setup]: https://github.com/Pates2004/Sado/blob/265295e7e1b1687308314aefe27e219c5994e95f/scripts/setup.py#L163-L172
+[rocm-source]: https://github.com/Pates2004/Sado/blob/265295e7e1b1687308314aefe27e219c5994e95f/docs/install/windows-rocm-source.md
 [setup-status]: https://github.com/debpalash/VoiceStudio/blob/fb9a960c88744edc36daf2cf38d48df0971ee713/backend/api/routers/setup/wizard.py#L41-L58
 [is-cached]: https://github.com/debpalash/VoiceStudio/blob/fb9a960c88744edc36daf2cf38d48df0971ee713/backend/api/routers/setup/models.py#L497-L517
 [catalogue]: https://github.com/debpalash/VoiceStudio/blob/fb9a960c88744edc36daf2cf38d48df0971ee713/backend/api/routers/setup/models.py#L650-L670

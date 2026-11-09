@@ -8,10 +8,10 @@ const browser = await chromium.launch({
   headless: true,
 });
 const page = await browser.newPage();
-const out = mkdtempSync(join(tmpdir(), 'voicestudio-sidebar-'));
-const ui = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912';
+const out = mkdtempSync(join(tmpdir(), 'sado-sidebar-'));
+const ui = process.env.SADO_UI_URL || 'http://localhost:3912';
 try {
-  await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
+  await page.addInitScript(() => localStorage.setItem('sado.setup.complete.v1', '1'));
   await page.goto(ui + '/#/clone');
   const sidebar = page.locator('aside').first();
   const chooseView = async (name) => {
@@ -111,7 +111,7 @@ try {
   const macStartupPage = await browser.newPage();
   try {
     await macStartupPage.addInitScript(() => {
-      Object.defineProperty(window, 'voicestudio', {
+      Object.defineProperty(window, 'sado', {
         value: {
           app: {
             version: 'test',
@@ -145,7 +145,7 @@ try {
       });
     });
     await macStartupPage.goto(ui + '/#/clone');
-    const startupBrand = macStartupPage.getByRole('banner').getByText('VoiceStudio', {
+    const startupBrand = macStartupPage.getByRole('banner').getByText('Sado', {
       exact: true,
     });
     await startupBrand.waitFor();
@@ -160,8 +160,8 @@ try {
   const macPage = await browser.newPage();
   try {
     await macPage.addInitScript(() => {
-      localStorage.setItem('voicestudio.setup.complete.v1', '1');
-      Object.defineProperty(window, 'voicestudio', {
+      localStorage.setItem('sado.setup.complete.v1', '1');
+      Object.defineProperty(window, 'sado', {
         value: {
           app: {
             version: 'test',
@@ -208,14 +208,14 @@ try {
     await macNotifications.getByRole('button').first().click();
     await macPage.locator('[data-slot=popover-content][data-open]').waitFor({ state: 'visible' });
     await macPage.keyboard.press('Escape');
-    const brandLink = macSidebar.getByRole('link', { name: 'VoiceStudio', exact: true });
+    const brandLink = macSidebar.getByRole('link', { name: 'Sado', exact: true });
     const brandBounds = await brandLink.boundingBox();
     assert.ok(brandBounds && brandBounds.x >= 96, 'macOS brand must clear the traffic lights');
     assert.ok(
       await brandLink
         .locator('span')
         .evaluate((element) => element.scrollWidth <= element.clientWidth),
-      'macOS titlebar must show the complete VoiceStudio wordmark',
+      'macOS titlebar must show the complete Sado wordmark',
     );
     const expandedSettings = macSidebar.getByRole('link', { name: 'Settings', exact: true });
     const expandedDevice = macSidebar.getByRole('button', { name: /Local device/ });
@@ -282,7 +282,7 @@ try {
   );
 } finally {
   await browser.close();
-  if (process.env.VOICESTUDIO_KEEP_SMOKE_ARTIFACTS !== '1') {
+  if (process.env.SADO_KEEP_SMOKE_ARTIFACTS !== '1') {
     rmSync(out, { recursive: true, force: true });
   }
 }

@@ -163,7 +163,7 @@ export function ClonePage() {
                 size="icon-sm"
                 aria-label={t('preferences.search')}
                 title="Ctrl/Cmd + K"
-                onClick={() => window.dispatchEvent(new Event('voicestudio:commands'))}
+                onClick={() => window.dispatchEvent(new Event('sado:commands'))}
               >
                 <SearchIcon />
               </Button>

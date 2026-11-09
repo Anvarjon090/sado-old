@@ -37,7 +37,7 @@
 
 ## Release cadence
 
-VoiceStudio ships **continuous-to-main** — no release candidates, no soak windows.
+Sado ships **continuous-to-main** — no release candidates, no soak windows.
 Every merged PR is immediately part of rolling source (`main`) and Docker
 `:latest`. Electron artifact rehearsals validate desktop packages without publishing.
 Version bumps require owner approval; validated releases are tagged from `main`

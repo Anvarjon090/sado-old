@@ -65,7 +65,7 @@ describe('blank window fallback', () => {
     });
     const stop = installBlankWindowGuard(
       win as never,
-      'app://voicestudio/index.html',
+      'app://sado/index.html',
       'en-US',
       undefined,
       repair,
@@ -106,7 +106,7 @@ describe('blank window fallback', () => {
       },
     });
 
-    const stop = installBlankWindowGuard(win as never, 'app://voicestudio/index.html', 'en-US');
+    const stop = installBlankWindowGuard(win as never, 'app://sado/index.html', 'en-US');
     destroyed = true;
 
     expect(() => windowEvents.emit('closed')).not.toThrow();

@@ -45,15 +45,15 @@ it('shows pricing followed by Pro features', async () => {
   expect(screen.getAllByText('$299')).toHaveLength(2);
   expect(screen.getByRole('link', { name: /proPage.choose_yearly/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/pro?plan=yearly&quantity=1',
+    'https://sado.sh/pro?plan=yearly&quantity=1',
   );
   expect(screen.getByRole('link', { name: /proPage.choose_lifetime/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/pro?plan=lifetime&quantity=1',
+    'https://sado.sh/pro?plan=lifetime&quantity=1',
   );
   expect(screen.getByRole('link', { name: /proPage.contact_enterprise/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/commercial',
+    'https://sado.sh/commercial',
   );
   expect(screen.getByText('proPage.enterprise_price')).toBeVisible();
   expect(screen.getByText('proPage.enterprise_support')).toBeVisible();
@@ -79,7 +79,7 @@ it('shows pricing followed by Pro features', async () => {
   expect(screen.getByRole('dialog', { name: 'proPage.activate_title' })).toBeVisible();
   expect(screen.getByRole('link', { name: /proPage.read_terms/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/terms',
+    'https://sado.sh/terms',
   );
 });
 
@@ -90,13 +90,13 @@ it('passes the selected user count and total to each website plan', () => {
   expect(screen.getByText('$198')).toBeVisible();
   expect(screen.getByRole('link', { name: /proPage.choose_yearly/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/pro?plan=yearly&quantity=2',
+    'https://sado.sh/pro?plan=yearly&quantity=2',
   );
   fireEvent.click(increase[1]);
   expect(screen.getByText('$598')).toBeVisible();
   expect(screen.getByRole('link', { name: /proPage.choose_lifetime/ })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh/pro?plan=lifetime&quantity=2',
+    'https://sado.sh/pro?plan=lifetime&quantity=2',
   );
 });
 

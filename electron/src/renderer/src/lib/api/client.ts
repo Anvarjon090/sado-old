@@ -152,7 +152,7 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
   // already-succeeded streamed generation fail.
   if (
     typeof window !== 'undefined' &&
-    window.voicestudio?.backend &&
+    window.sado?.backend &&
     !isBackendReachable(getBackendStatusSnapshot().stage)
   )
     throw new ApiError(0, tr('tts_errors.backend_unreachable'));

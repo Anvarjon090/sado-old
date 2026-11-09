@@ -1,6 +1,6 @@
 # Desktop updates
 
-VoiceStudio's desktop app offers **stable releases only**. It checks for an
+Sado's desktop app offers **stable releases only**. It checks for an
 update about 10 seconds after launch and every six hours while it stays open;
 **Settings → Updates** also has a manual check. The app never downloads an
 update until you ask, and an available update is only offered, never forced.
@@ -17,11 +17,11 @@ before they are released:
   [Windows](install/windows.md#building-from-source) ·
   [Linux](install/linux.md#building-from-source)), or build and install a
   package from `main` with the [install script's `--main` mode](install/script.md#building-main).
-- **Docker** — `ghcr.io/debpalash/voicestudio:latest` follows `main`; see
+- **Docker** — `ghcr.io/debpalash/sado:latest` follows `main`; see
   [image tags](install/docker.md#image-tags).
 
 Downloads show transferred size, total size, speed, percentage and ETA, and
-can continue while synthesis, transcription or dubbing work runs. VoiceStudio
+can continue while synthesis, transcription or dubbing work runs. Sado
 only enables **Restart to update** after the package has downloaded and passed
 the updater's checksum verification, and blocks that restart until active work
 has finished and current drafts are flushed.
@@ -42,7 +42,7 @@ immutable URLs; they never offer Electron installers. Move to Electron with the
 Your voices, projects, history, and settings live in a SQLite database
 (`omnivoice.db`) outside the app bundle, so replacing the app never touches
 them. On the **first launch of an updated build**, if the new version needs a
-database schema upgrade, VoiceStudio:
+database schema upgrade, Sado:
 
 1. **Backs up the database first** — a consistent snapshot is written next to
    it as `omnivoice.db.backup-<version>-<n>` before any migration runs. The

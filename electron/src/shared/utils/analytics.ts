@@ -7,7 +7,7 @@
  *
  * That is wrong for this app, twice over, and the reasons are not theoretical:
  *
- * 1. **It would track everyone immediately, before consent.** VoiceStudio's whole
+ * 1. **It would track everyone immediately, before consent.** Sado's whole
  *    promise is that a default install sends nothing (Settings → Privacy is OFF
  *    until you turn it on; see backend/core/analytics.py). Initialising at load
  *    would make the app's own README a lie. So init happens ONLY after the user
@@ -93,7 +93,7 @@ interface AnalyticsClient {
   reset(): void;
 }
 
-const APP_ANALYTICS_ORIGIN = 'https://app.voicestudio.sh';
+const APP_ANALYTICS_ORIGIN = 'https://app.sado.sh';
 const SAFE_SCREEN =
   /^view:(?:home|clone|personas|stories|dub|batch|gallery|transcriptions|design|audiobook|projects|tools|calls|integrations|pro|other|settings\/(?:appearance|general|models|logs|media|pronunciation|network|sharing|credentials|performance|usage|workers|privacy|permissions|storage|support|updates|openapi|diagnostics|other))$/;
 const URL_PROPERTIES = [
@@ -126,7 +126,7 @@ export function sanitizeOutgoingEvent<T extends OutgoingAnalyticsEvent>(
     const pathname = typeof candidate === 'string' ? candidate : '';
     if (/^\/(?:[a-z-]+|settings\/[a-z-]+)$/.test(pathname)) {
       properties.$current_url = `${APP_ANALYTICS_ORIGIN}${pathname}`;
-      properties.$host = 'app.voicestudio.sh';
+      properties.$host = 'app.sado.sh';
       properties.$pathname = pathname;
     }
   }
@@ -170,9 +170,9 @@ export function sanitizeException(error: unknown): Error {
     )
     .slice(0, MAX_STACK_LINES)
     .map((line) => line.slice(0, MAX_STACK_LINE_LENGTH));
-  const safe = new Error('VoiceStudio renderer error');
+  const safe = new Error('Sado renderer error');
   safe.name = errorClass;
-  safe.stack = [`${errorClass}: VoiceStudio renderer error`, ...frames].join('\n');
+  safe.stack = [`${errorClass}: Sado renderer error`, ...frames].join('\n');
   return safe;
 }
 
@@ -301,7 +301,7 @@ export function capturePageview(screen: string): void {
     const pathname = `/${screen.slice('view:'.length)}`;
     client.capture('$pageview', {
       $current_url: `${APP_ANALYTICS_ORIGIN}${pathname}`,
-      $host: 'app.voicestudio.sh',
+      $host: 'app.sado.sh',
       $pathname: pathname,
       source: 'electron',
     });

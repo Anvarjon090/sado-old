@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Re-render the demo bundle using the real VoiceStudio TTS engine.
+"""Re-render the demo bundle using the real Sado TTS engine.
 
 This is the production-quality counterpart to scripts/build_demos.sh, which
 uses macOS `say` to bootstrap the demo bundle. Run this once on a machine
-with VoiceStudio model weights cached (typically your dev box) to replace the
+with Sado model weights cached (typically your dev box) to replace the
 `say`-rendered placeholders with engine output. Commit the resulting WAVs.
 
 Prerequisites:
   * The project's .venv exists and is activated (`uv sync`).
-  * VoiceStudio model weights cached under $HF_HUB_CACHE (the first
+  * Sado model weights cached under $HF_HUB_CACHE (the first
     `model.generate()` call will download them otherwise — ~5 GB).
   * Run from the repo root: `python3 scripts/render_demos_omnivoice.py`.
 
@@ -57,7 +57,7 @@ sys.path.insert(0, str(BACKEND_DIR))
 # Cloning demo — must match scripts/build_demos.sh exactly so the manifest
 # stays in sync with what the bootstrap script produced.
 CLONE_REF_TEXT = (
-    "Hey. I'm the VoiceStudio demo voice. I was made right here, on your "
+    "Hey. I'm the Sado demo voice. I was made right here, on your "
     "machine: private, local, and ready whenever you are."
 )
 CLONE_OUTPUT_TEXT = (
@@ -116,7 +116,7 @@ def _git_sha() -> str:
 def watermark_file(path: Path, sample_rate: int, *, context: str) -> None:
     """Stamp the provenance watermark into an already-written WAV (#1169).
 
-    These clips ship inside the app and play back to users as VoiceStudio
+    These clips ship inside the app and play back to users as Sado
     output, so they are synthetic audio leaving the app exactly like a
     generated clip — they go through `mark_synthetic`, the one chokepoint
     every producing route uses. `force=True` because a render script runs
@@ -165,7 +165,7 @@ def _save_wav(audio_tensor, sample_rate: int, out_path: Path):
 
     if audio_tensor.dim() == 1:
         audio_tensor = audio_tensor.unsqueeze(0)
-    # Ensure mono — most VoiceStudio outputs are mono already.
+    # Ensure mono — most Sado outputs are mono already.
     if audio_tensor.shape[0] > 1:
         audio_tensor = audio_tensor.mean(dim=0, keepdim=True)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -242,7 +242,7 @@ def render_cloning(model, args):
     """Render the cloning demo: reference clip + pre-rendered output.
 
     The reference clip is itself synthesized — chicken-and-egg, but the
-    VoiceStudio engine in non-zero-shot mode (no ref_audio) accepts a plain
+    Sado engine in non-zero-shot mode (no ref_audio) accepts a plain
     `instruct=` taxonomy string and produces a clean voice.
     """
     print("── Cloning demo ─────────────────────────────────────")
@@ -360,7 +360,7 @@ def main():
     )
     args = parser.parse_args()
 
-    print("Loading VoiceStudio engine (this can take 30-60 s on first run)…")
+    print("Loading Sado engine (this can take 30-60 s on first run)…")
     try:
         import asyncio
         from services.model_manager import get_model
@@ -370,7 +370,7 @@ def main():
         except RuntimeError:
             model = asyncio.run(get_model())
     except Exception as e:
-        print(f"\nERROR: Could not load VoiceStudio engine: {e}\n")
+        print(f"\nERROR: Could not load Sado engine: {e}\n")
         print("Check that:")
         print("  1. You're running inside the project venv (uv sync first).")
         print("  2. The omnivoice package is importable: `python -c 'import omnivoice'`.")

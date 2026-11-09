@@ -811,7 +811,7 @@ class WorkerServicer(pb_grpc.WorkerServiceServicer):
             return self._refuse(
                 "UPGRADE_REQUIRED",
                 "This worker is missing required protocol features "
-                f"({', '.join(missing_features)}). Update VoiceStudio on the worker "
+                f"({', '.join(missing_features)}). Update Sado on the worker "
                 "machine, then reconnect; no task was run.",
             )
         if not _capability_payload_allowed(request.capabilities):
@@ -1691,12 +1691,12 @@ class WorkerServicer(pb_grpc.WorkerServiceServicer):
             return self._refuse(
                 "UPGRADE_REQUIRED",
                 "That GPU machine speaks an older protocol than this app supports. "
-                "Update VoiceStudio there, then reconnect.",
+                "Update Sado there, then reconnect.",
             )
         if request.protocol_version_min > PROTOCOL_VERSION:
             return self._refuse(
                 "UPGRADE_REQUIRED",
-                "That GPU machine is newer than this app. Update VoiceStudio here, "
+                "That GPU machine is newer than this app. Update Sado here, "
                 "then reconnect.",
             )
         missing_features = sorted(REQUIRED_FEATURES.difference(request.features))
@@ -1704,7 +1704,7 @@ class WorkerServicer(pb_grpc.WorkerServiceServicer):
             return self._refuse(
                 "UPGRADE_REQUIRED",
                 "That GPU machine is missing required protocol features "
-                f"({', '.join(missing_features)}). Update VoiceStudio there, then "
+                f"({', '.join(missing_features)}). Update Sado there, then "
                 "reconnect; no task was run.",
             )
         if not _capability_payload_allowed(request.capabilities):
@@ -3606,7 +3606,7 @@ async def serve(
         options=[
             # gRPC enables SO_REUSEPORT by default where the platform supports
             # it. That is useful for replicated stateless services, but two
-            # VoiceStudio control planes have independent worker registries
+            # Sado control planes have independent worker registries
             # and schedulers: sharing this port sends each connection to an
             # arbitrary app instance.
             ("grpc.so_reuseport", 0),
@@ -3634,17 +3634,17 @@ async def serve(
         bound_port = server.add_secure_port(f"{host}:{port}", credentials)
     except RuntimeError as exc:
         raise ControlPlaneBindError(
-            f"Another VoiceStudio instance is already accepting remote workers "
+            f"Another Sado instance is already accepting remote workers "
             f"on port {port}. Close the other instance, or set "
-            "OMNIVOICE_WORKER_PORT to a different port and restart VoiceStudio."
+            "OMNIVOICE_WORKER_PORT to a different port and restart Sado."
         ) from exc
     # add_secure_port() reports bind failure as 0; awaiting start() is not the
     # documented place to discover it and historically let this pass unseen.
     if bound_port == 0:
         raise ControlPlaneBindError(
-            f"Another VoiceStudio instance is already accepting remote workers "
+            f"Another Sado instance is already accepting remote workers "
             f"on port {port}. Close the other instance, or set "
-            "OMNIVOICE_WORKER_PORT to a different port and restart VoiceStudio."
+            "OMNIVOICE_WORKER_PORT to a different port and restart Sado."
         )
     await server.start()
     logger.info("Worker control plane listening on %s:%d (TLS)", host, port)

@@ -4,9 +4,9 @@ const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const page = await browser.newPage();
 try {
   await page.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
+    localStorage.setItem('sado.setup.complete.v1', '1');
   });
-  const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912';
+  const base = process.env.SADO_UI_URL || 'http://localhost:3912';
   await page.goto(base + '/#/clone');
   await page.getByRole('heading', { name: 'Voice cloning', exact: true }).waitFor();
   await page.evaluate(async () => {
@@ -29,7 +29,7 @@ try {
     router.routesById['/settings/support'].options.component = window.originalSupportComponent;
   });
   await fallback.getByRole('button', { name: 'Try again', exact: true }).click();
-  await page.getByRole('heading', { name: 'Support VoiceStudio', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Support Sado', exact: true }).waitFor();
   assert.equal(await page.evaluate(() => window.recoverySentinel), 'renderer-still-running');
 
   await page.evaluate(async () => {
@@ -49,10 +49,10 @@ try {
     await router.navigate({ to: '/settings/support' });
   });
   await firstDynamicReload;
-  await page.getByRole('heading', { name: 'Support VoiceStudio', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Support Sado', exact: true }).waitFor();
   assert.equal(
     await page.evaluate(() =>
-      Object.keys(sessionStorage).some((key) => key.startsWith('voicestudio.moduleRetry:')),
+      Object.keys(sessionStorage).some((key) => key.startsWith('sado.moduleRetry:')),
     ),
     true,
   );
@@ -67,7 +67,7 @@ try {
     window.dynamicRepair = null;
     window.recoverySentinel = 'renderer-still-running-after-reload';
     window.addEventListener(
-      'voicestudio:repair-agent-open',
+      'sado:repair-agent-open',
       (event) => {
         window.dynamicRepair = event.detail;
       },
@@ -92,7 +92,7 @@ try {
     router.routesById['/settings/support'].options.component = window.originalSupportComponent;
   });
   await dynamicFallback.getByRole('button', { name: 'Try again', exact: true }).click();
-  await page.getByRole('heading', { name: 'Support VoiceStudio', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Support Sado', exact: true }).waitFor();
   assert.equal(
     await page.evaluate(() => window.recoverySentinel),
     'renderer-still-running-after-reload',

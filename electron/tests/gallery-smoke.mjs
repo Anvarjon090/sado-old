@@ -60,7 +60,7 @@ try {
       ],
     }),
   );
-  const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902';
+  const base = process.env.SADO_UI_URL || 'http://localhost:3902';
   await page.goto(base + '/#/gallery');
   await page.getByRole('heading', { name: item.name }).waitFor();
   assert.equal(uses, 0);

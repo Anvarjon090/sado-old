@@ -27,7 +27,7 @@
 #   :0.3-rocm       — major.minor floating tag, ROCm build
 #   :sha-xxxx-rocm  — specific commit SHA, ROCm build
 #
-# Images land at: ghcr.io/debpalash/voicestudio, the legacy GHCR alias
+# Images land at: ghcr.io/debpalash/sado, the legacy GHCR alias
 # ghcr.io/debpalash/omnivoice-studio, and docker.io/palashdeb/omnivoice-studio
 # (Docker Hub push gated on the DOCKERHUB_USERNAME/DOCKERHUB_TOKEN secrets;
 # if unset the build still pushes to GHCR.)
@@ -35,7 +35,7 @@
 # On main pushes the Docker Hub repository overview is also synced from
 # deploy/dockerhub-overview.md (source of truth for the hub.docker.com page).
 #
-# NOTE: the Docker image is the headless web-server build of VoiceStudio (FastAPI
+# NOTE: the Docker image is the headless web-server build of Sado (FastAPI
 # backend + pre-built React frontend served over HTTP).  The desktop
 # auto-updater and its update-channel toggle are desktop-only features; they do
 # NOT apply to the Docker image.
@@ -68,9 +68,9 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  # Keep registry coordinates explicit. VoiceStudio is the canonical GHCR
+  # Keep registry coordinates explicit. Sado is the canonical GHCR
   # path; the old path remains a compatibility alias during the migration.
-  IMAGE_NAME: debpalash/voicestudio
+  IMAGE_NAME: debpalash/sado
   # Compatibility alias: keep existing deployments on the same tag stream.
   LEGACY_IMAGE_NAME: debpalash/omnivoice-studio
   DOCKERHUB_IMAGE: palashdeb/omnivoice-studio

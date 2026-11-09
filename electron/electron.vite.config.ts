@@ -14,11 +14,11 @@ const frontendPkg = JSON.parse(
 const define = {
   __APP_VERSION__: JSON.stringify(frontendPkg.version),
   __WEB_DEPLOYMENT__: false,
-  __PRO_STORE_ID__: JSON.stringify(process.env.VOICESTUDIO_PRO_STORE_ID ?? ''),
-  __PRO_PRODUCT_ID__: JSON.stringify(process.env.VOICESTUDIO_PRO_PRODUCT_ID ?? ''),
-  __PRO_YEARLY_VARIANT_ID__: JSON.stringify(process.env.VOICESTUDIO_PRO_YEARLY_VARIANT_ID ?? ''),
+  __PRO_STORE_ID__: JSON.stringify(process.env.SADO_PRO_STORE_ID ?? ''),
+  __PRO_PRODUCT_ID__: JSON.stringify(process.env.SADO_PRO_PRODUCT_ID ?? ''),
+  __PRO_YEARLY_VARIANT_ID__: JSON.stringify(process.env.SADO_PRO_YEARLY_VARIANT_ID ?? ''),
   __PRO_LIFETIME_VARIANT_ID__: JSON.stringify(
-    process.env.VOICESTUDIO_PRO_LIFETIME_VARIANT_ID ?? '',
+    process.env.SADO_PRO_LIFETIME_VARIANT_ID ?? '',
   ),
   // Keep the renderer and its managed Python backend on one analytics project.
   __POSTHOG_PROJECT_TOKEN__: JSON.stringify(
@@ -28,9 +28,9 @@ const define = {
 };
 
 // OMNIVOICE_UI_PORT is canonical (the backend reads it for its origin
-// allow-list); VOICESTUDIO_UI_PORT is the accepted legacy alias.
+// allow-list); SADO_UI_PORT is the accepted legacy alias.
 const rendererPort =
-  Number(process.env.OMNIVOICE_UI_PORT || process.env.VOICESTUDIO_UI_PORT) || 3902;
+  Number(process.env.OMNIVOICE_UI_PORT || process.env.SADO_UI_PORT) || 3902;
 
 export default defineConfig({
   main: {
@@ -116,7 +116,7 @@ export default defineConfig({
           },
         },
         '/api': {
-          target: 'http://127.0.0.1:' + (process.env.VOICESTUDIO_ELECTRON_PROXY_PORT || 3903),
+          target: 'http://127.0.0.1:' + (process.env.SADO_ELECTRON_PROXY_PORT || 3903),
           changeOrigin: true,
           rewrite: (p) => p.replace(/^\/api/, ''),
           configure(proxy) {

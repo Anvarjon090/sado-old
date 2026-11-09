@@ -3,12 +3,12 @@ import { onlineManager } from '@tanstack/react-query';
 import { isBackendReachable } from '@shared/utils/backendStage';
 import { noteBackendStage } from '@/lib/status-polling';
 
-// Derived from the global `Window.voicestudio` declaration (src/preload/index.d.ts,
+// Derived from the global `Window.sado` declaration (src/preload/index.d.ts,
 // included by tsconfig.web.json) rather than imported by path: with
 // allowImportingTsExtensions a `.d.ts` import resolves to the preload's `.ts`
 // source, which the renderer project must not compile.
-export type VoiceStudioBridge = Window['voicestudio'];
-export type BackendStatus = Awaited<ReturnType<VoiceStudioBridge['backend']['getStatus']>>;
+export type SadoBridge = Window['sado'];
+export type BackendStatus = Awaited<ReturnType<SadoBridge['backend']['getStatus']>>;
 export type BackendStage = BackendStatus['stage'];
 
 // The `ready`/`unresponsive` policy lives in shared/utils/backendStage so the
@@ -28,9 +28,9 @@ export const FALLBACK_BACKEND_STATUS: BackendStatus = {
   logTail: [],
 };
 
-function bridge(): VoiceStudioBridge['backend'] | null {
+function bridge(): SadoBridge['backend'] | null {
   if (typeof window === 'undefined') return null;
-  const api = (window as { voicestudio?: VoiceStudioBridge }).voicestudio;
+  const api = (window as { sado?: SadoBridge }).sado;
   return api?.backend ?? null;
 }
 

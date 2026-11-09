@@ -1,4 +1,4 @@
-# VoiceStudio — MOSS-TTS-v1.5 Engine
+# Sado — MOSS-TTS-v1.5 Engine
 
 MOSS-TTS-v1.5 (OpenMOSS) is an **8B** flagship zero-shot TTS — a Qwen3-8B
 language backbone plus a 1.6B audio codec. It covers **31 languages**, does
@@ -6,7 +6,7 @@ zero-shot voice cloning, token-level duration control and inline
 `[pause Ns]` markers. Released under **Apache-2.0** (code + weights).
 
 It runs in its own subprocess **and its own Python venv** with
-`transformers==5.0.0`, isolated from the VoiceStudio parent process which
+`transformers==5.0.0`, isolated from the Sado parent process which
 pins `transformers>=5.3`. This is the same isolation primitive used by
 [IndexTTS-2](indextts.md): the two `transformers` pins cannot share one
 interpreter, so MOSS runs behind
@@ -14,7 +14,7 @@ interpreter, so MOSS runs behind
 
 > **Opt-in, and never a default.** MOSS-TTS-v1.5 is selected explicitly in
 > **Model Catalogue** (or `OMNIVOICE_TTS_BACKEND=moss-tts-v15`). It is
-> not part of the default install and does not change VoiceStudio's
+> not part of the default install and does not change Sado's
 > out-of-the-box behaviour on any platform.
 
 ## Hardware
@@ -33,7 +33,7 @@ interpreter, so MOSS runs behind
 ## One-click install
 
 On a machine with an NVIDIA GPU, **Model Catalogue → MOSS-TTS-v1.5 →
-Install** does every step below for you. It installs into its own folder under VoiceStudio's data directory, with its own Python environment. Nothing it installs touches VoiceStudio itself or any other engine, so you can switch to it and back without breaking what already worked. **Uninstall** in the same row removes only that folder. The ~16 GB of weights still
+Install** does every step below for you. It installs into its own folder under Sado's data directory, with its own Python environment. Nothing it installs touches Sado itself or any other engine, so you can switch to it and back without breaking what already worked. **Uninstall** in the same row removes only that folder. The ~16 GB of weights still
 download on first synthesis. On a CPU-only host the button is not offered; use
 the manual install.
 
@@ -45,7 +45,7 @@ if a stalled download runs out of time, raise the compute-time budget in
 ## Install
 
 MOSS-TTS-v1.5 is **not** bundled (the model is large and the package pins a
-conflicting `transformers`). VoiceStudio ships a sidecar runner that loads it
+conflicting `transformers`). Sado ships a sidecar runner that loads it
 into an isolated venv on demand.
 
 1. Clone the MOSS-TTS repo on disk:
@@ -56,7 +56,7 @@ into an isolated venv on demand.
 
 2. Install the editable package into a fresh venv. Use
    `uv pip install -e ".[torch-runtime]"` — **never** `uv sync --all-extras`,
-   which would overwrite VoiceStudio's lock file with `transformers==5.0` and
+   which would overwrite Sado's lock file with `transformers==5.0` and
    break the parent process. The `torch-runtime` extra is CUDA (`+cu128`):
 
    ```bash
@@ -75,7 +75,7 @@ into an isolated venv on demand.
 
 3. The ~16 GB weights download from HuggingFace on first synthesize. The
    parent forwards `HF_HOME` / `HF_HUB_CACHE` to the sidecar so the cache is
-   shared with the rest of VoiceStudio's downloads.
+   shared with the rest of Sado's downloads.
 
 4. Set `OMNIVOICE_MOSS_TTS_V15_DIR` to the repo root (the directory that
    contains `pyproject.toml`):
@@ -91,20 +91,20 @@ into an isolated venv on demand.
    [Environment]::SetEnvironmentVariable("OMNIVOICE_MOSS_TTS_V15_DIR","$env:USERPROFILE\code\MOSS-TTS","User")
    ```
 
-5. Restart VoiceStudio. MOSS-TTS-v1.5 appears in **Model Catalogue** with
+5. Restart Sado. MOSS-TTS-v1.5 appears in **Model Catalogue** with
    `available: true` and `isolation_mode: subprocess`.
 
 ## Venv resolution order
 
-VoiceStudio probes for a usable MOSS Python interpreter in this priority
+Sado probes for a usable MOSS Python interpreter in this priority
 order (see `backend/engines/moss_tts_v15/bootstrap.py`):
 
 1. **`${OMNIVOICE_MOSS_TTS_V15_DIR}/.venv/`** — your existing clone's venv.
    Highest priority, so a power user who already set MOSS up gets zero
    re-install.
-2. **`backend/engines/moss_tts_v15/.venv/`** — VoiceStudio's own venv,
+2. **`backend/engines/moss_tts_v15/.venv/`** — Sado's own venv,
    created on demand by step 3.
-3. **Lazy bootstrap** — if neither venv exists, VoiceStudio runs `uv venv`
+3. **Lazy bootstrap** — if neither venv exists, Sado runs `uv venv`
    then `uv pip install --python <python> -e "${DIR}[torch-runtime]"`.
    Requires `OMNIVOICE_MOSS_TTS_V15_DIR`; raises a clear error otherwise.
    On a non-CUDA host the `+cu128` extra cannot resolve — set the venv up
@@ -131,7 +131,7 @@ default voice. `duration` (seconds) maps to MOSS's `tokens` argument at
 
 ### `MOSS-TTS-v1.5 venv not found. Set OMNIVOICE_MOSS_TTS_V15_DIR ...`
 
-You haven't pointed VoiceStudio at a MOSS-TTS clone yet. Follow **Install**.
+You haven't pointed Sado at a MOSS-TTS clone yet. Follow **Install**.
 
 ### `uv pip install -e failed ... '[torch-runtime]' extra (cu128) cannot resolve`
 

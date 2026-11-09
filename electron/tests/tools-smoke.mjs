@@ -26,7 +26,7 @@ try {
           : { format: { duration: '4', format_name: 'wav' } },
     });
   });
-  await page.goto((process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902') + '/#/tools');
+  await page.goto((process.env.SADO_UI_URL || 'http://localhost:3902') + '/#/tools');
   assert(await page.getByRole('button', { name: 'Parse', exact: true }).isDisabled());
   await page.getByRole('textbox', { name: 'Direction', exact: true }).fill('urgent and surprised');
   await page.getByRole('button', { name: 'Parse', exact: true }).click();

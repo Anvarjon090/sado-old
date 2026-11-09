@@ -24,7 +24,7 @@ describe('take metadata', () => {
     expect(takeSettings(item)).not.toHaveProperty('autoPlay');
   });
   it('uses known history fields when metadata is malformed or absent', () => {
-    localStorage.setItem('voicestudio.take-settings.v1', '{');
+    localStorage.setItem('sado.take-settings.v1', '{');
     expect(takeSettings(item)).toEqual({
       text: item.text,
       language: 'French',
@@ -77,7 +77,7 @@ describe('take metadata', () => {
   });
   it('ignores malformed stored quality values', () => {
     localStorage.setItem(
-      'voicestudio.take-settings.v1',
+      'sado.take-settings.v1',
       JSON.stringify({ take: { wavBits: 20, effectPreset: 'loud', speed: 'fast' } }),
     );
     const restored = takeSettings(item);

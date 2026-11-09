@@ -18,7 +18,7 @@ const mocks = vi.hoisted(() => ({
   stage: vi.fn(),
   spawn: vi.fn(),
 }));
-vi.mock('electron', () => ({ app: { isPackaged: true, getPath: () => '/private/voicestudio' } }));
+vi.mock('electron', () => ({ app: { isPackaged: true, getPath: () => '/private/sado' } }));
 vi.mock('node:child_process', () => ({ spawn: mocks.spawn, spawnSync: vi.fn() }));
 vi.mock('node:fs', async (importOriginal) => {
   const original = await importOriginal<typeof import('node:fs')>();
@@ -101,7 +101,7 @@ it('reports a resumable runtime when startup finds an interrupted install marker
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.interrupted.mockResolvedValueOnce(true);
   const supervisor = new BackendSupervisor();
 
@@ -121,7 +121,7 @@ it('publishes packaged startup preflight failures instead of rejecting startup',
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.ready.mockRejectedValueOnce(new Error('runtime metadata unreadable'));
   const supervisor = new BackendSupervisor();
 
@@ -237,7 +237,7 @@ it('attaches to a healthy replacement instead of reporting its exited child as c
   expect(supervisor.status.stage).toBe('ready');
   expect(supervisor.status.managed).toBe(false);
   expect(supervisor.status.exitCode).toBeUndefined();
-  expect(supervisor.status.logTail).toContain('Attached to the replacement VoiceStudio backend.');
+  expect(supervisor.status.logTail).toContain('Attached to the replacement Sado backend.');
   await supervisor.shutdown();
   vi.useRealTimers();
 });
@@ -288,7 +288,7 @@ it('startup and retry await explicit setup without staging, spawning or installi
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const supervisor = new BackendSupervisor();
   await supervisor.start();
   expect(supervisor.status.stage).toBe('setup_required');
@@ -307,7 +307,7 @@ it('a failed explicit installation returns to setup and allows another attempt',
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.install.mockRejectedValue(new Error('offline'));
   const supervisor = new BackendSupervisor();
   await supervisor.start();
@@ -326,7 +326,7 @@ it('clean retry removes only the owned default project before reinstalling', asy
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.install.mockRejectedValue(new Error('offline'));
   const supervisor = new BackendSupervisor();
   await supervisor.start();
@@ -348,7 +348,7 @@ it('clean retry refuses an environment the Electron app does not own', async () 
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const supervisor = new BackendSupervisor();
   await supervisor.start();
   (supervisor as unknown as { runtimeProject: string }).runtimeProject = '/shared/tauri/project';
@@ -365,7 +365,7 @@ it('exposes actionable storage failures without requiring log parsing', async ()
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.install.mockRejectedValue(
     Object.assign(new Error('full'), { code: 'ENOSPC', requiredGib: 5 }),
   );
@@ -388,7 +388,7 @@ it('serializes cleanup and does not reinstall after shutdown during cleanup', as
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   let finish!: () => void;
   mocks.rm.mockImplementationOnce(
     () =>
@@ -419,7 +419,7 @@ it('publishes cleanup permission failures and allows retry', async () => {
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   mocks.rm.mockRejectedValueOnce(Object.assign(new Error('runtime is locked'), { code: 'EPERM' }));
   const supervisor = new BackendSupervisor();
   await supervisor.start();
@@ -442,7 +442,7 @@ it('reserves setup before asynchronous checks and cancels stale preflight', asyn
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const supervisor = new BackendSupervisor();
   await supervisor.start();
   let finish!: (ready: boolean) => void;
@@ -473,7 +473,7 @@ it.each(['ready', 'compatible'] as const)(
       }),
     );
     vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-    vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+    vi.stubEnv('SADO_SKIP_BACKEND', '');
     mocks[kind].mockResolvedValue(true);
     mocks.dependencies.mockResolvedValue(false);
     const supervisor = new BackendSupervisor();
@@ -490,7 +490,7 @@ it.each([true, false])(
   'preserves a selected unowned runtime (project exists: %s)',
   async (projectExists) => {
     const { resolve, join } = await import('node:path');
-    const selected = resolve('/selected/VoiceStudio');
+    const selected = resolve('/selected/Sado');
     mocks.runtimeConfig = { root: selected, owned: false };
     mocks.existingProject = projectExists;
     mocks.existingRoot = true;
@@ -504,7 +504,7 @@ it.each([true, false])(
       }),
     );
     vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-    vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+    vi.stubEnv('SADO_SKIP_BACKEND', '');
     const supervisor = new BackendSupervisor();
     await supervisor.start();
     expect(supervisor.status.stage).toBe('setup_required');
@@ -513,7 +513,7 @@ it.each([true, false])(
     ).toBe(true);
     expect(mocks.install).not.toHaveBeenCalled();
     await supervisor.setupRuntime();
-    expect(mocks.install.mock.calls[0][1]).toBe(join('/private/voicestudio', 'runtime', 'project'));
+    expect(mocks.install.mock.calls[0][1]).toBe(join('/private/sado', 'runtime', 'project'));
     expect(mocks.runtimeConfig?.root).not.toBe(selected);
     expect(mocks.rm).not.toHaveBeenCalled();
     expect(mocks.stage).not.toHaveBeenCalled();
@@ -523,7 +523,7 @@ it.each([true, false])(
 
 it('installs into a newly selected custom destination that does not yet exist', async () => {
   const { resolve, join } = await import('node:path');
-  const selected = resolve('/selected/VoiceStudio');
+  const selected = resolve('/selected/Sado');
   mocks.runtimeConfig = { root: selected, owned: false };
   mocks.install.mockRejectedValue(new Error('offline'));
   vi.stubGlobal(
@@ -533,7 +533,7 @@ it('installs into a newly selected custom destination that does not yet exist', 
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const supervisor = new BackendSupervisor();
   await supervisor.start();
   await supervisor.setupRuntime();
@@ -544,7 +544,7 @@ it('installs into a newly selected custom destination that does not yet exist', 
 
 it('reuses a healthy default runtime after explicit setup leaves an unowned environment', async () => {
   const { resolve, join } = await import('node:path');
-  mocks.runtimeConfig = { root: resolve('/selected/VoiceStudio'), owned: false };
+  mocks.runtimeConfig = { root: resolve('/selected/Sado'), owned: false };
   mocks.existingRoot = true;
   mocks.ready.mockResolvedValue(true);
   mocks.dependencies.mockImplementation(async (project?: string) => !project?.includes('selected'));
@@ -555,7 +555,7 @@ it('reuses a healthy default runtime after explicit setup leaves an unowned envi
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const supervisor = new BackendSupervisor();
   await supervisor.start();
   expect(supervisor.status.stage).toBe('setup_required');
@@ -563,7 +563,7 @@ it('reuses a healthy default runtime after explicit setup leaves an unowned envi
   await supervisor.setupRuntime();
   expect(mocks.install).not.toHaveBeenCalled();
   expect(mocks.dependencies).toHaveBeenCalledWith(
-    join('/private/voicestudio', 'runtime', 'project'),
+    join('/private/sado', 'runtime', 'project'),
   );
   expect(restart).toHaveBeenCalledOnce();
   restart.mockRestore();
@@ -652,19 +652,19 @@ function stubResourcesPath(path: string): void {
 
 it('serves LAN devices the web UI packaged with this app version', () => {
   vi.stubEnv('OMNIVOICE_FRONTEND_DIST', '');
-  stubResourcesPath(join('/opt', 'VoiceStudio', 'resources'));
+  stubResourcesPath(join('/opt', 'Sado', 'resources'));
 
   const { env } = managedBackendSpawnOptions(3900);
 
   expect(env.OMNIVOICE_FRONTEND_DIST).toBe(
-    join('/opt', 'VoiceStudio', 'resources', 'frontend', 'dist'),
+    join('/opt', 'Sado', 'resources', 'frontend', 'dist'),
   );
   expect(bundledWebUiPath()).toBe(env.OMNIVOICE_FRONTEND_DIST);
 });
 
 it('keeps a web UI directory the user pinned themselves', () => {
   vi.stubEnv('OMNIVOICE_FRONTEND_DIST', '/custom/web');
-  stubResourcesPath(join('/opt', 'VoiceStudio', 'resources'));
+  stubResourcesPath(join('/opt', 'Sado', 'resources'));
 
   expect(managedBackendSpawnOptions(3900).env.OMNIVOICE_FRONTEND_DIST).toBe('/custom/web');
 });
@@ -718,7 +718,7 @@ it('parks Intel Macs in setup_required with an unsupported-platform issue', asyn
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const restore = stubIntelMac();
   try {
     expect(isUnsupportedPlatform()).toBe(true);
@@ -754,7 +754,7 @@ it('tells Apple Silicon users running the Intel build to install the arm64 build
     }),
   );
   vi.stubEnv('OMNIVOICE_BACKEND_CMD', '');
-  vi.stubEnv('VOICESTUDIO_SKIP_BACKEND', '');
+  vi.stubEnv('SADO_SKIP_BACKEND', '');
   const restore = stubIntelMac();
   const electronApp = app as { runningUnderARM64Translation?: boolean };
   electronApp.runningUnderARM64Translation = true;

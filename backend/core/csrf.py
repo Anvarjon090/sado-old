@@ -6,7 +6,7 @@ import os
 from urllib.parse import SplitResult, urlsplit
 
 
-CSRF_HEADER = "x-voicestudio-csrf"
+CSRF_HEADER = "x-sado-csrf"
 CSRF_VALUE = "1"
 SAFE_HTTP_METHODS = frozenset({"GET", "HEAD", "OPTIONS"})
 
@@ -83,17 +83,17 @@ def _origin_tuple(value: str | None) -> tuple[str, str, int | None] | None:
     return scheme, parsed.hostname.lower(), port
 
 
-# Electron serves the packaged renderer from app://voicestudio. The retired
+# Electron serves the packaged renderer from app://sado. The retired
 # Tauri shell's origins are deliberately absent: final Tauri installs spawn the
 # backend bundled with them, never this one.
-DEFAULT_DESKTOP_ORIGINS = ("app://voicestudio",)
+DEFAULT_DESKTOP_ORIGINS = ("app://sado",)
 
 # The browser UI dev-server port. OMNIVOICE_UI_PORT is canonical, matching
-# OMNIVOICE_PORT; VOICESTUDIO_UI_PORT is the name the Vite configs read before
+# OMNIVOICE_PORT; SADO_UI_PORT is the name the Vite configs read before
 # the two were unified and stays accepted as an alias. Mirrored in
 # electron/electron.vite.config.ts and electron/vite.web.config.ts.
 UI_PORT_ENV = "OMNIVOICE_UI_PORT"
-UI_PORT_ENV_ALIASES = ("VOICESTUDIO_UI_PORT",)
+UI_PORT_ENV_ALIASES = ("SADO_UI_PORT",)
 DEFAULT_UI_PORT = 3901
 
 

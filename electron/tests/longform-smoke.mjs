@@ -49,7 +49,7 @@ try {
     auditions++;
     return route.fulfill({ contentType: 'audio/wav', body: wave });
   });
-  const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902';
+  const base = process.env.SADO_UI_URL || 'http://localhost:3902';
   await page.goto(base + '/#/audiobook');
   assert(await page.getByRole('button', { name: 'Create audiobook', exact: true }).isDisabled());
   await page
@@ -123,7 +123,7 @@ try {
   await page.getByRole('button', { name: 'Save', exact: true }).click();
   await page.getByRole('button', { name: 'Saved book fixture', exact: true }).waitFor();
   await page.getByRole('textbox', { name: 'Script', exact: true }).fill('Unsaved edit');
-  await page.goto((process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902') + '/#/projects');
+  await page.goto((process.env.SADO_UI_URL || 'http://localhost:3902') + '/#/projects');
   await page.getByRole('button', { name: 'Rename Saved book fixture', exact: true }).click();
   await page.getByLabel('Project name', { exact: true }).fill('Renamed book fixture');
   await page.getByRole('button', { name: 'Save name', exact: true }).click();

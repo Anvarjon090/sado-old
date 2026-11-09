@@ -142,7 +142,7 @@ def test_comment_renders_untrusted_identities_as_inert_code():
 
 
 class FakeGitHub:
-    repo = "debpalash/VoiceStudio"
+    repo = "Anvarjon090/sado"
 
     def __init__(self, comments, actors, store=None, pr=None, others=None, other_commits=None):
         self.comments, self.actors = comments, actors
@@ -530,7 +530,7 @@ def test_metadata_change_during_cla_evaluation_stays_pending(monkeypatch):
 
 @pytest.mark.parametrize("comment,reason", [
     (_comment(edited=True), "edited after it was posted"),
-    (_comment(body="I have read the VoiceStudio CLA and I hereby sign it"), "exact line"),
+    (_comment(body="I have read the Sado CLA and I hereby sign it"), "exact line"),
     (_comment(body="> " + cla.SIGN_PHRASE), "exact line"),
 ])
 def test_near_misses_get_one_reply_saying_why(comment, reason):

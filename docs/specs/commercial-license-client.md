@@ -4,7 +4,7 @@
 
 **Date:** 2026-09-29
 
-**Scope:** How the VoiceStudio desktop client verifies a License Certificate offline, checks with vssaas whether the license is still good, what vssaas records about each seat, and how to test all of it end to end on a local vssaas.
+**Scope:** How the Sado desktop client verifies a License Certificate offline, checks with vssaas whether the license is still good, what vssaas records about each seat, and how to test all of it end to end on a local vssaas.
 
 This guide follows the vssaas code on branch `velixio-background-sessions` at commit `a802cca`, which is authoritative wherever it differs from the prose spec (see [§5](#5-spec-and-code-differences)). Paths starting with `internal/`, `cmd/`, `api/` or `docs/` below are in the vssaas repository.
 
@@ -45,7 +45,7 @@ Each endorsement that passes adds `kid → public_key` to the trusted key set. A
 
 1. Look up `kid` in the trusted key set. If it is missing, `unknown_key`.
 2. Verify the Ed25519 signature over `"vssaas-license-certificate-v1\x00" || payload_bytes`. If it fails, `bad_signature`.
-3. `aud` must be `"voicestudio-desktop"`. Otherwise `wrong_audience`.
+3. `aud` must be `"sado-desktop"`. Otherwise `wrong_audience`.
 4. `env` must equal the client's environment. Otherwise `wrong_environment`.
 5. These must all hold, or `invalid_claims`:
    - `v == 1`, `iss == "vssaas"`, and `env` is one of `development|staging|production`.
@@ -65,7 +65,7 @@ Verify the endorsement at the same `now` as the certificate. vssaas never issues
 
 ### 1.2 Where the root keys come from
 
-Trust starts from one or two **root public keys compiled into the client build**, one set per environment. They are public values, so they can be committed or injected by CI. A good format mirrors vssaas `LICENSE_ROOT_PUBLIC_KEYS`: comma-separated unpadded base64url, 32 bytes each, supplied through a build-time define such as `VOICESTUDIO_LICENSE_ROOT_PUBLIC_KEYS`, next to the existing `VOICESTUDIO_PRO_*` defines in `electron/electron.vite.config.ts`.
+Trust starts from one or two **root public keys compiled into the client build**, one set per environment. They are public values, so they can be committed or injected by CI. A good format mirrors vssaas `LICENSE_ROOT_PUBLIC_KEYS`: comma-separated unpadded base64url, 32 bytes each, supplied through a build-time define such as `SADO_LICENSE_ROOT_PUBLIC_KEYS`, next to the existing `SADO_PRO_*` defines in `electron/electron.vite.config.ts`.
 
 - **Production roots.** These come from the offline key ceremony. ADR 0075 requires the ceremony before production signing, and the roots do not exist yet. A production build contains only production roots.
 - **Development and staging roots.** These are whatever the vssaas operators endorse keys with. For local testing, the root is the one you generate in [§4](#4-end-to-end-test-on-a-local-vssaas).
@@ -209,7 +209,7 @@ export function verifyCertificate(envelope: string, keys: Map<string, KeyObject>
   const { fields: c, message, signature } = open(envelope, 'vslc1.', 'vssaas-license-certificate-v1\x00', CLAIMS);
   const key = keys.get(c.kid) ?? fail('unknown_key');
   if (!verify(null, message, key, signature)) fail('bad_signature');
-  if (c.aud !== 'voicestudio-desktop') fail('wrong_audience');
+  if (c.aud !== 'sado-desktop') fail('wrong_audience');
   if (c.env !== env) fail('wrong_environment');
   const valid =
     c.v === 1 && c.iss === 'vssaas' && ENVIRONMENTS.includes(c.env) && KID.test(c.kid) &&
@@ -256,7 +256,7 @@ This has one deliberate difference from Go. Integers outside ±(2^53−1) are `m
 
 ### 1.4 Python (`cryptography`)
 
-Save this as `license_certificate.py`. `cryptography` is already a direct VoiceStudio dependency. Outside the project venv, run it with `uv run --no-project --with cryptography python license_certificate.py …`.
+Save this as `license_certificate.py`. `cryptography` is already a direct Sado dependency. Outside the project venv, run it with `uv run --no-project --with cryptography python license_certificate.py …`.
 
 ```python
 """Verifies vssaas License Certificates offline. Mirrors internal/licensing/certificate."""
@@ -389,7 +389,7 @@ def verify_certificate(envelope: str, keys: dict, env: str, now: int) -> tuple[d
         raise LicenseCertificateError("unknown_key")
     if not _signed(key, signature, message):
         raise LicenseCertificateError("bad_signature")
-    if c["aud"] != "voicestudio-desktop":
+    if c["aud"] != "sado-desktop":
         raise LicenseCertificateError("wrong_audience")
     if c["env"] != env:
         raise LicenseCertificateError("wrong_environment")
@@ -435,7 +435,7 @@ if __name__ == "__main__":  # <certificate or response.json> <signing-keys.json>
 
 ### 1.5 Golden-vector tests
 
-Copy `internal/licensing/certificate/testdata/golden.json` byte for byte next to the tests; in VoiceStudio the suggested place is `tests/fixtures/licensing/golden.json`. Its SHA-256 is `f9008f69434581a3941700680955cac7669c8963a7d88d10d87dba08e23edbec`, from vssaas commit `1178dc6`. The file holds:
+Copy `internal/licensing/certificate/testdata/golden.json` byte for byte next to the tests; in Sado the suggested place is `tests/fixtures/licensing/golden.json`. Its SHA-256 is `f9008f69434581a3941700680955cac7669c8963a7d88d10d87dba08e23edbec`, from vssaas commit `1178dc6`. The file holds:
 
 - a TEST ONLY root and signing key;
 - one endorsement, verified at its own `now`;
@@ -707,7 +707,7 @@ Both JSON routes need the signed-in console session. Without it, the browser is 
 Richer telemetry, such as which Pro features a seat uses, active-use time or per-seat activity, does not exist and needs decisions first:
 
 - a product decision on what is needed;
-- a privacy decision: consent, retention and lawful basis, with VoiceStudio's local-first rule that nothing leaves the machine without the user's explicit yes and the app keeps working with everything declined;
+- a privacy decision: consent, retention and lawful basis, with Sado's local-first rule that nothing leaves the machine without the user's explicit yes and the app keeps working with everything declined;
 - a vssaas ADR and schema.
 
 Until then, the seat record above is the complete picture.
@@ -914,7 +914,7 @@ historical record:
 7. **Admin JSON example.** The spec's example showed seats without `organization_id` and `license_id`, and `released_by` and event `reason` as `null`. Fixed to include `organization_id` and `license_id` on seats, `""` for an active seat's `released_by`, for event `reason`, and for a license event's `seat_id`, and a `metadata` object on every event.
 8. **API guide: replay.** `docs/api/license-seats.md` said a `200` claim replay returns the certificate "unchanged". Fixed to state the reissue rule: unchanged only inside 10 minutes and while its key is `active` or `retiring`.
 9. **API guide: refresh timing.** Step 3 was headed "Refresh after `refresh_after`" but its text said "Before that instant". Fixed to "Refresh at `refresh_after`", matching the text.
-10. **API guide: 403 handling.** `docs/api/license-seats.md` called `license_revoked` terminal, while its closing paragraph said to keep the last certificate through grace after any `403`. Fixed so the guide and the spec both state the ADR 0075 ruling consistently: any `403` (`license_revoked`, `license_suspended`, `license_expired`, `license_not_active`) is definitive and discards the certificate at once; grace until `hard_exp` covers only an unreachable authority (network failure, a timeout, or `5xx`, `429` or `license_authority_unavailable`) — matching §2.2 above. The guide also now links back to this VoiceStudio path.
+10. **API guide: 403 handling.** `docs/api/license-seats.md` called `license_revoked` terminal, while its closing paragraph said to keep the last certificate through grace after any `403`. Fixed so the guide and the spec both state the ADR 0075 ruling consistently: any `403` (`license_revoked`, `license_suspended`, `license_expired`, `license_not_active`) is definitive and discards the certificate at once; grace until `hard_exp` covers only an unreachable authority (network failure, a timeout, or `5xx`, `429` or `license_authority_unavailable`) — matching §2.2 above. The guide also now links back to this Sado path.
 11. **Open question number.** ADR 0074 and `docs/decisions/current-dilemmas.md` §9 cited "open question 5" for how seats map to people. Fixed to "open question 6", matching `docs/decisions/open-questions.md`.
 
 Related: `docs/specs/commercial-licensing.md` and `docs/api/license-seats.md` in vssaas cover claiming, key formats, superadmin actions and configuration beyond what this guide needs.

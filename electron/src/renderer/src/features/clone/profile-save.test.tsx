@@ -54,7 +54,7 @@ it('opens optional details and explains a failed automatic transcription', async
 it('hands missing reference ASR to the app-operation repair flow without losing retry', () => {
   const retry = vi.fn();
   const listener = vi.fn();
-  window.addEventListener('voicestudio:repair-agent-open', listener);
+  window.addEventListener('sado:repair-agent-open', listener);
   render(<OptionalDetails transcription={{ state: 'unavailable', retry }} />);
 
   fireEvent.click(screen.getByRole('button', { name: 'repairAgent.fix' }));
@@ -65,5 +65,5 @@ it('hands missing reference ASR to the app-operation repair flow without losing 
   expect(event.detail.report).toContain('ACTION_REQUEST: Restore local reference-audio');
   fireEvent.click(screen.getByRole('button', { name: 'referenceAsr.retry' }));
   expect(retry).toHaveBeenCalledOnce();
-  window.removeEventListener('voicestudio:repair-agent-open', listener);
+  window.removeEventListener('sado:repair-agent-open', listener);
 });

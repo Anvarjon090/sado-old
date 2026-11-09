@@ -38,18 +38,18 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from agent_identities import AGENT_EMAILS
 
 CLA_VERSION = "1.0"
-SIGN_PHRASE = f"I have read the VoiceStudio CLA {CLA_VERSION} and I hereby sign it."
+SIGN_PHRASE = f"I have read the Sado CLA {CLA_VERSION} and I hereby sign it."
 DOCUMENT_PATH = f".github/CLA-{CLA_VERSION}.md"
 SIGNATURE_BRANCH = "cla-signatures"
 SIGNATURE_PATH = f"signatures/v{CLA_VERSION}/cla.json"
 STATUS_CONTEXT = "CLA"
-NEAR_MISS_MARKER = "<!-- voicestudio-cla-near-miss:{} -->"
-NEAR_MISS_ID = re.compile(r"<!-- voicestudio-cla-near-miss:(\d+) -->")
+NEAR_MISS_MARKER = "<!-- sado-cla-near-miss:{} -->"
+NEAR_MISS_ID = re.compile(r"<!-- sado-cla-near-miss:(\d+) -->")
 # Issues carrying this label (only maintainers can apply labels) accept
 # signatures from anyone, so past contributors can sign without a pull request.
 SIGNING_LABEL = "cla"
 OVERRIDE_LABEL = "cla-override"
-COMMENT_MARKER = "<!-- voicestudio-cla -->"
+COMMENT_MARKER = "<!-- sado-cla -->"
 MAX_OPEN_PRS = 1000  # reaching the cap is incomplete evidence, so fail closed
 MAX_COMMITS = 250
 MAX_AUTHORS = 20  # authors (author plus co-authors) read per commit
@@ -128,7 +128,7 @@ def near_miss(comment: dict) -> str | None:
         return None
     body = comment.get("body") or ""
     text = " ".join(body.lower().split())
-    if "hereby sign" not in text or "voicestudio cla" not in text:
+    if "hereby sign" not in text or "sado cla" not in text:
         return None
     if not is_sign_comment(body):
         return "it does not contain the exact line on a line of its own"
@@ -231,12 +231,12 @@ def _safe(text: str) -> str:
 
 def render_comment(evaluation: Evaluation, doc_url: str) -> str:
     if evaluation.passed:
-        return f"{COMMENT_MARKER}\nAll contributors on this pull request have signed the VoiceStudio CLA. Thank you!"
+        return f"{COMMENT_MARKER}\nAll contributors on this pull request have signed the Sado CLA. Thank you!"
     intro = (
-        "Thank you for contributing to VoiceStudio. Before this pull request can merge, everyone who "
+        "Thank you for contributing to Sado. Before this pull request can merge, everyone who "
         f"contributed to it must sign the [Contributor License Agreement {CLA_VERSION}]({doc_url}) once. "
         "You keep your copyright; the agreement lets Yupcha Softwares Private Limited, the company that "
-        "maintains VoiceStudio, ship your work in both the AGPL-3.0 app and commercial builds."
+        "maintains Sado, ship your work in both the AGPL-3.0 app and commercial builds."
     )
     lines = [COMMENT_MARKER, intro]
     if evaluation.unsigned:
@@ -375,7 +375,7 @@ def ensure_branch(gh: GitHub) -> None:
     status, _, _ = gh.request("GET", f"/repos/{gh.repo}/git/ref/heads/{SIGNATURE_BRANCH}")
     if status == 200:
         return
-    readme = ("Signatures for the VoiceStudio Contributor License Agreement, written by "
+    readme = ("Signatures for the Sado Contributor License Agreement, written by "
               ".github/workflows/cla.yml. Do not edit by hand.\n")
     tree = gh.request("POST", f"/repos/{gh.repo}/git/trees", {"tree": [
         {"path": "README.md", "mode": "100644", "type": "blob", "content": readme}]})[1]

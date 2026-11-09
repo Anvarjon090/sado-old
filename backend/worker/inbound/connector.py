@@ -324,7 +324,7 @@ class NodeConnection:
 
         if first == grpc.aio.EOF or first.WhichOneof("payload") != "register":
             raise InboundConnectionError(
-                "That machine answered, but not as a VoiceStudio GPU node."
+                "That machine answered, but not as a Sado GPU node."
             )
         request = first.register
         validate = getattr(self._servicer, "validate_inbound_request", None)
@@ -371,7 +371,7 @@ class NodeConnection:
             first = await stream.read()
             if first == grpc.aio.EOF or first.WhichOneof("payload") != "register":
                 raise RuntimeError(
-                    "That machine answered, but not as a VoiceStudio GPU node."
+                    "That machine answered, but not as a Sado GPU node."
                 )
 
             response = await self._register(first.register)

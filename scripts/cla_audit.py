@@ -38,7 +38,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-SLUG = "debpalash/VoiceStudio"
+SLUG = "Anvarjon090/sado"
 
 _spec = importlib.util.spec_from_file_location("cla_check", REPO / ".github" / "scripts" / "cla_check.py")
 cla = importlib.util.module_from_spec(_spec)

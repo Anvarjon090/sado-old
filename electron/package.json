@@ -1,13 +1,13 @@
 {
-  "name": "voicestudio-electron",
+  "name": "sado-electron",
   "version": "0.0.0-electron",
   "private": true,
-  "description": "VoiceStudio desktop shell (Electron) - local voice cloning, no cloud.",
-  "homepage": "https://github.com/debpalash/VoiceStudio",
+  "description": "Sado desktop shell (Electron) - local voice cloning, no cloud.",
+  "homepage": "https://github.com/Anvarjon090/sado",
   "license": "AGPL-3.0-only",
   "author": {
-    "name": "VoiceStudio contributors",
-    "email": "hi@voicestudio.sh"
+    "name": "Sado contributors",
+    "email": "hi@sado.sh"
   },
   "type": "module",
   "main": "./out/main/index.js",
@@ -112,8 +112,8 @@
     "vite-plus": "^0.3.1",
     "vitest": "4.1.11"
   },
-  "desktopName": "VoiceStudio",
-  "productName": "VoiceStudio",
+  "desktopName": "Sado",
+  "productName": "Sado",
   "trustedDependencies": [
     "electron",
     "esbuild",

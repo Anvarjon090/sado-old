@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 
-const baseUrl = process.env.VOICESTUDIO_SMOKE_URL ?? 'http://localhost:3912';
+const baseUrl = process.env.SADO_SMOKE_URL ?? 'http://localhost:3912';
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const errors = [];
@@ -10,7 +10,7 @@ page.on('console', (message) => {
   if (message.type() === 'error') errors.push(message.text());
 });
 try {
-  await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
+  await page.addInitScript(() => localStorage.setItem('sado.setup.complete.v1', '1'));
   await page.goto(baseUrl + '/#/stories');
   const compactSidebar = page.locator('[data-slot=compact-main-sidebar]');
   await compactSidebar.waitFor();

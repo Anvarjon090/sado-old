@@ -25,7 +25,7 @@ export function WorkspaceSidebar() {
   const { compact, compactViewport, forceExpanded, secondaryWorkspace, setOpen } =
     useWorkspaceSidebarState();
   const sidebarResize = usePaneResize({
-    storageKey: 'voicestudio.library-width',
+    storageKey: 'sado.library-width',
     side: 'left',
     minimum: mac ? 288 : 220,
     initial: mac ? 288 : 256,

@@ -10,7 +10,7 @@
  *
  * Both are 0xC0000005, STATUS_ACCESS_VIOLATION. A table written against one
  * representation silently matches nothing from the other, which is how
- * https://github.com/debpalash/VoiceStudio/issues/2250 arrived titled
+ * https://github.com/Anvarjon090/sado/issues/2250 arrived titled
  * "exit code 3221225477" with no indication that the backend had segfaulted.
  *
  * Signals diverge the same way: POSIX Tauri reports the number (11), Node

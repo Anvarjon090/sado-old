@@ -5,9 +5,9 @@ import { resolve } from 'node:path';
 import { DictationOutputClient } from '../src/main/dictation-output';
 
 const helper = new DictationOutputClient(
-  process.env.VOICESTUDIO_NATIVE_OUTPUT_EXE ||
+  process.env.SADO_NATIVE_OUTPUT_EXE ||
     resolve(
-      'native/desktop-bridge/target/debug/voicestudio-desktop-bridge' +
+      'native/desktop-bridge/target/debug/sado-desktop-bridge' +
         (process.platform === 'win32' ? '.exe' : ''),
     ),
 );

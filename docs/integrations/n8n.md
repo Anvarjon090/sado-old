@@ -1,15 +1,15 @@
 # n8n: local text to speech
 
-**Integrations → n8n** exports a manual workflow using VoiceStudio's current
+**Integrations → n8n** exports a manual workflow using Sado's current
 backend address. It contains a Manual Trigger and an HTTP Request node; it does
 not activate a schedule, install n8n, expose your backend, or include credentials.
 
-1. Start VoiceStudio and install/select a working TTS engine.
-2. Choose **Save as…** on the n8n detail page. Import `voicestudio-n8n.json`
+1. Start Sado and install/select a working TTS engine.
+2. Choose **Save as…** on the n8n detail page. Import `sado-n8n.json`
    through n8n's workflow import menu. You can also copy its JSON into n8n.
-3. Open the **VoiceStudio** HTTP Request node. Edit `input` in its JSON body.
+3. Open the **Sado** HTTP Request node. Edit `input` in its JSON body.
    `voice: "default"` uses the engine's default; use a saved voice profile ID for
-   cloning. `model: "tts-1"` selects VoiceStudio's active engine.
+   cloning. `model: "tts-1"` selects Sado's active engine.
 4. Run the workflow manually. The request returns WAV audio in the binary
    `audio` field, ready for a following n8n node or download.
 
@@ -37,12 +37,12 @@ larger timeout in n8n.
 
 Copying/importing this workflow does not establish a live connection. A successful
 manual execution producing a WAV confirms your engine, address and credentials.
-VoiceStudio processes speech at the selected backend; what subsequent n8n nodes
+Sado processes speech at the selected backend; what subsequent n8n nodes
 do with the audio is controlled by your workflow.
 
 The node configuration follows n8n's official
 [HTTP Request documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/).
-Tests send the exported request through VoiceStudio's real HTTP route with a local
+Tests send the exported request through Sado's real HTTP route with a local
 test engine, checking its WAV response. The generated export was also imported
 and executed with n8n 2.39.8 on Linux, producing a valid WAV in its binary output.
 Each generated configuration has its own workflow ID, avoiding collisions with

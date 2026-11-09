@@ -1,5 +1,5 @@
-export const SETUP_IN_PROGRESS_KEY = 'voicestudio.setup.in-progress.v1';
-export const SETUP_COMPLETE_KEY = 'voicestudio.setup.complete.v1';
+export const SETUP_IN_PROGRESS_KEY = 'sado.setup.in-progress.v1';
+export const SETUP_COMPLETE_KEY = 'sado.setup.complete.v1';
 
 export function setupWasStarted(): boolean {
   try {

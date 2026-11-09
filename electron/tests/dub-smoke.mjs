@@ -29,8 +29,8 @@ try {
       { index, text },
     );
   await page.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
-    localStorage.setItem('voicestudio.locale', 'en');
+    localStorage.setItem('sado.setup.complete.v1', '1');
+    localStorage.setItem('sado.locale', 'en');
     globalThis.__dubAgentRequests = [];
     globalThis.__nativeSaveRequests = [];
     const bridge = {
@@ -66,17 +66,17 @@ try {
         },
       },
     };
-    Object.defineProperty(window, 'voicestudio', {
+    Object.defineProperty(window, 'sado', {
       configurable: true,
       value: bridge,
     });
-    if (sessionStorage.getItem('voicestudio.test.reset-dub') === '1') {
-      localStorage.removeItem('voicestudio.dub.session.v1');
-      sessionStorage.removeItem('voicestudio.test.reset-dub');
+    if (sessionStorage.getItem('sado.test.reset-dub') === '1') {
+      localStorage.removeItem('sado.dub.session.v1');
+      sessionStorage.removeItem('sado.test.reset-dub');
     }
   });
-  const video = process.env.VOICESTUDIO_TEST_VIDEO
-    ? readFileSync(process.env.VOICESTUDIO_TEST_VIDEO)
+  const video = process.env.SADO_TEST_VIDEO
+    ? readFileSync(process.env.SADO_TEST_VIDEO)
     : null;
   const errors = [];
   const vidstackWarnings = [];
@@ -145,7 +145,7 @@ try {
     route.fulfill({ json: { pairs: [] } }),
   );
   await page.route('**/api/glossary/fixture', (route) =>
-    route.fulfill({ json: [{ source: 'VoiceStudio', target: 'VoiceStudio' }] }),
+    route.fulfill({ json: [{ source: 'Sado', target: 'Sado' }] }),
   );
   await page.route('**/api/settings/llm-skills', (route) =>
     route.fulfill({
@@ -234,7 +234,7 @@ try {
     }),
   );
   await page.goto(
-    new URL('/#/dub', process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902').href,
+    new URL('/#/dub', process.env.SADO_UI_URL || 'http://localhost:3902').href,
   );
   await page.locator('summary').filter({ hasText: 'Spoken language' }).click();
   const analysis = page
@@ -366,7 +366,7 @@ try {
   assert.equal(agentRequest.purpose, 'translate');
   assert.equal(agentRequest.sourceLanguage, 'en');
   assert.equal(agentRequest.targetLanguage, 'Spanish');
-  assert.deepEqual(agentRequest.glossary, [{ source: 'VoiceStudio', target: 'VoiceStudio' }]);
+  assert.deepEqual(agentRequest.glossary, [{ source: 'Sado', target: 'Sado' }]);
   assert.deepEqual(agentRequest.segments, [
     {
       id: '1',
@@ -552,7 +552,7 @@ try {
     await page.getByRole('button', { name: '320 kbps', exact: true }).getAttribute('aria-pressed'),
     'true',
   );
-  await page.evaluate(() => sessionStorage.setItem('voicestudio.test.reset-dub', '1'));
+  await page.evaluate(() => sessionStorage.setItem('sado.test.reset-dub', '1'));
   await page.reload();
   failTranscription = true;
   await page.getByRole('textbox', { name: /paste YouTube/ }).fill('https://example.com/movie.mp4');
@@ -594,8 +594,8 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(vidstackWarnings, []);
   if (video) assert.equal(mediaHeadRequests, 0);
-  if (process.env.VOICESTUDIO_SCREENSHOT)
-    await page.screenshot({ path: process.env.VOICESTUDIO_SCREENSHOT });
+  if (process.env.SADO_SCREENSHOT)
+    await page.screenshot({ path: process.env.SADO_SCREENSHOT });
   console.log(
     'PASS: dub upload, streamed transcription, subtitle import, translate, edit, reload recovery, generate, export readiness and URL import',
   );

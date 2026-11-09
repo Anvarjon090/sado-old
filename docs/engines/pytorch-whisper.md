@@ -1,11 +1,11 @@
-# VoiceStudio — PyTorch Whisper Engine
+# Sado — PyTorch Whisper Engine
 
 Whisper through the plain `transformers` pipeline, riding torch itself. No
 extra install — transformers ships with the app — and because it runs on
 torch's own stack (including torch's bundled cuDNN 9), it works on machines
 where the CTranslate2 engines can't load. It is also the engine that
 genuinely uses **AMD ROCm** GPUs, so auto-detect picks it on ROCm hosts
-([#1529](https://github.com/debpalash/VoiceStudio/issues/1529)).
+([#1529](https://github.com/Anvarjon090/sado/issues/1529)).
 
 ## Selecting it
 
@@ -21,7 +21,7 @@ genuinely uses **AMD ROCm** GPUs, so auto-detect picks it on ROCm hosts
   GPU (CTranslate2 has no HIP build, MLX is Apple-only).
 - **Rescue engine** when whisperx/faster-whisper can't load — e.g. the
   missing-cuDNN-8 case
-  ([#255](https://github.com/debpalash/VoiceStudio/issues/255)) — since it
+  ([#255](https://github.com/Anvarjon090/sado/issues/255)) — since it
   needs neither CTranslate2 nor cuDNN 8.
 
 For lip-sync-grade word timing prefer [whisperx](whisperx.md) or
@@ -58,7 +58,7 @@ headroom. Any other repository, including a fine-tune, keeps 5 GB.
 | any other repository | 5 GB |
 
 A 6 GB card with nothing else loaded runs the default model on the GPU
-([#2041](https://github.com/debpalash/VoiceStudio/issues/2041)). Disable
+([#2041](https://github.com/Anvarjon090/sado/issues/2041)). Disable
 the check with `OMNIVOICE_ASR_VRAM_PREFLIGHT=0`.
 
 The preflight sizes the weights; the generation workspace grows with the
@@ -73,8 +73,8 @@ dub transcript.
   is either an incomplete transformers install or a torch/torchvision
   version mismatch — the error message names the exact reinstall command;
   the trio has to move together at the pinned versions
-  ([#549](https://github.com/debpalash/VoiceStudio/issues/549),
-  [#1376](https://github.com/debpalash/VoiceStudio/issues/1376)).
+  ([#549](https://github.com/Anvarjon090/sado/issues/549),
+  [#1376](https://github.com/Anvarjon090/sado/issues/1376)).
 - Transcribes are time-bounded like every local engine:
   `OMNIVOICE_TRANSCRIBE_CHUNK_TIMEOUT_S` (default 120 s per dub chunk),
   `OMNIVOICE_ASR_TRANSCRIBE_TIMEOUT_S` (default 300 s whole-file).

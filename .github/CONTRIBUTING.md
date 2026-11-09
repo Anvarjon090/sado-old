@@ -1,14 +1,14 @@
-# Contributing to VoiceStudio
+# Contributing to Sado
 
-Thanks for your interest in improving VoiceStudio! This guide covers everything you need to get started.
+Thanks for your interest in improving Sado! This guide covers everything you need to get started.
 
 ## Quick Links
 
 | | |
 |---|---|
 | 💬 **Chat** | [Discord](https://discord.gg/bzQavDfVV9) |
-| 🐛 **Bugs** | [GitHub Issues](https://github.com/debpalash/VoiceStudio/issues) |
-| 🏷️ **Good First Issues** | [Filtered list](https://github.com/debpalash/VoiceStudio/labels/good%20first%20issue) |
+| 🐛 **Bugs** | [GitHub Issues](https://github.com/Anvarjon090/sado/issues) |
+| 🏷️ **Good First Issues** | [Filtered list](https://github.com/Anvarjon090/sado/labels/good%20first%20issue) |
 | 📋 **Roadmap** | [docs/ROADMAP.md](../docs/ROADMAP.md) |
 
 ---
@@ -47,8 +47,8 @@ for Fedora and Arch packages.
 ### Clone & Run
 
 ```bash
-git clone https://github.com/debpalash/VoiceStudio.git
-cd VoiceStudio
+git clone https://github.com/Anvarjon090/sado.git
+cd Sado
 bun install
 bun run setup:api  # prepare Python dependencies before starting Electron
 bun run dev
@@ -100,7 +100,7 @@ modules and native helpers used by Electron remain maintained.
 ## Project Structure
 
 ```
-VoiceStudio/
+Sado/
 ├── backend/                 # Python FastAPI server
 │   ├── api/                 # Route handlers
 │   ├── core/                # Config, prefs, constants
@@ -126,7 +126,7 @@ VoiceStudio/
 
 ### Bug Reports
 
-Open an [issue](https://github.com/debpalash/VoiceStudio/issues/new) with:
+Open an [issue](https://github.com/Anvarjon090/sado/issues/new) with:
 
 1. **What happened** vs **what you expected**
 2. **Steps to reproduce**
@@ -151,7 +151,7 @@ Open an [issue](https://github.com/debpalash/VoiceStudio/issues/new) with:
 
 ### Adding a New TTS Engine
 
-VoiceStudio's TTS backend is a plugin registry. Adding a new engine takes ~50 lines:
+Sado's TTS backend is a plugin registry. Adding a new engine takes ~50 lines:
 
 1. Open `backend/services/tts_backend.py`
 2. Create a class extending `TTSBackend`:
@@ -333,7 +333,7 @@ that — the agent recalls the architecture, conventions, and your past findings
 instead of re-reading the tree each time. [**memxt**](https://github.com/debpalash/memxt)
 (100% local, MCP-based, built by this project's maintainer) exists for exactly
 this; any MCP memory server works. Pair it with the repo's agent skill —
-`npx skills add debpalash/VoiceStudio` — so your agent knows the project's
+`npx skills add Anvarjon090/sado` — so your agent knows the project's
 hard rules from the first prompt.
 
 ## Quality gates your PR must pass
@@ -390,14 +390,14 @@ hard rules from the first prompt.
 
 ## Contribution licensing
 
-VoiceStudio is **AGPL-3.0-only**, and the maintainer also offers a
+Sado is **AGPL-3.0-only**, and the maintainer also offers a
 **commercial license** (see [LICENSE-NOTICE.md](../LICENSE-NOTICE.md)). Before
 a pull request can merge, the person who opened it and every commit author and
 co-author sign the [Contributor License Agreement](CLA-1.0.md) once. You keep
 your copyright. The agreement lets Yupcha Softwares Private Limited, the
-company that maintains VoiceStudio, ship your work in both the AGPL-3.0 app and
+company that maintains Sado, ship your work in both the AGPL-3.0 app and
 commercial builds. In return, the company commits that while your contribution
-is in the public VoiceStudio repository, it stays available there under
+is in the public Sado repository, it stays available there under
 AGPL-3.0 or another OSI-approved licence (CLA section 4). AI agents can't be co-authors (see
 [Contributing with AI agents](#contributing-with-ai-agents)); the person
 submitting the work signs for it.
@@ -406,13 +406,13 @@ The **CLA** check comments on your pull request when someone still needs to
 sign. To sign, post this as a new comment, on its own line:
 
 ```text
-I have read the VoiceStudio CLA 1.0 and I hereby sign it.
+I have read the Sado CLA 1.0 and I hereby sign it.
 ```
 
 The signature covers your earlier and future contributions, and the check
 turns green on its own. If a maintainer folds your pull request into another
 one, you sign once there too. Contributed before and have no open pull request? Post
-the same line on the [issue labelled `cla`](https://github.com/debpalash/VoiceStudio/issues?q=label%3Acla). If it lists a commit it cannot link to a GitHub
+the same line on the [issue labelled `cla`](https://github.com/Anvarjon090/sado/issues?q=label%3Acla). If it lists a commit it cannot link to a GitHub
 account, either add that commit email to your account (Settings → Emails), or
 rewrite the commits with an email that is on it (`git commit --amend
 --reset-author`, or an interactive rebase) and push again. Comment `recheck` to
@@ -426,7 +426,7 @@ replace the CLA.
 ## Need Help?
 
 - **Stuck on setup?** Ask in [Discord #help](https://discord.gg/bzQavDfVV9)
-- **Not sure where to start?** Check [good first issues](https://github.com/debpalash/VoiceStudio/labels/good%20first%20issue)
-- **Want to discuss a big change?** Open a [discussion](https://github.com/debpalash/VoiceStudio/discussions) or Discord thread before coding
+- **Not sure where to start?** Check [good first issues](https://github.com/Anvarjon090/sado/labels/good%20first%20issue)
+- **Want to discuss a big change?** Open a [discussion](https://github.com/Anvarjon090/sado/discussions) or Discord thread before coding
 
 Thank you for contributing! 🎙️

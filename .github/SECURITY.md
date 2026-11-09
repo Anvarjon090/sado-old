@@ -9,7 +9,7 @@
 
 ## Model supply chain
 
-VoiceStudio supports models from **public, verifiable sources only** (Hugging
+Sado supports models from **public, verifiable sources only** (Hugging
 Face repos, official project releases). Privately sold or gated model files
 are not supported: an archive from a private source can carry anything
 (bundled executables, modified configs), and nobody else can verify or
@@ -22,8 +22,8 @@ download, and never run executables bundled with model archives.
 
 Instead, report them privately via one of these channels:
 
-1. **GitHub Security Advisories** (preferred) — [Report a vulnerability](https://github.com/debpalash/VoiceStudio/security/advisories/new)
-2. **Email** — Send details to **security@voicestudio.sh**
+1. **GitHub Security Advisories** (preferred) — [Report a vulnerability](https://github.com/Anvarjon090/sado/security/advisories/new)
+2. **Email** — Send details to **security@sado.sh**
 
 ### What to include
 
@@ -43,7 +43,7 @@ Instead, report them privately via one of these channels:
 
 ### Scope
 
-VoiceStudio runs **100% locally** by default. The primary attack surface is:
+Sado runs **100% locally** by default. The primary attack surface is:
 
 - **Network exposure** — if the user binds to `0.0.0.0` without a reverse proxy
 - **Model downloads** — fetched from Hugging Face Hub over HTTPS
@@ -70,6 +70,6 @@ GitHub Apps on creation.
 
 ## Security Best Practices for Users
 
-- **Do not expose VoiceStudio beyond loopback without authentication.** The API is unauthenticated on loopback by default. Before remote access, set `OMNIVOICE_API_KEY` (or enable the in-app share PIN for LAN guests) as described in [API authentication](../docs/api-auth.md), and use TLS through a reverse proxy or a private network such as Tailscale.
+- **Do not expose Sado beyond loopback without authentication.** The API is unauthenticated on loopback by default. Before remote access, set `OMNIVOICE_API_KEY` (or enable the in-app share PIN for LAN guests) as described in [API authentication](../docs/api-auth.md), and use TLS through a reverse proxy or a private network such as Tailscale.
 - **Keep your installation updated.** The desktop app auto-checks for updates via the built-in updater.
 - **Review model sources.** Only download models from trusted Hugging Face repositories.

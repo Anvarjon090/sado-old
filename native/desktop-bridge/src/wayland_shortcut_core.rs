@@ -208,7 +208,7 @@ fn desktop_exec_path() -> Result<std::path::PathBuf, String> {
     if let Some(path) = std::env::var_os("APPIMAGE").filter(|path| !path.is_empty()) {
         return Ok(path.into());
     }
-    std::env::current_exe().map_err(|error| format!("could not locate VoiceStudio: {error}"))
+    std::env::current_exe().map_err(|error| format!("could not locate Sado: {error}"))
 }
 
 fn desktop_exec_value(path: &std::path::Path) -> String {
@@ -248,7 +248,7 @@ fn ensure_desktop_identity(identity: &DesktopIdentity) -> Result<(), String> {
             .map_err(|error| format!("could not create applications directory: {error}"))?;
     }
     let entry = format!(
-        "[Desktop Entry]\nType=Application\nName=VoiceStudio\nExec={}\nTerminal=false\nNoDisplay=true\nStartupWMClass=VoiceStudio\nX-VoiceStudio-Generated=true\n",
+        "[Desktop Entry]\nType=Application\nName=Sado\nExec={}\nTerminal=false\nNoDisplay=true\nStartupWMClass=Sado\nX-Sado-Generated=true\n",
         desktop_exec_value(&identity.executable.clone().map(Ok).unwrap_or_else(desktop_exec_path)?)
     );
     std::fs::write(&path, entry)
@@ -558,7 +558,7 @@ fn bind(
     };
 
     let mut shortcut_info = VariantMap::new();
-    shortcut_info.insert("description".into(), variant_string("VoiceStudio"));
+    shortcut_info.insert("description".into(), variant_string("Sado"));
     if let Some(trigger) = portal_trigger(&accelerator) {
         shortcut_info.insert("preferred_trigger".into(), variant_string(&trigger));
     }
@@ -728,9 +728,9 @@ mod tests {
         let stale = "[Desktop Entry]\nType=Application\nExec=/gone/omnivoice-studio\n";
         assert!(super::entry_needs_rewrite(stale, |_| false));
 
-        let healthy = "[Desktop Entry]\nType=Application\nExec=\"/opt/VoiceStudio.AppImage\"\n";
+        let healthy = "[Desktop Entry]\nType=Application\nExec=\"/opt/Sado.AppImage\"\n";
         assert!(!super::entry_needs_rewrite(healthy, |path| {
-            path == std::path::Path::new("/opt/VoiceStudio.AppImage")
+            path == std::path::Path::new("/opt/Sado.AppImage")
         }));
     }
 

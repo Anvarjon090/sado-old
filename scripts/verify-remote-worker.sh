@@ -5,7 +5,7 @@
 # Usage:
 #   scripts/verify-remote-worker.sh --worker-id ID --ssh-target USER@HOST
 #
-# Environment equivalents: WORKER_ID, WORKER_SSH_TARGET, VOICESTUDIO_API,
+# Environment equivalents: WORKER_ID, WORKER_SSH_TARGET, SADO_API,
 # WORKER_CONTROL_PORT. The active worker may be discovered when there is
 # exactly one connected worker; SSH_TARGET may also come from WORKER_SSH_TARGET.
 # ──────────────────────────────────────────────────────────────────────
@@ -13,7 +13,7 @@ set -uo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-API="${VOICESTUDIO_API:-http://127.0.0.1:8000}"
+API="${SADO_API:-http://127.0.0.1:8000}"
 CONTROL_PORT="${WORKER_CONTROL_PORT:-7443}"
 WORKER_ID="${WORKER_ID:-}"
 SSH_TARGET="${WORKER_SSH_TARGET:-}"
@@ -39,7 +39,7 @@ header() { echo -e "\n${BOLD}$1${NC}"; }
 
 usage() {
     echo "Usage: $0 [--worker-id ID] [--ssh-target USER@HOST] [--ssh-identity PATH] [--api URL] [--control-port PORT] [--worker-start-command CMD]"
-    echo "Environment: WORKER_ID, WORKER_SSH_TARGET, WORKER_SSH_IDENTITY, WORKER_START_COMMAND, VOICESTUDIO_API, WORKER_CONTROL_PORT"
+    echo "Environment: WORKER_ID, WORKER_SSH_TARGET, WORKER_SSH_IDENTITY, WORKER_START_COMMAND, SADO_API, WORKER_CONTROL_PORT"
 }
 
 while [ $# -gt 0 ]; do
@@ -75,7 +75,7 @@ run_contract() {
     return 1
 }
 
-header "VoiceStudio — Remote Worker Acceptance"
+header "Sado — Remote Worker Acceptance"
 echo "   API: $API | control port: $CONTROL_PORT | $(date)"
 
 # Preconditions are intentionally fatal: continuing would produce misleading
@@ -261,7 +261,7 @@ then
 else
     fail "dictation did not resolve to Local"
 fi
-manual "Worker-loss audiobook check: start a multi-chapter audiobook with $WORKER_LABEL selected; after one chapter completes, stop ONLY the worker with: ssh -n $SSH_TARGET_QUOTED 'pkill -TERM -x python3.11 || pkill -TERM -x python3' </dev/null >/tmp/voicestudio-worker-stop.log 2>&1. Confirm remaining chapters render locally and exactly ONE combined fallback notice appears. Restart with: ssh -n $SSH_TARGET_QUOTED \"nohup sh -c $WORKER_START_QUOTED </dev/null >/tmp/voicestudio-worker-start.log 2>&1 &\" </dev/null >/tmp/voicestudio-worker-ssh.log 2>&1. Then verify Dictation still transcribes locally. This intentionally disruptive step is never run automatically."
+manual "Worker-loss audiobook check: start a multi-chapter audiobook with $WORKER_LABEL selected; after one chapter completes, stop ONLY the worker with: ssh -n $SSH_TARGET_QUOTED 'pkill -TERM -x python3.11 || pkill -TERM -x python3' </dev/null >/tmp/sado-worker-stop.log 2>&1. Confirm remaining chapters render locally and exactly ONE combined fallback notice appears. Restart with: ssh -n $SSH_TARGET_QUOTED \"nohup sh -c $WORKER_START_QUOTED </dev/null >/tmp/sado-worker-start.log 2>&1 &\" </dev/null >/tmp/sado-worker-ssh.log 2>&1. Then verify Dictation still transcribes locally. This intentionally disruptive step is never run automatically."
 
 header "Result"
 if [ "$FAILURES" -gt 0 ]; then

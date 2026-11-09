@@ -45,7 +45,7 @@ const platform = option('platform', process.platform);
 const arch = option('arch', process.arch);
 const channel = option(
   'channel',
-  process.env.VOICESTUDIO_UPDATE_CHANNEL || `electron-stable-${platform}-${arch}`,
+  process.env.SADO_UPDATE_CHANNEL || `electron-stable-${platform}-${arch}`,
 );
 const releaseDir = resolve(electronRoot, option('release', 'release'));
 assert.equal(channel, `electron-stable-${platform}-${arch}`, 'Stable is the only update channel');
@@ -99,7 +99,7 @@ assert.equal(hashes.sha512, fileSha, 'Update metadata SHA-512 matches artifact b
 
 const osToken = platform === 'win32' ? 'win' : platform === 'darwin' ? 'mac' : 'linux';
 assert(
-  fileUrl.startsWith(`VoiceStudio-Electron-${expectedVersion}-${osToken}-${arch}.`),
+  fileUrl.startsWith(`Sado-Electron-${expectedVersion}-${osToken}-${arch}.`),
   'Update artifact preserves the branded version/platform/architecture name',
 );
 
@@ -123,7 +123,7 @@ if (platform === 'win32') {
   }).trim();
   assert.equal(
     updateInfo,
-    'gh-releases-zsync|debpalash|VoiceStudio|latest|VoiceStudio-Electron-*-linux-x64.AppImage.zsync',
+    'gh-releases-zsync|debpalash|Sado|latest|Sado-Electron-*-linux-x64.AppImage.zsync',
     'External AppImage updaters follow the stable Linux release feed',
   );
   const control = `${artifactPath}.zsync`;

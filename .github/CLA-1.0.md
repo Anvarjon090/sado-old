@@ -1,6 +1,6 @@
-# VoiceStudio Individual Contributor License Agreement 1.0
+# Sado Individual Contributor License Agreement 1.0
 
-Thank you for contributing to VoiceStudio. This Agreement records the rights
+Thank you for contributing to Sado. This Agreement records the rights
 you grant for your Contributions. It does not transfer your copyright: you keep
 ownership of your work and may use it for any other purpose.
 
@@ -9,17 +9,17 @@ and will need a new signature.
 
 ## How you accept
 
-Everyone who opens a pull request in `debpalash/VoiceStudio`, or authored or
+Everyone who opens a pull request in `Anvarjon090/sado`, or authored or
 co-authored a commit in one, accepts this Agreement once by posting this
 comment, on its own line, when the CLA check asks:
 
-> I have read the VoiceStudio CLA 1.0 and I hereby sign it.
+> I have read the Sado CLA 1.0 and I hereby sign it.
 
 The check stores your GitHub username and account ID, the pull request
 number, the ID and time of your comment, and this Agreement's version in the
 public `cla-signatures` branch of the repository. This public record is kept as evidence of the Agreement for as long
 as the Project uses Your Contributions. See the privacy policy at
-<https://voicestudio.sh/privacy>.
+<https://sado.sh/privacy>.
 
 Your comment is a licence in writing by You, and an electronic record, for the
 purposes of section 30 of the Indian Copyright Act, 1957 and the Information
@@ -33,8 +33,8 @@ Technology Act, 2000.
   office in Agartala, Tripura, together with its affiliates and any assignee
   under section 10. An affiliate is an entity that controls, is controlled by,
   or is under common control with Yupcha Softwares Private Limited.
-- **"Project"** means the VoiceStudio software and documentation published at
-  `https://github.com/debpalash/VoiceStudio`, including work published under
+- **"Project"** means the Sado software and documentation published at
+  `https://github.com/Anvarjon090/sado`, including work published under
   its former name, OmniVoice Studio.
 - **"Contribution"** means any code, documentation, asset, or other work of
   authorship that You submit to the Project for inclusion, through a pull
@@ -97,7 +97,7 @@ You represent that:
 2. each Contribution is Your original work, or You otherwise have the right to
    submit it under this Agreement;
 3. if Your employer or another party has rights in a Contribution, You have its
-   permission to grant these licences, or it has signed the VoiceStudio
+   permission to grant these licences, or it has signed the Sado
    Corporate Contributor License Agreement for You;
 4. You identify any third-party work in a Contribution, with its source and
    licence, when You submit it;

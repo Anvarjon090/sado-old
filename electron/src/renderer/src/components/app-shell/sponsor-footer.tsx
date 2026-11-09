@@ -15,7 +15,7 @@ import { SponsorInquiry } from './sponsor-inquiry';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
 import palashAvatar from '../../../../../public/social/palash.png';
-import studioAvatar from '../../../../../public/social/voicestudio.jpg';
+import studioAvatar from '../../../../../public/social/sado.jpg';
 import kofiLogo from '../../../../../public/social/kofi.svg';
 import paypalLogo from '../../../../../public/social/paypal.svg';
 import githubLogo from '../../../../../public/social/github.svg';
@@ -110,7 +110,7 @@ export function SponsorFooter() {
         </Tooltip>
         <div className="sponsor-footer-links">
           {[
-            { label: t('contact.website'), href: 'https://voicestudio.sh', Icon: GlobeIcon },
+            { label: t('contact.website'), href: 'https://sado.sh', Icon: GlobeIcon },
             { label: t('support.join_discord'), href: DISCORD_URL, logo: discordLogo },
           ].map(
             ({ label, href, Icon, logo }) => (
@@ -175,9 +175,9 @@ export function SponsorFooter() {
                 {[
                   { name: 'Palash', handle: 'idebpalash', href: X_URL, avatar: palashAvatar },
                   {
-                    name: 'VoiceStudio',
-                    handle: 'voicestudiosh',
-                    href: 'https://x.com/voicestudiosh',
+                    name: 'Sado',
+                    handle: 'sadosh',
+                    href: 'https://x.com/sadosh',
                     avatar: studioAvatar,
                   },
                 ].map(({ name, handle, href, avatar }) => (

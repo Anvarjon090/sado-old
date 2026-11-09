@@ -105,14 +105,14 @@ export default function PerformancePanel() {
               // translation string.
               issueLink: (
                 <a
-                  href="https://github.com/debpalash/VoiceStudio/issues/65"
+                  href="https://github.com/Anvarjon090/sado/issues/65"
                   target="_blank"
                   rel="noopener noreferrer"
                 />
               ),
               crashLink: (
                 <a
-                  href="https://github.com/debpalash/VoiceStudio/issues/2135"
+                  href="https://github.com/Anvarjon090/sado/issues/2135"
                   target="_blank"
                   rel="noopener noreferrer"
                 />

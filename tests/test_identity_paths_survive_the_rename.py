@@ -53,7 +53,7 @@ def test_the_public_env_var_prefix_is_unchanged(env_var):
     assert env_var in source, WHY
 
 
-def test_the_product_and_artifact_names_are_voicestudio():
+def test_the_product_and_artifact_names_are_sado():
     builder = _read("electron/electron-builder.config.mjs")
-    assert "productName: 'VoiceStudio'" in builder
-    assert "VoiceStudio-Electron-${version}" in builder
+    assert "productName: 'Sado'" in builder
+    assert "Sado-Electron-${version}" in builder

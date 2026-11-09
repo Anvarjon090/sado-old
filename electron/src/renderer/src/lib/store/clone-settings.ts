@@ -2,7 +2,7 @@ import { Store } from '@tanstack/store';
 import { useStore } from '@tanstack/react-store';
 import { debounce } from '@tanstack/react-pacer';
 
-export const CLONE_SETTINGS_STORAGE_KEY = 'voicestudio.clone.settings.v1';
+export const CLONE_SETTINGS_STORAGE_KEY = 'sado.clone.settings.v1';
 const PERSIST_DEBOUNCE_MS = 250;
 
 export interface CloneSettings {

@@ -90,7 +90,7 @@ export const blankLongformDraft = (): Draft => ({
   outputCachedChapters: 0,
   outputFailedChapters: 0,
 });
-const key = 'voicestudio.longform.v1';
+const key = 'sado.longform.v1';
 const drafts = {
   stories: blankLongformDraft(),
   audiobook: blankLongformDraft(),

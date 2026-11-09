@@ -214,7 +214,7 @@ export function HomePage() {
                       <TooltipTrigger
                         render={
                           <a
-                            href="https://voicestudio.sh"
+                            href="https://sado.sh"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="rounded-md transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
@@ -224,7 +224,7 @@ export function HomePage() {
                               event.preventDefault();
                               event.currentTarget.focus();
                               runRendererTask('Preview official website', () =>
-                                browser.open('https://voicestudio.sh'),
+                                browser.open('https://sado.sh'),
                               );
                             }}
                           />

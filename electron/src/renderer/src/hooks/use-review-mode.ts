@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react';
 
 export type ReviewMode = 'on' | 'off';
 
-const storageKey = 'voicestudio.review-mode.v1';
+const storageKey = 'sado.review-mode.v1';
 const listeners = new Set<() => void>();
 
 function read(): ReviewMode {

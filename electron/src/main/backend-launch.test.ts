@@ -150,7 +150,7 @@ it('passes legacy storage to packaged backends while preserving explicit overrid
 });
 
 it('names the program and runtime repair when the OS rejects a spawn', () => {
-  const python = String.raw`C:\Users\u\VoiceStudio\.venv\Scripts\python.exe`;
+  const python = String.raw`C:\Users\u\Sado\.venv\Scripts\python.exe`;
   const message = spawnFailureMessage(
     python,
     Object.assign(new Error('spawn UNKNOWN'), { code: 'UNKNOWN' }),
@@ -241,10 +241,10 @@ it('ignores supervisor log lines when this launch printed nothing', async () => 
 
 it('tells the backend the dev renderer port so Sharing reports the real UI port', () => {
   expect(devRendererPort('http://localhost:3902')).toBe('3902');
-  expect(devRendererPort('app://voicestudio/index.html')).toBeNull();
+  expect(devRendererPort('app://sado/index.html')).toBeNull();
   expect(devRendererPort(undefined)).toBeNull();
   vi.stubEnv('OMNIVOICE_UI_PORT', '');
-  vi.stubEnv('VOICESTUDIO_UI_PORT', '');
+  vi.stubEnv('SADO_UI_PORT', '');
   vi.stubEnv('ELECTRON_RENDERER_URL', 'http://localhost:4102');
   expect(managedBackendSpawnOptions(3900).env.OMNIVOICE_UI_PORT).toBe('4102');
   vi.stubEnv('OMNIVOICE_UI_PORT', '4200');

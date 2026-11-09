@@ -8,7 +8,7 @@ try {
   const page = await browser.newPage({ bypassCSP: true });
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
+  await page.addInitScript(() => localStorage.setItem('sado.setup.complete.v1', '1'));
   await page.route(
     (url) => url.pathname.startsWith('/api/'),
     (route) => {
@@ -31,7 +31,7 @@ try {
         : route.fulfill({ status: 404, json: { detail: 'Not mocked' } });
     },
   );
-  await page.goto((process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912') + '/#/stories');
+  await page.goto((process.env.SADO_UI_URL || 'http://localhost:3912') + '/#/stories');
   await page.locator('[data-slot=generate-panel]').waitFor({ timeout: 30000 });
   await page.evaluate(async () => {
     const { longformSession } = await import('/src/features/longform/longform-session.ts');

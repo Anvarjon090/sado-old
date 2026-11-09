@@ -1,6 +1,6 @@
 import type { AboutPanelOptionsOptions, App, MenuItemConstructorOptions } from 'electron';
 
-export const DESKTOP_APP_NAME = 'VoiceStudio';
+export const DESKTOP_APP_NAME = 'Sado';
 
 /** Set before Electron creates the native application menu. */
 export function installAppIdentity(application: Pick<App, 'setName'>): void {

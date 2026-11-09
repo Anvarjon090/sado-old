@@ -12,7 +12,7 @@ from concurrent.futures import Executor, Future, ThreadPoolExecutor
 from utils.containment import contain_system_exit
 
 # ── Lazy imports ─────────────────────────────────────────────────────
-# torch and VoiceStudio are heavy (~2-3s import on Apple Silicon).
+# torch and Sado are heavy (~2-3s import on Apple Silicon).
 # Deferring them until first use cuts cold start from ~4s to ~1.5s,
 # so health/status endpoints respond immediately on boot.
 
@@ -63,7 +63,7 @@ def _lazy_omnivoice():
     if _OmniVoice is None:
         try:
             # The class is OmniVoice — a library identifier, not product
-            # branding. The VoiceStudio rename must not touch it (checkpoint
+            # branding. The Sado rename must not touch it (checkpoint
             # configs reference the class name via transformers architectures).
             from omnivoice.models.omnivoice import OmniVoice as _OV
         except ModuleNotFoundError as exc:
@@ -101,7 +101,7 @@ from core.generate_budget import (
 
 logger = logging.getLogger("omnivoice.model")
 
-# Per-TTS-job VRAM headroom estimate. VoiceStudio's forward + autoregressive
+# Per-TTS-job VRAM headroom estimate. Sado's forward + autoregressive
 # decode peaks around 1.6 GB, but the interactive clone path co-loads WhisperX
 # large-v3 ASR (~3 GB) to transcribe the reference, so a *concurrent* clone job
 # is realistically ~5 GB. The old 2.5 GB budget over-committed: an 8 GB card
@@ -1213,11 +1213,11 @@ def _timeout_guidance(
         return (
             f"{what} was abandoned after {timeout:.0f}s without doing any "
             "work — it spent the whole time waiting on an internal lock, not "
-            "computing. This is a bug in VoiceStudio, not a limit of your "
+            "computing. This is a bug in Sado, not a limit of your "
             "machine, so shorter text or a lighter engine won't help. "
             "Restart the backend to clear it (Settings → Logs → Backend has "
             "the stack trace that was captured), and please report it with "
-            "that log at https://github.com/debpalash/VoiceStudio/issues — "
+            "that log at https://github.com/Anvarjon090/sado/issues — "
             "the trace names exactly where it stopped."
         )
     common = (
@@ -1464,7 +1464,7 @@ _model_lock = asyncio.Lock()
 #: `OmniVoiceBackend._ensure_loaded()` on a second pool worker holds only this
 #: lock. On a CUDA host the pool has up to four workers (#567), so the second
 #: route saw `model is None` — the preload had not finished — took this free
-#: lock, and ran `VoiceStudio.from_pretrained` CONCURRENTLY with the preload's.
+#: lock, and ran `Sado.from_pretrained` CONCURRENTLY with the preload's.
 #: Two overlapping native loads in one process is precisely what Windows
 #: answers with 0xC0000005 ("exit code -1073741819"), which is what #2394
 #: reported 16 s after startup while a background preload was in flight.
@@ -2041,7 +2041,7 @@ def _env_flag(name: str, default: bool = False) -> bool:
 
 
 def should_preload_tts_asr() -> bool:
-    """Whether VoiceStudio.from_pretrained should attach PyTorch Whisper.
+    """Whether Sado.from_pretrained should attach PyTorch Whisper.
 
     The default is intentionally false. On Apple Silicon, eager TTS + ASR
     loading can overcommit unified memory and leave desktop startup stuck
@@ -2177,7 +2177,7 @@ def _manual_cache_delete_hint(checkpoint: str) -> str:
             return ""
         from services.hf_cache_repair import repo_cache_dir
         return (
-            f" If the problem persists, quit VoiceStudio, delete "
+            f" If the problem persists, quit Sado, delete "
             f"{repo_cache_dir(checkpoint)} and restart — the model "
             "re-downloads automatically."
         )
@@ -2342,7 +2342,7 @@ _DEFAULT_OMNIVOICE_CHECKPOINT = "k2-fsa/OmniVoice"
 
 
 def resolve_omnivoice_checkpoint() -> str:
-    """Resolve the VoiceStudio TTS checkpoint from ``OMNIVOICE_MODEL``, self-healing
+    """Resolve the Sado TTS checkpoint from ``OMNIVOICE_MODEL``, self-healing
     a misconfigured value.
 
     A valid checkpoint is either a HuggingFace repo id (``org/repo`` — contains a
@@ -2554,23 +2554,23 @@ def _load_model_sync():
 
     lid = register_listener(_on_hf_progress)
     try:
-        _set_loading("importing", "Importing PyTorch & VoiceStudio runtime…")
-        logger.info("Importing PyTorch & VoiceStudio runtime…")
+        _set_loading("importing", "Importing PyTorch & Sado runtime…")
+        logger.info("Importing PyTorch & Sado runtime…")
         torch = _lazy_torch()
-        VoiceStudio = _lazy_omnivoice()
+        Sado = _lazy_omnivoice()
         device = get_best_device()
         from omnivoice.utils.dtype import tts_dtype_name
 
         checkpoint = resolve_omnivoice_checkpoint()
         _set_loading("loading_weights", f"Loading TTS weights on {device}…")
-        logger.info("Loading VoiceStudio model on device: %s", device)
+        logger.info("Loading Sado model on device: %s", device)
         preload_asr = should_preload_tts_asr()
         if preload_asr:
             logger.info("Preloading PyTorch Whisper after TTS model load.")
         else:
             logger.info("Skipping PyTorch Whisper preload; ASR will load on demand.")
         def _load():
-            return VoiceStudio.from_pretrained(
+            return Sado.from_pretrained(
                 checkpoint, device_map=device,
                 dtype=getattr(torch, tts_dtype_name(device)), load_asr=False,
             )
@@ -2600,7 +2600,7 @@ def _load_model_sync():
                 raise RuntimeError(
                     f"The {asset_label} files for {repair_checkpoint} are damaged and a "
                     "re-download did not fix them. Open the engine's Weights list in Model Catalogue, "
-                    "delete the VoiceStudio TTS model, and install it again."
+                    "delete the Sado TTS model, and install it again."
                     f"{_manual_cache_delete_hint(repair_checkpoint)}"
                 ) from exc
             _FORCED_REDOWNLOAD_ATTEMPTED.add(repair_checkpoint)
@@ -2619,7 +2619,7 @@ def _load_model_sync():
                     "download that stopped part-way, or a file changed on "
                     "disk after it arrived — and could not be re-downloaded "
                     f"automatically.{_repair_failure_detail()} Open Settings "
-                    "→ Models, delete the VoiceStudio TTS model, and install "
+                    "→ Models, delete the Sado TTS model, and install "
                     f"it again.{_manual_cache_delete_hint(repair_checkpoint)}"
                 ) from exc
             _set_loading("loading_weights", f"Loading TTS weights on {device}…")
@@ -2631,7 +2631,7 @@ def _load_model_sync():
                 raise RuntimeError(
                     f"The {asset_label} files for {repair_checkpoint} are still damaged "
                     "after being re-downloaded. Open the engine's Weights list in Model Catalogue, "
-                    "delete the VoiceStudio TTS model, and install it again."
+                    "delete the Sado TTS model, and install it again."
                     f"{_manual_cache_delete_hint(repair_checkpoint)}"
                 ) from exc2
 
@@ -2686,7 +2686,7 @@ def _load_model_sync():
                             f"The TTS model cache for {checkpoint} is incomplete "
                             "(weights missing — usually an interrupted download)."
                             f"{_repair_failure_detail()} "
-                            "Open the engine's Weights list in Model Catalogue, delete the VoiceStudio TTS model, "
+                            "Open the engine's Weights list in Model Catalogue, delete the Sado TTS model, "
                             f"and install it again.{_manual_cache_delete_hint(checkpoint)}"
                         ) from e
                     _set_loading("loading_weights", f"Loading TTS weights on {device}…")
@@ -2713,21 +2713,21 @@ def _load_model_sync():
                                     raise RuntimeError(
                                         f"The TTS model cache for {checkpoint} is incomplete "
                                         "and could not be auto-repaired. Open Model "
-                                        "Catalogue → Models, delete the VoiceStudio TTS model, and install "
+                                        "Catalogue → Models, delete the Sado TTS model, and install "
                                         f"it again.{_manual_cache_delete_hint(checkpoint)}"
                                     ) from e3
                             else:
                                 raise RuntimeError(
                                     f"The TTS model cache for {checkpoint} is incomplete and "
                                     f"could not be auto-repaired.{_repair_failure_detail()} "
-                                    "Open the engine's Weights list in Model Catalogue, delete the VoiceStudio TTS model, "
+                                    "Open the engine's Weights list in Model Catalogue, delete the Sado TTS model, "
                                     f"and install it again.{_manual_cache_delete_hint(checkpoint)}"
                                 ) from e2
                         else:
                             raise RuntimeError(
                                 f"The TTS model cache for {checkpoint} is incomplete and "
                                 "could not be auto-repaired. Open the engine's Weights list in Model Catalogue, delete "
-                                "the VoiceStudio TTS model, and install it again."
+                                "the Sado TTS model, and install it again."
                                 f"{_manual_cache_delete_hint(checkpoint)}"
                             ) from e2
         except Exception as e_corrupt:
@@ -2861,10 +2861,10 @@ def _load_model_sync():
         # metadata can be overwritten by a loader that completed after its
         # caller timed out. Instance metadata keeps /model/status honest.
         try:
-            setattr(_model, "_voicestudio_checkpoint", checkpoint)
+            setattr(_model, "_sado_checkpoint", checkpoint)
             setattr(
                 _model,
-                "_voicestudio_loaded_at",
+                "_sado_loaded_at",
                 time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             )
         except Exception:
@@ -2874,7 +2874,7 @@ def _load_model_sync():
             logger.debug("Could not attach resident model identity", exc_info=True)
 
         _set_loading("ready", "Model ready", progress=100)
-        logger.info("VoiceStudio model loaded successfully.")
+        logger.info("Sado model loaded successfully.")
         return _model
     except ModelLoadInterruptedByShutdown:
         raise
@@ -3174,7 +3174,7 @@ async def get_model(*, allow_load: bool = True):
     # Opportunistic profile samples must never load weights, including when
     # ASR or idle cleanup evicted them after the caller's residency check.
     if not allow_load:
-        raise RuntimeError("VoiceStudio model is not loaded")
+        raise RuntimeError("Sado model is not loaded")
 
     if running_on_gpu_pool():
         # Same reasoning as _heal_tts_placement below, applied to the COLD
@@ -3467,8 +3467,8 @@ def get_model_status():
     checkpoint = None
     loaded_at = None
     if is_loaded:
-        checkpoint = getattr(model, "_voicestudio_checkpoint", None)
-        loaded_at = getattr(model, "_voicestudio_loaded_at", None)
+        checkpoint = getattr(model, "_sado_checkpoint", None)
+        loaded_at = getattr(model, "_sado_loaded_at", None)
         if not checkpoint:
             try:
                 checkpoint = resolve_omnivoice_checkpoint()
@@ -3525,7 +3525,7 @@ async def idle_worker():
         idle_timeout = _resolve_idle_timeout()
         async with _model_lock:
             if model is not None and time.time() - _last_used > idle_timeout:
-                logger.info("Idle timeout reached. Unloading VoiceStudio model to free VRAM.")
+                logger.info("Idle timeout reached. Unloading Sado model to free VRAM.")
                 unload_shared_model()
         # The capture/dictation ASR was never idle-released — so once a user
         # dictated, its model stayed resident for the life of the process while
@@ -3695,7 +3695,7 @@ def free_vram():
 
 
 def unload_shared_model() -> bool:
-    """Drop the shared VoiceStudio model and actually give the memory back.
+    """Drop the shared Sado model and actually give the memory back.
 
     The order is the entire point of this function. Clearing the reference has
     to come FIRST, then the allocator caches. ``free_vram()`` run while

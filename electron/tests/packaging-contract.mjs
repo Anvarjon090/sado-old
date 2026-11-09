@@ -18,9 +18,9 @@ if (process.platform === 'linux') {
 }
 const require = createRequire(import.meta.url);
 const artifactRequested = process.argv.includes('--artifact');
-const artifactArch = process.env.VOICESTUDIO_RUST_TARGET?.startsWith('aarch64')
+const artifactArch = process.env.SADO_RUST_TARGET?.startsWith('aarch64')
   ? 'arm64'
-  : process.env.VOICESTUDIO_RUST_TARGET?.startsWith('x86_64')
+  : process.env.SADO_RUST_TARGET?.startsWith('x86_64')
     ? 'x64'
     : process.arch;
 const artifactCandidates =
@@ -30,8 +30,8 @@ const artifactCandidates =
       : ['release/win-unpacked']
     : process.platform === 'darwin'
       ? artifactArch === 'arm64'
-        ? ['release/mac-arm64/VoiceStudio.app/Contents', 'release/mac/VoiceStudio.app/Contents']
-        : ['release/mac/VoiceStudio.app/Contents', 'release/mac-x64/VoiceStudio.app/Contents']
+        ? ['release/mac-arm64/Sado.app/Contents', 'release/mac/Sado.app/Contents']
+        : ['release/mac/Sado.app/Contents', 'release/mac-x64/Sado.app/Contents']
       : artifactArch === 'arm64'
         ? ['release/linux-arm64-unpacked', 'release/linux-unpacked']
         : ['release/linux-unpacked'];
@@ -47,20 +47,20 @@ const artifactResources = resolve(
 const artifactExecutable = resolve(
   artifactRoot,
   process.platform === 'win32'
-    ? 'VoiceStudio.exe'
+    ? 'Sado.exe'
     : process.platform === 'darwin'
-      ? 'MacOS/VoiceStudio'
-      : 'voicestudio-electron',
+      ? 'MacOS/Sado'
+      : 'sado-electron',
 );
 const electronPackage = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
 assert.match(electronPackage.author?.email ?? '', /@/, 'Linux package declares a maintainer email');
-assert.equal(electronPackage.desktopName, 'VoiceStudio', 'Linux desktop identity stays branded');
+assert.equal(electronPackage.desktopName, 'Sado', 'Linux desktop identity stays branded');
 assert.equal(
   config.linux.syncDesktopName,
   true,
   'Linux window and desktop entry share one identity',
 );
-assert(config.mac.extendInfo.NSMicrophoneUsageDescription.includes('VoiceStudio'));
+assert(config.mac.extendInfo.NSMicrophoneUsageDescription.includes('Sado'));
 for (const entitlementFile of [config.mac.entitlements, config.mac.entitlementsInherit]) {
   const entitlements = readFileSync(resolve(root, entitlementFile), 'utf8');
   assert.match(entitlements, /<key>com\.apple\.security\.device\.audio-input<\/key>\s*<true\s*\/>/);
@@ -91,7 +91,7 @@ for (const [label, dir] of [
   }
 }
 const bundledUvSource = config.extraResources.find((item) => /^tools\/uv(?:\.exe)?$/.test(item.to));
-if (process.env.VOICESTUDIO_RUST_TARGET || process.env.VOICESTUDIO_BUNDLED_UV) {
+if (process.env.SADO_RUST_TARGET || process.env.SADO_BUNDLED_UV) {
   assert(bundledUvSource, 'Release builds package the pinned uv executable');
   assert(existsSync(bundledUvSource.from), 'Bundled uv source exists');
 }
@@ -108,8 +108,8 @@ const platformIcons = {
   linux: 'build/icons/icon.png',
 };
 for (const [platform, icon] of Object.entries(platformIcons)) {
-  assert.equal(config[platform].icon, icon, `${platform} uses the shared VoiceStudio icon`);
-  assert(existsSync(resolve(root, icon)), `${platform} VoiceStudio icon exists`);
+  assert.equal(config[platform].icon, icon, `${platform} uses the shared Sado icon`);
+  assert(existsSync(resolve(root, icon)), `${platform} Sado icon exists`);
 }
 for (const icon of ['brand/icon.png', 'brand/icon.ico', 'brand/32x32.png']) {
   const entry = config.extraResources.find((item) => item.to === icon);
@@ -130,15 +130,15 @@ for (const platform of ['win', 'mac', 'linux']) {
 }
 if (artifactRequested) {
   if (process.platform === 'linux') {
-    await verifyLinuxLibraries(resolve(artifactResources, 'native/voicestudio-desktop-bridge'));
+    await verifyLinuxLibraries(resolve(artifactResources, 'native/sado-desktop-bridge'));
   }
-  assert(existsSync(artifactExecutable), 'Packaged VoiceStudio executable');
+  assert(existsSync(artifactExecutable), 'Packaged Sado executable');
   assert(
     existsSync(
       resolve(
         artifactResources,
         'native',
-        'voicestudio-desktop-bridge' + (process.platform === 'win32' ? '.exe' : ''),
+        'sado-desktop-bridge' + (process.platform === 'win32' ? '.exe' : ''),
       ),
     ),
     'Packaged native dictation helper',

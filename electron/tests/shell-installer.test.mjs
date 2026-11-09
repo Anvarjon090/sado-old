@@ -20,7 +20,7 @@ test('installer isolates the app version from generic tooling variables', () => 
 for (const mac of [false, true]) {
   test(`uninstall preserves data and a recoverable app (${mac ? 'macOS' : 'Linux'})`, (t) => {
     const f = fixture(t, { mac });
-    const app = mac ? join(f.home, 'Applications/VoiceStudio.app') : join(f.home, '.local/bin/VoiceStudio');
+    const app = mac ? join(f.home, 'Applications/Sado.app') : join(f.home, '.local/bin/Sado');
     if (mac) {
       mkdirSync(join(app, 'Contents/Resources'), { recursive: true });
       writeFileSync(join(app, 'Contents/Resources/app.asar'), 'app');
@@ -34,9 +34,9 @@ for (const mac of [false, true]) {
     const recovery = result.stdout.match(/Recoverable copy: (.+)/)[1];
     if (mac) {
       assert.ok(recovery.startsWith(join(f.home, '.Trash') + '/'));
-      assert.match(readFileSync(join(f.root, 'registration'), 'utf8'), /-u .*VoiceStudio\.app/);
+      assert.match(readFileSync(join(f.root, 'registration'), 'utf8'), /-u .*Sado\.app/);
     }
-    assert.equal(existsSync(join(recovery, mac ? 'VoiceStudio.app' : 'VoiceStudio')), true);
+    assert.equal(existsSync(join(recovery, mac ? 'Sado.app' : 'Sado')), true);
     assert.equal(readFileSync(f.settings, 'utf8'), 'preserve me');
     assert.equal(existsSync(join(f.root, 'requests')), false);
     assert.equal(f.run(['--uninstall']).status, 0);
@@ -65,8 +65,8 @@ function fixture(t, options = {}) {
     `
 if [ "$1" = attach ]; then
  while [ "$1" != -mountpoint ]; do shift; done
- shift; mkdir -p "$1/VoiceStudio.app/Contents"
- printf fixture > "$1/VoiceStudio.app/Contents/Info.plist"
+ shift; mkdir -p "$1/Sado.app/Contents"
+ printf fixture > "$1/Sado.app/Contents/Info.plist"
 fi
 `,
   );
@@ -84,8 +84,8 @@ case "$url" in
  */latest) printf 'https://github.com/debpalash/VoiceStudio/releases/tag/v1.2.3';;
  */SHA256SUMS.txt)
    version=$(printf '%s' "$url" | sed 's|.*/download/v||; s|/.*||')
-   printf '%s  VoiceStudio-Electron-%s-${options.mac ? 'mac-arm64.dmg' : 'linux-x64.AppImage'}\\n' "$TEST_DIGEST" "$version" > "$out";;
- */VoiceStudio-Electron-*.AppImage|*/VoiceStudio-Electron-*.dmg)
+   printf '%s  Sado-Electron-%s-${options.mac ? 'mac-arm64.dmg' : 'linux-x64.AppImage'}\\n' "$TEST_DIGEST" "$version" > "$out";;
+ */Sado-Electron-*.AppImage|*/Sado-Electron-*.dmg)
    [ "$TEST_MISSING" = 0 ] || exit 22
    printf '${payload}' > "$out";;
  *) exit 22;;
@@ -110,14 +110,14 @@ else echo fixture-commit; fi
     `
 printf 'bun %s\\n' "$*" >> "$TEST_ROOT/commands"
 [ "$TEST_BUILD_FAIL" = 0 ] || exit 1
-if [ "$1 $2" = 'run electron-builder' ]; then printf '${payload}' > release/VoiceStudio-Electron-1.2.4-linux-x64.AppImage; fi
+if [ "$1 $2" = 'run electron-builder' ]; then printf '${payload}' > release/Sado-Electron-1.2.4-linux-x64.AppImage; fi
 `,
   );
   shim('cargo', 'exit 0\n');
   shim('readelf', 'exit 0\n');
   shim('zsyncmake', 'exit 0\n');
   shim('pgrep', options.linuxRunning
-    ? `case "$*" in *voicestudio-electron*) exit 0;; *) exit 1;; esac\n`
+    ? `case "$*" in *sado-electron*) exit 0;; *) exit 1;; esac\n`
     : options.running ? 'exit 0\n' : 'exit 1\n');
   shim('lsregister', 'printf "%s\\n" "$*" >> "$TEST_ROOT/registration"\n' + (options.registrationFails ? 'exit 1\n' : ''));
   const settings = join(home, 'settings');
@@ -137,7 +137,7 @@ if [ "$1 $2" = 'run electron-builder' ]; then printf '${payload}' > release/Voic
           TMPDIR: root,
           TEST_ROOT: root,
           TEST_DIGEST: options.badChecksum ? '0'.repeat(64) : digest,
-          VOICESTUDIO_INSTALL_DIR: options.installDir ?? (options.mac
+          SADO_INSTALL_DIR: options.installDir ?? (options.mac
             ? join(home, 'Applications')
             : join(home, '.local/bin')),
           TEST_MISSING: options.missing ? '1' : '0',
@@ -156,10 +156,10 @@ for (const [name, args, version] of [
     const f = fixture(t);
     const r = f.run(args);
     assert.equal(r.status, 0, r.stderr);
-    assert.equal(readFileSync(join(f.home, '.local/bin/VoiceStudio'), 'utf8'), payload);
+    assert.equal(readFileSync(join(f.home, '.local/bin/Sado'), 'utf8'), payload);
     assert.equal(readFileSync(f.settings, 'utf8'), 'preserve me');
     const requests = readFileSync(join(f.root, 'requests'), 'utf8');
-    assert.match(requests, new RegExp(`download/v${version}/VoiceStudio-Electron-`));
+    assert.match(requests, new RegExp(`download/v${version}/Sado-Electron-`));
     assert.doesNotMatch(requests, /latest\.json/);
     if (args.length) assert.doesNotMatch(requests, /releases\/latest/);
   });
@@ -169,7 +169,7 @@ for (const options of [{ badChecksum: true }, { missing: true }]) {
     const f = fixture(t, options);
     const r = f.run();
     assert.notEqual(r.status, 0);
-    assert.equal(existsSync(join(f.home, '.local/bin/VoiceStudio')), false);
+    assert.equal(existsSync(join(f.home, '.local/bin/Sado')), false);
   });
 }
 for (const option of ['--main', '--source']) {
@@ -177,7 +177,7 @@ for (const option of ['--main', '--source']) {
     const f = fixture(t);
     const r = f.run([option]);
     assert.equal(r.status, 0, r.stderr);
-    assert.equal(readFileSync(join(f.home, '.local/bin/VoiceStudio'), 'utf8'), payload);
+    assert.equal(readFileSync(join(f.home, '.local/bin/Sado'), 'utf8'), payload);
     const commands = readFileSync(join(f.root, 'commands'), 'utf8');
     assert.match(commands, /git clone --depth 1 --branch main --single-branch/);
     assert.match(commands, /bun install --frozen-lockfile/);
@@ -189,9 +189,9 @@ for (const option of ['--main', '--source']) {
 test('build failure does not replace an existing installation', (t) => {
   const f = fixture(t, { buildFails: true });
   mkdirSync(join(f.home, '.local/bin'), { recursive: true });
-  writeFileSync(join(f.home, '.local/bin/VoiceStudio'), 'old app');
+  writeFileSync(join(f.home, '.local/bin/Sado'), 'old app');
   assert.notEqual(f.run(['--main']).status, 0);
-  assert.equal(readFileSync(join(f.home, '.local/bin/VoiceStudio'), 'utf8'), 'old app');
+  assert.equal(readFileSync(join(f.home, '.local/bin/Sado'), 'utf8'), 'old app');
 });
 test('rejects invalid arguments before downloading', (t) => {
   const f = fixture(t);
@@ -202,7 +202,7 @@ test('rejects invalid arguments before downloading', (t) => {
 });
 test('macOS installs the verified Electron bundle and replaces only the app', (t) => {
   const f = fixture(t, { mac: true });
-  const app = join(f.home, 'Applications/VoiceStudio.app');
+  const app = join(f.home, 'Applications/Sado.app');
   mkdirSync(app);
   writeFileSync(join(app, 'old-file'), 'old');
   const result = f.run();
@@ -210,22 +210,22 @@ test('macOS installs the verified Electron bundle and replaces only the app', (t
   assert.equal(readFileSync(join(app, 'Contents/Info.plist'), 'utf8'), 'fixture');
   assert.equal(existsSync(join(app, 'old-file')), false);
   assert.equal(readFileSync(f.settings, 'utf8'), 'preserve me');
-  assert.match(readFileSync(join(f.root, 'registration'), 'utf8'), /-f .*VoiceStudio\.app/);
+  assert.match(readFileSync(join(f.root, 'registration'), 'utf8'), /-f .*Sado\.app/);
 });
 
-test('refuses replacement and uninstall while VoiceStudio is running', (t) => {
+test('refuses replacement and uninstall while Sado is running', (t) => {
   const f = fixture(t, { mac: true, running: true });
   for (const args of [[], ['--uninstall']]) {
     const result = f.run(args);
     assert.notEqual(result.status, 0);
-    assert.match(result.stderr, /Quit VoiceStudio/);
+    assert.match(result.stderr, /Quit Sado/);
   }
   assert.equal(existsSync(join(f.root, 'requests')), false);
 });
 
 test('macOS still removes the launchable copy if stale registration refresh fails', (t) => {
   const f = fixture(t, { mac: true, registrationFails: true });
-  const app = join(f.home, 'Applications/VoiceStudio.app');
+  const app = join(f.home, 'Applications/Sado.app');
   mkdirSync(join(app, 'Contents/Resources'), { recursive: true });
   writeFileSync(join(app, 'Contents/Resources/app.asar'), 'app');
   const result = f.run(['--uninstall']);
@@ -240,12 +240,12 @@ test('Linux packaged process blocks installation and uninstall before downloads'
   for (const args of [[], ['--uninstall']]) {
     const r = f.run(args);
     assert.notEqual(r.status, 0);
-    assert.match(r.stderr, /Quit VoiceStudio/);
+    assert.match(r.stderr, /Quit Sado/);
   }
   assert.equal(existsSync(join(f.root, 'requests')), false);
 });
 for (const mac of [true, false]) {
-  for (const installDir of ['relative', '/nonexistent-voicestudio-test-directory']) {
+  for (const installDir of ['relative', '/nonexistent-sado-test-directory']) {
     test(`rejects invalid custom install directory ${installDir} mac=${mac}`, (t) => {
       const f = fixture(t, { mac, installDir });
       assert.notEqual(f.run().status, 0);

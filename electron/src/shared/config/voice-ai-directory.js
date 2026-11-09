@@ -1,7 +1,7 @@
 // Integration directory links, not sponsors, rankings, or connected accounts.
 // Capabilities are not declared here: the Electron setup registry
 // (electron/src/renderer/src/features/integrations/setup-registry.ts) is the
-// only place that claims what an entry actually does with VoiceStudio.
+// only place that claims what an entry actually does with Sado.
 // Official icon sources and verification links: docs/integration-directory.md.
 import genericLogo from '../assets/integrations/integration-generic.svg';
 import twilioLogo from '../assets/integrations/twilio.png';
@@ -73,8 +73,8 @@ export const VOICE_AI_DIRECTORY = [
     logoUrl: genericLogo,
   },
   {
-    name: 'VoiceStudio API',
-    url: 'https://github.com/debpalash/VoiceStudio',
+    name: 'Sado API',
+    url: 'https://github.com/Anvarjon090/sado',
     logoUrl: genericLogo,
   },
 ];

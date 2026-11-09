@@ -49,7 +49,7 @@ try {
     deletes++;
     return route.fulfill({ json: { deleted: true } });
   });
-  await page.goto((process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902') + '/#/batch');
+  await page.goto((process.env.SADO_UI_URL || 'http://localhost:3902') + '/#/batch');
   assert(await page.getByRole('button', { name: 'Add to Queue', exact: true }).isDisabled());
   await page
     .locator('input[type=file]')

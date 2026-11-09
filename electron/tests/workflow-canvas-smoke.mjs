@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
-const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912';
+const base = process.env.SADO_UI_URL || 'http://localhost:3912';
 const browser = await chromium.launch({ ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}), headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
 async function mockBackend(target) {
@@ -44,7 +44,7 @@ page.on('dialog', async (dialog) => {
 });
 
 try {
-  await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
+  await page.addInitScript(() => localStorage.setItem('sado.setup.complete.v1', '1'));
   await page.goto(`${base}/#/calls`, { waitUntil: 'domcontentloaded' });
   try {
     await page.getByRole('heading', { name: 'Design a voice workflow' }).waitFor({ timeout: 5000 });
@@ -60,21 +60,21 @@ try {
   }
   assert.equal(await page.locator('.react-flow__node').count(), 3);
   const node = page.locator('.react-flow__node').first();
-  const before = await page.evaluate(() => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).documents[0].steps[0].position.x);
+  const before = await page.evaluate(() => JSON.parse(localStorage.getItem('sado.workflows.v1')).documents[0].steps[0].position.x);
   await node.click();
   await node.focus();
   await node.press('ArrowRight');
-  await page.waitForFunction((before) => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).documents[0].steps[0].position.x > before, before);
+  await page.waitForFunction((before) => JSON.parse(localStorage.getItem('sado.workflows.v1')).documents[0].steps[0].position.x > before, before);
   await page.reload();
   await page.getByRole('heading', { name: 'Design a voice workflow' }).waitFor();
-  assert((await page.evaluate(() => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).documents[0].steps[0].position.x)) > before);
+  assert((await page.evaluate(() => JSON.parse(localStorage.getItem('sado.workflows.v1')).documents[0].steps[0].position.x)) > before);
   await page.getByRole('button', { name: 'Call', exact: true }).click();
   await page.waitForFunction(() => document.querySelectorAll('.react-flow__node').length === 4);
   assert.equal(await page.locator('.react-flow__node').count(), 4);
   await page.getByLabel('Step name').fill('Booking');
   await page.getByLabel('Phone number').fill('+15550100199');
   await page.getByLabel('What should it do?').fill('Ask about opening hours');
-  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')));
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('sado.workflows.v1')));
   assert(stored.documents[0].steps.some((step) => step.title === 'Booking' && step.phone === '+15550100199'));
   await page.reload();
   await page.getByRole('heading', { name: 'Design a voice workflow' }).waitFor();
@@ -85,7 +85,7 @@ try {
   const deleteDialog = page.getByRole('dialog', { name: 'Delete' });
   await deleteDialog.waitFor();
   await page.waitForTimeout(180);
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-delete.png'), fullPage: true });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-delete.png'), fullPage: true });
   await deleteDialog.getByRole('button', { name: 'Cancel' }).click();
   assert.equal(await page.getByRole('button', { name: 'Untitled workflow (2)' }).count(), 1);
   await page.locator('.workflow-intro').getByRole('button', { name: 'Delete' }).click();
@@ -105,24 +105,24 @@ try {
   await page.getByRole('button', { name: 'Canvas', exact: true }).click();
   await page.getByRole('heading', { name: 'Design a voice workflow' }).waitFor();
   assert.equal(await page.locator('.react-flow__node').count(), 3);
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-canvas.png'), fullPage: true });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-canvas.png'), fullPage: true });
   await page.setViewportSize({ width: 1440, height: 1500 });
   const tallNode = await page.locator('.react-flow__node').nth(1).boundingBox();
   assert(tallNode && tallNode.y < 450 && tallNode.width >= 240, 'the call stays readable near the top of a tall canvas');
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-tall.png'), fullPage: true });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-tall.png'), fullPage: true });
   await page.setViewportSize({ width: 640, height: 720 });
   const mobileWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   assert(mobileWidth.scroll <= mobileWidth.client, 'workflow canvas overflows a narrow window');
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-mobile.png'), fullPage: true });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-mobile.png'), fullPage: true });
   assert.deepEqual(errors, []);
 
   const localized = await browser.newPage({ viewport: { width: 1280, height: 800 } });
   await mockBackend(localized);
   await localized.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
-    localStorage.setItem('voicestudio.locale', 'de');
-    localStorage.setItem('voicestudio.theme.v2', JSON.stringify({ mode: 'light', light: 'default', dark: 'default' }));
-    localStorage.setItem('voicestudio.workflows.v1', JSON.stringify({
+    localStorage.setItem('sado.setup.complete.v1', '1');
+    localStorage.setItem('sado.locale', 'de');
+    localStorage.setItem('sado.theme.v2', JSON.stringify({ mode: 'light', light: 'default', dark: 'default' }));
+    localStorage.setItem('sado.workflows.v1', JSON.stringify({
       version: 1,
       activeId: 'legacy',
       documents: ['workflows.untitled', 'workflows.untitled copy copy'].map((name, index) => ({
@@ -139,7 +139,7 @@ try {
   await localized.getByRole('button', { name: 'Bedingung' }).waitFor();
   assert.equal(await localized.getByRole('complementary', { name: 'Schrittdetails' }).count(), 0);
   assert.equal(await localized.getByText('workflows.untitled').count(), 0);
-  await localized.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-light.png'), fullPage: true });
+  await localized.screenshot({ path: join(tmpdir(), 'sado-workflow-light.png'), fullPage: true });
   await localized.close();
   console.log('Workflow canvas smoke passed');
 } finally {

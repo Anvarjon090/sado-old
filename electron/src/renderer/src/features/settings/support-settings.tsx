@@ -108,7 +108,7 @@ export function SupportSettings() {
 
       <div className="support-community" role="group" aria-label={t('support.other_ways')}>
         <span>{t('support.other_ways')}</span>
-        <ExternalLink href="https://github.com/debpalash/VoiceStudio">
+        <ExternalLink href="https://github.com/Anvarjon090/sado">
           <StarIcon aria-hidden="true" />
           {t('support.star_github')}
         </ExternalLink>

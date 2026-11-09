@@ -43,7 +43,7 @@ def test_release_preserves_authored_announcement_and_contributors(monkeypatch, t
     assets = tmp_path / "assets"
     assets.mkdir()
     for suffix in ("mac-arm64.dmg", "mac-x64.dmg", "linux-x64.deb"):
-        (assets / f"VoiceStudio-Electron-1.2.3-{suffix}").write_bytes(b"fixture")
+        (assets / f"Sado-Electron-1.2.3-{suffix}").write_bytes(b"fixture")
     module.prepare(assets, "v1.2.3")
     assert (assets / "RELEASE_NOTES.md").read_text() == notes
 

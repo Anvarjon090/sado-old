@@ -51,7 +51,7 @@ import { scrubText } from '../shared/utils/scrub';
 const DEFAULT_PORT = 3900;
 const DEFAULT_BUDGET_S = 300;
 const READY_POLL_MS = 500;
-/** Allow another VoiceStudio shell to take ownership without showing a false crash. */
+/** Allow another Sado shell to take ownership without showing a false crash. */
 const REPLACEMENT_ATTACH_GRACE_MS = 10_000;
 const SUPERVISE_POLL_MS = 2000;
 const PROBE_TIMEOUT_MS = 1500;
@@ -355,9 +355,9 @@ function writeRuntimeLocation(root: string, owned: boolean): void {
 
 function selectedRuntimeRoot(parent: string): string {
   const selected = resolve(parent);
-  return basename(selected).toLocaleLowerCase('en-US') === 'voicestudio'
+  return basename(selected).toLocaleLowerCase('en-US') === 'sado'
     ? selected
-    : join(selected, 'VoiceStudio');
+    : join(selected, 'Sado');
 }
 
 /** The web UI build packaged with this app version (served to LAN devices). */
@@ -449,7 +449,7 @@ function childEnv(
   // The dev renderer is served by Vite on a real port; tell the backend so
   // Settings -> Sharing reports it. Packaged builds serve app:// (no port).
   const rendererPort = devRendererPort(env.ELECTRON_RENDERER_URL);
-  if (rendererPort && !env.OMNIVOICE_UI_PORT?.trim() && !env.VOICESTUDIO_UI_PORT?.trim())
+  if (rendererPort && !env.OMNIVOICE_UI_PORT?.trim() && !env.SADO_UI_PORT?.trim())
     env.OMNIVOICE_UI_PORT = rendererPort;
   // #2215: the backend resolves uv as OMNIVOICE_BUNDLED_UV first and
   // `shutil.which("uv")` second. The packaged uv lives in resources/tools,
@@ -509,7 +509,7 @@ export function spawnFailureMessage(
   const launchRejected = ['ENOENT', 'UNKNOWN', 'EACCES', 'EPERM'].includes(code ?? '');
   if (!launchRejected) return `Could not start ${command}: ${detail}`;
   return runtimeOwned
-    ? `Could not start ${command}: ${detail}. Install or repair the local runtime, then restart VoiceStudio.`
+    ? `Could not start ${command}: ${detail}. Install or repair the local runtime, then restart Sado.`
     : `Could not start ${command}: ${detail}. Check that the program exists and can be launched, then try again.`;
 }
 
@@ -694,9 +694,9 @@ export class BackendSupervisor extends EventEmitter<{
         return;
       }
 
-      if (process.env.VOICESTUDIO_SKIP_BACKEND === '1') {
+      if (process.env.SADO_SKIP_BACKEND === '1') {
         this.setStage('attaching', {
-          message: `VOICESTUDIO_SKIP_BACKEND=1 — waiting for an external backend on port ${this.port}`,
+          message: `SADO_SKIP_BACKEND=1 — waiting for an external backend on port ${this.port}`,
         });
         void this.waitUntilReady(gen, Number.POSITIVE_INFINITY);
         return;
@@ -1259,7 +1259,7 @@ export class BackendSupervisor extends EventEmitter<{
     code: number | null,
     signal: NodeJS.Signals | null,
   ): Promise<void> {
-    // A second VoiceStudio shell can deliberately replace this child between
+    // A second Sado shell can deliberately replace this child between
     // process exit and its own listener becoming ready. Treat that handoff as
     // attachment, not a crash, and keep renderer requests paused meanwhile.
     this.setStage('attaching', { managed: false, message: undefined });
@@ -1269,7 +1269,7 @@ export class BackendSupervisor extends EventEmitter<{
         if (gen !== this.generation || this.shuttingDown) return;
         this.exitCode = undefined;
         this.exitSignal = undefined;
-        this.pushLog('out', 'Attached to the replacement VoiceStudio backend.');
+        this.pushLog('out', 'Attached to the replacement Sado backend.');
         await this.markReady(gen, { managed: false, message: undefined }, true);
         return;
       }

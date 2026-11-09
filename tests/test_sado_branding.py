@@ -1,4 +1,4 @@
-"""VoiceStudio release-brand and source-launch contracts."""
+"""Sado release-brand and source-launch contracts."""
 
 from __future__ import annotations
 
@@ -29,46 +29,46 @@ def test_current_version_is_in_lockstep_everywhere() -> None:
         assert match and match.group(1) == CURRENT_VERSION, path
 
 
-def test_visible_brand_surfaces_say_voicestudio() -> None:
+def test_visible_brand_surfaces_say_sado() -> None:
     visible_files = ("electron/build/Info.plist", "electron/src/renderer/index.html")
     for path in visible_files:
         text = (ROOT / path).read_text()
-        assert "VoiceStudio" in text, path
+        assert "Sado" in text, path
         assert "OmniVoice needs" not in text, path
         assert "OmniVoice may" not in text, path
         assert "OmniVoice Gallery" not in text, path
 
     readme = (ROOT / "README.md").read_text()
-    assert "**VoiceStudio** (default, powered by k2-fsa/OmniVoice)" in readme
+    assert "**Sado** (default, powered by k2-fsa/OmniVoice)" in readme
     assert "**OmniVoice** (default)" not in readme
 
 
 def test_brand_mark_is_shared_and_fills_the_icon() -> None:
-    mark = (ROOT / "electron/src/shared/components/brand/VoiceStudioMark.jsx").read_text()
+    mark = (ROOT / "electron/src/shared/components/brand/SadoMark.jsx").read_text()
     header = (ROOT / "electron/src/shared/components/Header.jsx").read_text()
     about = (ROOT / "electron/src/shared/components/settings/AboutTab.jsx").read_text()
     logo = (ROOT / "docs/logo.svg").read_text()
     favicon = (ROOT / "electron/public/favicon.svg").read_text()
 
-    signature = "M6 34c4 0 5-7 9-7"
+    signature = 'x="24.94"'
     assert signature in mark
     assert signature in logo
     assert signature in favicon
-    assert "<VoiceStudioMark" in header
-    assert "<VoiceStudioMark" in about
+    assert "<SadoMark" in header
+    assert "<SadoMark" in about
     assert 'data-testid="voice-studio-logo"' in header
 
-    # The previous icon devoted most of its canvas to an empty ring. The new
-    # mark uses the full tile and keeps only a narrow 2-unit outer margin.
-    assert 'x="2" y="2" width="60" height="60"' in logo
+    # The Sado tile fills the 64-unit canvas with a 14-unit corner radius and
+    # four waveform bars; the desktop icon renders the same geometry.
+    assert 'width="64" height="64" rx="14"' in logo
     assert "<circle" not in logo
     assert 'src="docs/logo.png"' in (ROOT / "README.md").read_text()
 
 
-def test_python_package_metadata_points_to_voicestudio() -> None:
+def test_python_package_metadata_points_to_sado() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text()
-    assert 'Homepage = "https://github.com/debpalash/VoiceStudio"' in pyproject
-    assert 'Repository = "https://github.com/debpalash/VoiceStudio"' in pyproject
+    assert 'Homepage = "https://github.com/Anvarjon090/sado"' in pyproject
+    assert 'Repository = "https://github.com/Anvarjon090/sado"' in pyproject
     assert '"Upstream TTS Model" = "https://github.com/k2-fsa/OmniVoice"' in pyproject
 
 
@@ -93,7 +93,7 @@ def test_compatibility_identifiers_stay_stable() -> None:
     package = json.loads((ROOT / "package.json").read_text())
     assert package["name"] == "omnivoice-studio-monorepo"
     assert 'name = "omnivoice"' in (ROOT / "pyproject.toml").read_text()
-    assert "com.voicestudio.desktop" in (ROOT / "electron/electron-builder.config.mjs").read_text()
+    assert "com.sado.desktop" in (ROOT / "electron/electron-builder.config.mjs").read_text()
 
 
 def test_active_source_launch_is_electron_and_web_ports_clean_quietly() -> None:

@@ -4,8 +4,8 @@ const browser = await chromium.launch({ channel: 'msedge', headless: true });
 try {
   const page = await browser.newPage({ viewport: { width: 1400, height: 1000 } });
   await page.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
-    localStorage.setItem('voicestudio.locale', 'en');
+    localStorage.setItem('sado.setup.complete.v1', '1');
+    localStorage.setItem('sado.locale', 'en');
   });
   const base = 'http://localhost:3912';
   const [engines, models, profiles] = await Promise.all(
@@ -23,7 +23,7 @@ try {
     (p) =>
       p.kind === 'clone' &&
       p.ref_audio_path &&
-      (!process.env.VOICESTUDIO_LIVE_PROFILE || p.id === process.env.VOICESTUDIO_LIVE_PROFILE),
+      (!process.env.SADO_LIVE_PROFILE || p.id === process.env.SADO_LIVE_PROFILE),
   );
   assert.ok(profile, 'An existing clone profile is required');
   await page.goto(base + '/#/tools');

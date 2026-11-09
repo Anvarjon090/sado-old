@@ -18,11 +18,11 @@ import { WorkspaceHeader } from '@/components/app-shell/workspace-header';
 import { ExternalLink } from '@/components/external-link';
 import { getBridge } from '@/components/bridge';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import type { VoiceStudioBridge } from '../../../../preload/index.d';
+import type { SadoBridge } from '../../../../preload/index.d';
 import './pro-page.css';
 
 const planUrl = (plan: string, quantity: number) =>
-  `https://voicestudio.sh/pro?plan=${plan}&quantity=${quantity}`;
+  `https://sado.sh/pro?plan=${plan}&quantity=${quantity}`;
 const plans = [
   {
     id: 'yearly',
@@ -63,9 +63,9 @@ const enterpriseFeatures = [
   'enterprise_private',
   'enterprise_support',
 ] as const;
-const TERMS_URL = 'https://voicestudio.sh/terms';
-const ENTERPRISE_URL = 'https://voicestudio.sh/commercial';
-type Status = Awaited<ReturnType<VoiceStudioBridge['pro']['status']>>;
+const TERMS_URL = 'https://sado.sh/terms';
+const ENTERPRISE_URL = 'https://sado.sh/commercial';
+type Status = Awaited<ReturnType<SadoBridge['pro']['status']>>;
 const benefits = [
   {
     icon: BriefcaseBusinessIcon,

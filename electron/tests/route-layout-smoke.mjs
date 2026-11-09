@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 
-const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912';
+const base = process.env.SADO_UI_URL || 'http://localhost:3912';
 const routes = [
   '/',
   '/clone',
@@ -70,7 +70,7 @@ page.on('response', (response) => {
 
 try {
   await page.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
+    localStorage.setItem('sado.setup.complete.v1', '1');
   });
   await page.goto(`${base}/#/`, { waitUntil: 'domcontentloaded' });
 

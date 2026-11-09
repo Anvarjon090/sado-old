@@ -1,6 +1,6 @@
 # Sado — UI konsepti (neon studiya)
 
-VoiceStudio'ni **Sado** nomi bilan qayta chizilgan birinchi ekran. Bu hujjat
+Sado'ni **Sado** nomi bilan qayta chizilgan birinchi ekran. Bu hujjat
 konseptni va uning qoidalarini saqlaydi; ilova kodi hali bu dizaynga
 o'tkazilmagan.
 

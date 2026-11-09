@@ -337,7 +337,7 @@ class ControlPlane:
             raise EndpointCertificateError(
                 f"The running certificate does not cover {advertised_host!r}. "
                 "Set OMNIVOICE_WORKER_ENDPOINT_HOST to that hostname and restart "
-                "VoiceStudio before creating this enrollment."
+                "Sado before creating this enrollment."
             )
         return registry.create_enrollment(
             endpoint=advertised_endpoint,

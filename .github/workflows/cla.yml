@@ -31,7 +31,7 @@ jobs:
     name: CLA gate
     if: >-
       github.event_name == 'pull_request_target' ||
-      contains(github.event.comment.body, 'VoiceStudio CLA') ||
+      contains(github.event.comment.body, 'Sado CLA') ||
       (github.event.issue.pull_request && contains(github.event.comment.body, 'recheck'))
     runs-on: ubuntu-24.04
     # Job level, so comments the `if` skips never take the queue slot. Each run

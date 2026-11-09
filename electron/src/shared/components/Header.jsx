@@ -28,7 +28,7 @@ import {
 import { Button, Badge } from '../ui';
 import NotificationPanel from './NotificationPanel';
 import TitleTabs from './TitleTabs';
-import VoiceStudioMark from './brand/VoiceStudioMark';
+import SadoMark from './brand/SadoMark';
 import { useAppStore } from '../store';
 import { useSysinfo, useEngines } from '../api/hooks';
 import { reloadAfterApplicationPersistence } from '../utils/persistenceLifecycle';
@@ -360,7 +360,7 @@ export default function Header({
           className="flex items-center gap-2 justify-self-center pointer-events-none whitespace-nowrap"
           translate="no"
         >
-          <VoiceStudioMark
+          <SadoMark
             data-testid="voice-studio-logo"
             className="size-7 overflow-visible text-[var(--chrome-accent)]"
           />
@@ -539,7 +539,7 @@ export default function Header({
                             <div className="flex flex-col gap-[1px] min-w-0">
                               <span className="text-[12px] text-[var(--color-fg)] font-medium">
                                 {engineDisplayName(m.name)}
-                                {/* Resident-but-not-routed engine (e.g. VoiceStudio still in
+                                {/* Resident-but-not-routed engine (e.g. Sado still in
                                     VRAM after switching to another backend) — say so. */}
                                 {m.is_active_engine === false && (
                                   <span className="ml-[6px] text-[10px] font-normal text-[var(--color-fg-subtle)] [font-family:var(--font-mono)]">

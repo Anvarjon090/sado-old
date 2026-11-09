@@ -47,7 +47,7 @@ export async function listDesktopReleases(
   const response = await fetcher(RELEASES_API, {
     headers: {
       Accept: 'application/vnd.github+json',
-      'User-Agent': 'VoiceStudio',
+      'User-Agent': 'Sado',
     },
     signal: AbortSignal.timeout(10_000),
   });
@@ -103,7 +103,7 @@ export function forgetSavedUpdateChannel(userData: string = app.getPath('userDat
 
 /** Packaged builds update in-app unless a package manager owns the install. */
 function updatesSupported(): boolean {
-  return app.isPackaged && process.env.VOICESTUDIO_DISABLE_UPDATER !== '1';
+  return app.isPackaged && process.env.SADO_DISABLE_UPDATER !== '1';
 }
 
 export class DesktopUpdater {

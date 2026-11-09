@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 
-const STORAGE_KEY = 'voicestudio.dictation-settings.v1';
+const STORAGE_KEY = 'sado.dictation-settings.v1';
 let aecEnabled = read();
 const listeners = new Set<() => void>();
 

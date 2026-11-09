@@ -3,7 +3,7 @@
 GitHub stores these settings outside the repository, so no file or CI check can
 enforce them. Apply them once as a repository admin, then re-check them after
 changing workflow or job names. The `gh api` commands below assume an
-authenticated `gh` with admin access to `debpalash/VoiceStudio`.
+authenticated `gh` with admin access to `Anvarjon090/sado`.
 
 ## Rolling out the CLA check
 
@@ -93,7 +93,7 @@ statuses count whichever token the trusted workflows use. `strict_required_statu
 to date with `main` before merging.
 
 ```bash
-gh api --method POST repos/debpalash/VoiceStudio/rulesets --input - <<'JSON'
+gh api --method POST repos/Anvarjon090/sado/rulesets --input - <<'JSON'
 {
   "name": "main",
   "target": "branch",
@@ -156,7 +156,7 @@ does not restrict updates or require checks, so the workflow can keep committing
 You can create the ruleset before the branch exists.
 
 ```bash
-gh api --method POST repos/debpalash/VoiceStudio/rulesets --input - <<'JSON'
+gh api --method POST repos/Anvarjon090/sado/rulesets --input - <<'JSON'
 {
   "name": "cla-signatures",
   "target": "branch",
@@ -171,7 +171,7 @@ gh api --method POST repos/debpalash/VoiceStudio/rulesets --input - <<'JSON'
 JSON
 ```
 
-Check both rulesets with `gh api repos/debpalash/VoiceStudio/rulesets`.
+Check both rulesets with `gh api repos/Anvarjon090/sado/rulesets`.
 
 ## Secret scanning and push protection
 
@@ -179,7 +179,7 @@ UI: **Settings → Code security → Secret Protection**. Enable **Secret scanni
 and **Push protection**.
 
 ```bash
-gh api --method PATCH repos/debpalash/VoiceStudio --input - <<'JSON'
+gh api --method PATCH repos/Anvarjon090/sado --input - <<'JSON'
 { "security_and_analysis": {
     "secret_scanning": { "status": "enabled" },
     "secret_scanning_push_protection": { "status": "enabled" } } }
@@ -199,7 +199,7 @@ and that link only works while this setting is on.
 UI: **Settings → Code security → Private vulnerability reporting → Enable**.
 
 ```bash
-gh api --method PUT repos/debpalash/VoiceStudio/private-vulnerability-reporting
+gh api --method PUT repos/Anvarjon090/sado/private-vulnerability-reporting
 ```
 
 ## Dependabot alerts
@@ -209,7 +209,7 @@ turns on security alerts. Version updates for GitHub Actions are configured
 separately in `.github/dependabot.yml`.
 
 ```bash
-gh api --method PUT repos/debpalash/VoiceStudio/vulnerability-alerts
+gh api --method PUT repos/Anvarjon090/sado/vulnerability-alerts
 ```
 
 ## Maintainer commit email

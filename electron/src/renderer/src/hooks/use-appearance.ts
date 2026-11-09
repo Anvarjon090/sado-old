@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react';
 
 type Appearance = { font: 'inter' | 'system'; scale: number; glass: boolean };
 export const appearanceScales = [90, 100, 110, 125] as const;
-const key = 'voicestudio.appearance';
+const key = 'sado.appearance';
 const listeners = new Set<() => void>();
 export function parseAppearance(raw: string | null): Appearance {
   try {

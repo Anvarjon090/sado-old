@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button';
 import { getBridge } from '@/components/bridge';
 import './sponsor-inquiry.css';
 
-export const PARTNER_EMAIL = 'partner@voicestudio.sh';
+export const PARTNER_EMAIL = 'partner@sado.sh';
 export const SPONSOR_FORM_URL = 'https://forms.gle/2PYCvd39hbwijzX37';
 export function sponsorMailto(subject: string, message: string) {
   return `mailto:${PARTNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
@@ -127,7 +127,7 @@ export function SponsorInquiry({
               setBusy(true);
               try {
                 const href = sponsorMailto(
-                  `VoiceStudio — ${t('support.sponsors_become')}`,
+                  `Sado — ${t('support.sponsors_become')}`,
                   message.trim(),
                 );
                 const bridge = getBridge();

@@ -568,8 +568,8 @@ describe('packaged runtime setup', () => {
       const sitePackages = join(project, '.venv', 'Lib', 'site-packages');
       const run = vi.fn(async (command: string, args: string[]) => {
         if (args[0] === 'sync') await interpreter(project);
-        if (command === runtimePython(project) && args[1]?.includes('VOICESTUDIO_CUDNN8_PROBE=')) {
-          return `VOICESTUDIO_CUDNN8_PROBE=${JSON.stringify({ device: 'cuda', sitePackages })}\n`;
+        if (command === runtimePython(project) && args[1]?.includes('SADO_CUDNN8_PROBE=')) {
+          return `SADO_CUDNN8_PROBE=${JSON.stringify({ device: 'cuda', sitePackages })}\n`;
         }
         if (args[0] === 'pip') {
           const libDir = join(
@@ -618,8 +618,8 @@ describe('packaged runtime setup', () => {
       const sitePackages = join(project, '.venv', 'Lib', 'site-packages');
       const run = vi.fn(async (command: string, args: string[]) => {
         if (args[0] === 'sync') await interpreter(project);
-        if (command === runtimePython(project) && args[1]?.includes('VOICESTUDIO_CUDNN8_PROBE=')) {
-          return `VOICESTUDIO_CUDNN8_PROBE=${JSON.stringify({ device: 'cuda', sitePackages })}\n`;
+        if (command === runtimePython(project) && args[1]?.includes('SADO_CUDNN8_PROBE=')) {
+          return `SADO_CUDNN8_PROBE=${JSON.stringify({ device: 'cuda', sitePackages })}\n`;
         }
         return undefined;
       });

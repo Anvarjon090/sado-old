@@ -1341,7 +1341,7 @@ async def lifespan(app: FastAPI):
 from core.version import APP_VERSION  # single source of truth (pyproject metadata)
 
 app = FastAPI(
-    title="VoiceStudio API",
+    title="Sado API",
     version=APP_VERSION,
     lifespan=lifespan,
     docs_url=None,       # Disabled — replaced by Scalar at /docs
@@ -1525,7 +1525,7 @@ async def global_exception_handler(request: Request, exc: Exception):
                 # genuinely reportable bugs — suppressing the report button for
                 # every 503 would silence exactly the class users need to file.
                 "detail": (
-                    "[shutting_down] VoiceStudio is shutting down, so it didn't "
+                    "[shutting_down] Sado is shutting down, so it didn't "
                     "start loading the model. Reopen the app and try again."
                 )
             },
@@ -1560,7 +1560,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
     content = public_exception_response(
         exc,
-        fallback="VoiceStudio hit an internal error; check the backend log for details.",
+        fallback="Sado hit an internal error; check the backend log for details.",
     )
     content["error_class"] = _entry.get("error_class")
     return JSONResponse(
@@ -1609,7 +1609,7 @@ class StartupGateMiddleware:
             status_code=503,
             content={
                 "detail": (
-                    f"[starting] VoiceStudio is still starting "
+                    f"[starting] Sado is still starting "
                     f"({_label or 'initializing'}). Retry shortly."
                 ),
                 "step": _step,
@@ -1682,7 +1682,7 @@ class NetworkAccessMiddleware:
 #: from whatever else might answer at the same URL (#1385). A rehosted UI
 #: whose API requests land on a static host or a proxy with no API route gets
 #: that host's 404 page; the frontend needs an authoritative "this really is
-#: a VoiceStudio backend" signal rather than guessing from the body shape,
+#: a Sado backend" signal rather than guessing from the body shape,
 #: since a proxy can return JSON too. Value is the version, which is also
 #: useful when a desktop app talks to an older remote backend.
 BACKEND_MARKER_HEADER = "x-omnivoice-backend"
@@ -1804,7 +1804,7 @@ class BearerKeyMiddleware:
 
 
 # Origin policy is single-sourced in core.csrf: the UI port (OMNIVOICE_UI_PORT,
-# alias VOICESTUDIO_UI_PORT) and OMNIVOICE_ALLOWED_ORIGINS feed both this CORS
+# alias SADO_UI_PORT) and OMNIVOICE_ALLOWED_ORIGINS feed both this CORS
 # allow-list and the CSRF origin checks, so the two can never disagree.
 from core.csrf import CORS_EXPOSED_HEADERS, allowed_origin_values, ui_port as _ui_port
 
@@ -1848,7 +1848,7 @@ app.add_middleware(
 # Registered LAST, which in Starlette means OUTERMOST — so the marker lands on
 # every response. CORS is immediately inside it and outside both auth gates, so
 # preflights and gate-generated 401s retain the browser contract. The marker's
-# absence lets a client conclude that the responder is not VoiceStudio (#1385).
+# absence lets a client conclude that the responder is not Sado (#1385).
 app.add_middleware(BackendMarkerMiddleware)
 
 # Register canonical audio MIME types before any StaticFiles mount.
@@ -2057,7 +2057,7 @@ if __name__ == "__main__":
     # Electron's backend supervisor must stay in sync.
     #
     # SECURITY: default to loopback (127.0.0.1) so the API isn't reachable
-    # from the LAN out of the box. VoiceStudio ships no authentication; binding
+    # from the LAN out of the box. Sado ships no authentication; binding
     # to 0.0.0.0 by default would expose every router on this process to any
     # host on the user's network. The Docker image never reaches this block:
     # its uvicorn ENTRYPOINT binds 0.0.0.0 itself (deploy/Dockerfile), and the
@@ -2089,7 +2089,7 @@ if __name__ == "__main__":
 
     def _fail_port_in_use(exc: "OSError | None") -> None:
         print(
-            f"FATAL: port {_port} is already in use — another VoiceStudio "
+            f"FATAL: port {_port} is already in use — another Sado "
             f"backend (or another app) is listening on it. Quit the other "
             f"instance and relaunch; if nothing is visibly running, an "
             f"orphaned backend from a previous session is still holding the "
@@ -2108,7 +2108,7 @@ if __name__ == "__main__":
         shell's "Last output" shows it instead of a bare exit code.
         """
         print(
-            f"FATAL: the operating system refused to let VoiceStudio listen on "
+            f"FATAL: the operating system refused to let Sado listen on "
             f"port {_port} (permission denied). On Windows a possible cause is "
             f"a reserved port range (check "
             f"`netsh interface ipv4 show excludedportrange protocol=tcp`) or "

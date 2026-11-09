@@ -1,4 +1,4 @@
-# VoiceStudio — Install Troubleshooting
+# Sado — Install Troubleshooting
 
 The top 10 errors users have actually hit on `v0.2.x`, with their causes and
 fixes. Most have a deeplink anchor that the in-app error UI's "Open docs for
@@ -56,7 +56,7 @@ loopback port before launching; its API proxy and health checks follow that port
 automatically. Candidates advance by 1000, up to 16 alternatives, so additional
 app windows discover and attach to the same backend. A fresh launch retries the
 default after a fallback backend stops. This recovery is available on all desktop platforms.
-Occupied fallback ports must carry VoiceStudio's backend response marker before
+Occupied fallback ports must carry Sado's backend response marker before
 attachment; unrelated listeners are skipped. This marker distinguishes services,
 not malicious processes running as the same local user.
 If an identified backend is still starting, Electron waits within its startup
@@ -64,11 +64,11 @@ budget instead of launching another process on that occupied port.
 It does not override an explicit `OMNIVOICE_PORT`, a custom backend command, or an
 externally managed backend. For those configurations, choose an allowed port in
 your launch environment. An ordinary “address already in use” conflict still uses
-the existing backend-attachment/conflict flow; VoiceStudio does not stop unrelated
+the existing backend-attachment/conflict flow; Sado does not stop unrelated
 processes or change firewall rules.
 
 If the backend log ends with `FATAL: the operating system refused to let
-VoiceStudio listen on port …` (`[Errno 13]` / WinError 10013), the OS denied the
+Sado listen on port …` (`[Errno 13]` / WinError 10013), the OS denied the
 bind rather than reporting a taken port. On Windows a possible cause is a
 reserved range (Hyper-V, WSL, Docker and WinNAT reserve them); another process
 holding the port exclusively gives the same error. List the reserved ranges with
@@ -101,7 +101,7 @@ receive a stable `docs_topic` and a safe fallback message, never private excepti
 | --- | --- |
 | `GPU_ARCH_UNSUPPORTED` | The installed PyTorch build cannot run kernels on this GPU. Select CPU in Settings → Performance & Device, or use a PyTorch build compatible with the GPU. |
 | `HOST_MEMORY_EXHAUSTED` | The machine ran out of system memory, so the engine could not finish. Close other memory-heavy apps, unload unused models with **Flush models**, render a shorter passage, or select a lighter TTS engine. On Windows, enlarging the page file also helps. A CPU-only machine has no GPU memory to free — this is RAM, not VRAM. |
-| `WINDOWS_APP_CONTROL_BLOCKED` | Windows application control blocked a required file. Ask the administrator to allow the trusted VoiceStudio runtime, then restart the app. |
+| `WINDOWS_APP_CONTROL_BLOCKED` | Windows application control blocked a required file. Ask the administrator to allow the trusted Sado runtime, then restart the app. |
 | `AUDIO_IO_FAILED` | Check the audio format, free disk space, and file permissions; review the folder in Settings → Storage. |
 | `HF_MIRROR_UNREACHABLE` | The configured Hugging Face mirror could not be reached while fetching the engine's weights. Restore the official endpoint in Settings → Models → Hugging Face mirror, then retry. |
 
@@ -149,8 +149,8 @@ backend **`.venv`** folder to its exclusions (Windows Security → Virus & threa
 protection → Exclusions). The app's auto-repair now uses `--reinstall` too, so a
 fresh install heals itself.
 
-**Linked issues:** [#58](https://github.com/debpalash/VoiceStudio/issues/58),
-[#248](https://github.com/debpalash/VoiceStudio/issues/248)
+**Linked issues:** [#58](https://github.com/Anvarjon090/sado/issues/58),
+[#248](https://github.com/Anvarjon090/sado/issues/248)
 
 ### 1a. Model load fails: `[Errno 2] No such file or directory: '…/transformers/…/modeling_*.py'`
 
@@ -189,7 +189,7 @@ and transformers itself is fine.
 
 **Fix:** reinstall the trio **together, at the pinned versions** — a plain
 unpinned reinstall can itself resolve a drifted pair
-([#1357](https://github.com/debpalash/VoiceStudio/issues/1357)):
+([#1357](https://github.com/Anvarjon090/sado/issues/1357)):
 
 ```
 uv pip install --python .venv --reinstall torch==2.8.0 torchaudio==2.8.0 torchvision==0.23.0 transformers
@@ -201,8 +201,8 @@ desktop installs don't ship that file, which is why the literal pins are shown).
 They carry no `+cu128`/`+rocm` suffix on purpose — vendor GPU builds match the
 pins rather than being replaced.
 
-**Linked issues:** [#1357](https://github.com/debpalash/VoiceStudio/issues/1357),
-[#1376](https://github.com/debpalash/VoiceStudio/issues/1376)
+**Linked issues:** [#1357](https://github.com/Anvarjon090/sado/issues/1357),
+[#1376](https://github.com/Anvarjon090/sado/issues/1376)
 
 ### 1b. Dubbing: `ASR backend initialization failed: No module named 'lightning_fabric'`
 
@@ -227,7 +227,7 @@ marked unavailable (Model Catalogue shows why, with this repair command)
 and dubbing automatically falls through to **faster-whisper** instead of
 failing outright.
 
-**Linked issue:** [#1185](https://github.com/debpalash/VoiceStudio/issues/1185)
+**Linked issue:** [#1185](https://github.com/Anvarjon090/sado/issues/1185)
 
 ## 1c. Setup blocked: "System RAM … The app will OOM on first dub"
 
@@ -237,7 +237,7 @@ reports ~7.8 GB usable (firmware and integrated graphics reserve a slice of
 installed RAM).
 
 **Cause:** the preflight compares OS-reported RAM against the 8 GB minimum.
-Since [#1618](https://github.com/debpalash/VoiceStudio/issues/1618) the check
+Since [#1618](https://github.com/Anvarjon090/sado/issues/1618) the check
 tolerates that reserved-memory gap, so 8 GB-installed machines pass.
 
 **Fix:** update to the latest release. If your machine is genuinely below the
@@ -249,7 +249,7 @@ and relaunch; on macOS/Linux export it in the shell that starts the app. (The
 in-app Settings panel can't help here — this blocker appears before setup
 completes.)
 
-**Linked issues:** [#1618](https://github.com/debpalash/VoiceStudio/issues/1618)
+**Linked issues:** [#1618](https://github.com/Anvarjon090/sado/issues/1618)
 
 ## 2. HF 401 / pyannote license not accepted
 
@@ -271,12 +271,12 @@ before the token works for downloads.
    the "App" row with a green check next to your username.
 
 If the token and license are already valid but an older build still reports
-401 during installation, update VoiceStudio and retry. Settings tokens now
+401 during installation, update Sado and retry. Settings tokens now
 reach both the fast download path and engine-weight installers; no token
 rotation is needed for that fixed client bug.
 
-**Linked issues:** [#35](https://github.com/debpalash/VoiceStudio/issues/35),
-[#2163](https://github.com/debpalash/VoiceStudio/issues/2163)
+**Linked issues:** [#35](https://github.com/Anvarjon090/sado/issues/35),
+[#2163](https://github.com/Anvarjon090/sado/issues/2163)
 
 ### PocketTTS gated weights
 
@@ -294,11 +294,11 @@ itself does not grant access.
    and accept the conditions.
 2. Open **Settings → API Keys** and save a read token from that same account.
 3. Open **Model Catalogue**, review and accept the PocketTTS terms locally,
-   then retry. VoiceStudio stores this acknowledgement only on your machine.
+   then retry. Sado stores this acknowledgement only on your machine.
 
 ## 3. Gatekeeper quarantine on macOS
 
-**Symptom:** "VoiceStudio.app is damaged and can't be opened."
+**Symptom:** "Sado.app is damaged and can't be opened."
 
 **Cause:** Gatekeeper cannot verify the app's Apple Developer identity — the
 build is unsigned or ad-hoc signed (local `bun run dist` packages, or a release
@@ -332,7 +332,7 @@ peak memory footprint that exceeds free VRAM. Windows-only quirk.
 
 **Fix:** see [windows.md#torch-compile-oom](windows.md#torch-compile-oom).
 
-**Linked issue:** [#65](https://github.com/debpalash/VoiceStudio/issues/65)
+**Linked issue:** [#65](https://github.com/Anvarjon090/sado/issues/65)
 
 ## 5a. Backend dies on the first `/generate` (older NVIDIA GPUs, e.g. Tesla T4)
 
@@ -348,7 +348,7 @@ the common case) that capture can abort the process from inside the native CUDA
 library. It happens below the interpreter, so no `except` in the app can catch
 it and nothing is logged.
 
-**Fix:** update — VoiceStudio now selects the compile mode per GPU and does not
+**Fix:** update — Sado now selects the compile mode per GPU and does not
 capture CUDA graphs below sm_80, so this should no longer happen. If you still
 see a crash in the generate path on any GPU, turn compilation off entirely:
 
@@ -368,7 +368,7 @@ it, run the engine in a killable child process — select
 `OMNIVOICE_TTS_BACKEND=omnivoice-subprocess`. The parent then returns an HTTP
 error and respawns the sidecar instead of dying.
 
-**Linked issue:** [#2135](https://github.com/debpalash/VoiceStudio/issues/2135)
+**Linked issue:** [#2135](https://github.com/Anvarjon090/sado/issues/2135)
 
 ## 5b. RTX 50-series (Blackwell, sm_120): backend crashes during `ml_imports`
 
@@ -381,7 +381,7 @@ torch` die with a native access violation rather than a Python traceback.
 `torch 2.8.0+cu128` lists `sm_120` in `torch.cuda.get_arch_list()`, and that
 build imports and runs CUDA normally on some Blackwell cards. What is confirmed
 is that on the Windows setups in
-[#1931](https://github.com/debpalash/VoiceStudio/issues/1931) `import torch`
+[#1931](https://github.com/Anvarjon090/sado/issues/1931) `import torch`
 faults inside the native library before Python can raise an error, and moving
 the torch trio to 2.9.x clears it.
 
@@ -434,19 +434,19 @@ paths (Docker and the Colab notebook), which ignore project-level uv settings.
 one-sided edit is caught rather than shipped.
 
 **What you do not have to do:** `torchaudio 2.9` removed `set_audio_backend()`,
-which VoiceStudio used to call unguarded — that turned this upgrade into a
+which Sado used to call unguarded — that turned this upgrade into a
 different hard startup crash (`AttributeError` inside `ml_imports`). It is
 guarded now, so the upgrade path above is clean on a current checkout.
 
 **Keeping the change:** these are the repo's own pins, so a `git pull` that
 touches them will conflict or overwrite. Re-apply after updating until the
 default pin moves — the default cannot move for everyone until the newer torch
-is verified across the older GPUs VoiceStudio supports, since a newer build can
+is verified across the older GPUs Sado supports, since a newer build can
 drop older architectures. Which ones varies by torch release, not by the CUDA
 variant alone: the pinned 2.8.0+cu128 build reports `sm_70` first, while the
 cu128 arch list captured in #1285 still carried `sm_61`.
 
-**Linked issue:** [#1931](https://github.com/debpalash/VoiceStudio/issues/1931)
+**Linked issue:** [#1931](https://github.com/Anvarjon090/sado/issues/1931)
 — thanks to the reporter for the full diagnosis, including the verification
 commands above.
 
@@ -461,20 +461,20 @@ Russia, sometimes on corporate proxies.
 `UV_HTTP_TIMEOUT=120`, `UV_HTTP_RETRIES=5`, `UV_PYTHON_PREFERENCE=only-system`).
 
 **Linked issues:**
-[#57](https://github.com/debpalash/VoiceStudio/issues/57),
-[#60](https://github.com/debpalash/VoiceStudio/issues/60).
+[#57](https://github.com/Anvarjon090/sado/issues/57),
+[#60](https://github.com/Anvarjon090/sado/issues/60).
 
 ## 7. `.deb` ffprobe path conflict on upgrade
 
 **Symptom:** after upgrading from a pre-v0.3 .deb, `ffprobe -version` reports
-"VoiceStudio bundled ffprobe" instead of the system ffmpeg, breaking other apps
+"Sado bundled ffprobe" instead of the system ffmpeg, breaking other apps
 that rely on `/usr/bin/ffprobe`.
 
 **Fix:** see [linux.md#deb-ffprobe-conflict](linux.md#deb-ffprobe-conflict).
 
 ## 7b. "Media engine unavailable" / FFmpeg questions
 
-FFmpeg, FFprobe, and yt-dlp are **not** things you install for VoiceStudio.
+FFmpeg, FFprobe, and yt-dlp are **not** things you install for Sado.
 The app resolves them itself, in order: a path provided by the desktop shell →
 the static build shipped with the Python environment → the app's own
 downloaded build → whatever is on your PATH. When nothing resolves at all
@@ -494,12 +494,12 @@ If a running install ever reports "Media engine unavailable":
    **Use system copy** afterwards.
 
 Transcription tells these apart from other failures. If a dub transcription
-reports that it needs ffmpeg, follow the steps above; VoiceStudio also exposes
+reports that it needs ffmpeg, follow the steps above; Sado also exposes
 its resolved FFmpeg under the bare name `ffmpeg` to the engines it launches, so
 a library that runs plain `ffmpeg` no longer fails with `[Errno 2] No such file
 or directory: 'ffmpeg'`. A "lost its output pipe" (`[Errno 32] Broken pipe`)
 reply means the app that launched the backend closed or relaunched; restart
-VoiceStudio.
+Sado.
 
 The same panel updates **yt-dlp** (video imports): site support changes
 faster than app releases, so when video-URL imports start failing, press
@@ -511,13 +511,13 @@ version** reverts to the build the app shipped with.
 First update yt-dlp under **Settings → Audio tools**. If YouTube still requires
 your signed-in session, export its cookies in Netscape `cookies.txt` format,
 then open **Advanced** on the dubbing import card and choose that file under
-**YouTube sign-in** before importing. VoiceStudio uses
+**YouTube sign-in** before importing. Sado uses
 the export for that import only and makes two best-effort attempts to delete
 its temporary copy.
 
-Cookie exports are login credentials. VoiceStudio never reads a browser's
+Cookie exports are login credentials. Sado never reads a browser's
 cookie database automatically, never saves the export in your project, and
-never uploads it anywhere except to your own VoiceStudio backend. Use an export
+never uploads it anywhere except to your own Sado backend. Use an export
 limited to YouTube where your browser extension supports domain filtering.
 For a backend on another machine, the picker is enabled only over HTTPS; plain
 HTTP is accepted solely on the desktop app's loopback connection.
@@ -526,7 +526,7 @@ restricted to a private tailnet; see [API authentication](../api-auth.md).
 
 ## 8. Docker LAN access — media preview 404
 
-**Symptom:** VoiceStudio loads on `http://<lan-ip>:3900` but the audio preview
+**Symptom:** Sado loads on `http://<lan-ip>:3900` but the audio preview
 pane shows 404s for `/media/...`.
 
 **Cause:** pre-v0.3, the frontend hardcoded `localhost:3900` for media-preview
@@ -540,7 +540,7 @@ prebuilt image via `docker run -e`) — see
 
 ## 9. Apple Silicon `mlx-whisper` unavailable on Intel mac
 
-**Symptom:** on an Intel mac, VoiceStudio logs `mlx-whisper backend unavailable;
+**Symptom:** on an Intel mac, Sado logs `mlx-whisper backend unavailable;
 falling back to faster-whisper`.
 
 **Cause:** `mlx-whisper` and `mlx-audio` only build for arm64 (Apple Silicon).
@@ -549,7 +549,7 @@ falling back to faster-whisper`.
 that Intel Macs can no longer run the local backend at all — PyTorch dropped
 Intel-Mac wheels, so this entry only applies to historical installs (see
 [macos.md](macos.md) and
-[#889](https://github.com/debpalash/VoiceStudio/issues/889)).
+[#889](https://github.com/Anvarjon090/sado/issues/889)).
 
 ## 10. Windows: `Could not locate cudnn_ops_infer64_8.dll` during transcription
 
@@ -561,22 +561,22 @@ On builds before this was fixed, the failure looked much worse than a failed
 transcribe: CTranslate2 aborts the **process** rather than raising, so the whole
 backend died with `exit code -1073740791` (`0xC0000409`) and no error, the app
 restarted it, and the next attempt killed it again
-([#1371](https://github.com/debpalash/VoiceStudio/issues/1371)). VoiceStudio now
+([#1371](https://github.com/Anvarjon090/sado/issues/1371)). Sado now
 checks whether cuDNN 8 will load *before* selecting a CTranslate2 engine and
 falls back to PyTorch Whisper instead, so a missing library costs you WhisperX's
 word-level alignment — not the backend. The repair below is still worth doing to
 get WhisperX back.
 
 **Cause:** WhisperX and faster-whisper run on **CTranslate2**, which needs
-**cuDNN 8**, but PyTorch 2.8 ships cuDNN 9. VoiceStudio side-loads a cuDNN-8 copy
+**cuDNN 8**, but PyTorch 2.8 ships cuDNN 9. Sado side-loads a cuDNN-8 copy
 from `.venv\Lib\site-packages\cudnn8_compat\` — but the step that installs that
 folder only ever lived in the dev-loop setup script, which isn't bundled into
 the packaged app. **Packaged installs never had these libraries at all**, so
-reinstalling never fixed it ([#827](https://github.com/debpalash/VoiceStudio/issues/827)).
+reinstalling never fixed it ([#827](https://github.com/Anvarjon090/sado/issues/827)).
 
 **Fix:** update to the latest build and relaunch — the app's bootstrap now
 detects a CUDA machine and installs the cuDNN-8 libraries into the backend venv
-automatically at launch ([#869](https://github.com/debpalash/VoiceStudio/pull/869)).
+automatically at launch ([#869](https://github.com/Anvarjon090/sado/pull/869)).
 (The check is skipped — and its negative result cached — on CPU/AMD/Apple
 machines, so non-NVIDIA launches stay instant.)
 
@@ -604,19 +604,19 @@ their own engine venvs. Pre-v0.3 they shared a single venv.
 
 **Fix:** Phase 2 ships subprocess isolation per engine (each engine runs in
 its own venv). For v0.3, workaround: install only one of the conflicting
-engines per VoiceStudio copy. See [docs/engines/cosyvoice.md](../engines/cosyvoice.md)
+engines per Sado copy. See [docs/engines/cosyvoice.md](../engines/cosyvoice.md)
 for the dedicated CosyVoice path.
 
-**Linked issue:** [#55](https://github.com/debpalash/VoiceStudio/issues/55)
+**Linked issue:** [#55](https://github.com/Anvarjon090/sado/issues/55)
 
 **Same class, ASR side:** the `nemo-parakeet` ASR engine has the identical
 problem and currently has **no safe install path** at all — `nemo_toolkit[asr]`
 hard-pins `transformers>=4.57,<4.58`, which is unsatisfiable alongside
-VoiceStudio's own `transformers>=5.3` requirement. Installing it into the
+Sado's own `transformers>=5.3` requirement. Installing it into the
 shared venv breaks the backend outright. Do not `pip install nemo_toolkit`
-into VoiceStudio's environment; if you want to try it, use a separate Python
+into Sado's environment; if you want to try it, use a separate Python
 environment. Isolated-venv support for this engine (matching CosyVoice/
-dots-tts) is tracked in [#974](https://github.com/debpalash/VoiceStudio/issues/974).
+dots-tts) is tracked in [#974](https://github.com/Anvarjon090/sado/issues/974).
 
 ## 12. CUDA PyTorch wheel download fails on first run
 
@@ -625,24 +625,24 @@ that mentions `torch` and a `download.pytorch.org` (or `download-r2.pytorch.org`
 URL — e.g. `Failed to download torch==2.8.0+cu128 …win_amd64.whl`. The app then
 won't launch.
 
-**Cause:** on Windows/Linux NVIDIA machines, VoiceStudio installs the CUDA PyTorch
+**Cause:** on Windows/Linux NVIDIA machines, Sado installs the CUDA PyTorch
 build (`torch` + `torchaudio`) from PyTorch's own index. That CUDA wheel is
 large (~2.5 GB), so a flaky or restricted network drops it partway. This is a
-download/network problem, **not** a bug in VoiceStudio — but the CUDA wheels come
+download/network problem, **not** a bug in Sado — but the CUDA wheels come
 from a *named, explicit* index that a PyPI mirror (`UV_DEFAULT_INDEX`) cannot
 redirect, so the generic mirror trick doesn't help here.
 
 **Fix, in order:**
 
 1. **Clean & Retry.** Large downloads frequently succeed on a second attempt —
-   VoiceStudio already retries each request 5× with long timeouts, and a fresh
+   Sado already retries each request 5× with long timeouts, and a fresh
    attempt restarts cleanly.
 2. **Use a VPN** if your network throttles or blocks the PyTorch CDN.
 3. **Provide the wheels manually (offline path).** Download the two wheels that
    match your machine from a source you *can* reach (the official
    [pytorch.org](https://pytorch.org/get-started/locally/) wheel index or a
    regional mirror), then drop them in the wheel folder and **Clean & Retry** —
-   VoiceStudio will install from your local copies instead of the network:
+   Sado will install from your local copies instead of the network:
    - Folder: **`<env dir>/wheels`** (the exact path is printed in the error
      message and in the setup log; `<env dir>` is your chosen install/storage
      location).
@@ -650,7 +650,7 @@ redirect, so the generic mirror trick doesn't help here.
      — e.g. `torch-2.8.0+cu128-cp311-cp311-win_amd64.whl` and the matching
      `torchaudio-2.8.0+cu128-cp311-cp311-win_amd64.whl`. They must match the
      pinned versions (shown in the failing URL).
-   - On retry, VoiceStudio re-resolves the install using those local wheels; the
+   - On retry, Sado re-resolves the install using those local wheels; the
      rest of the (small) dependencies still come from PyPI/your mirror.
 
 If you don't have an NVIDIA GPU, you don't need the CUDA build at all — a CPU /
@@ -661,7 +661,7 @@ action to choose them explicitly; see [CPU setup](../../electron/README.md#runni
 An unusable NVIDIA driver is a setup warning for CPU-capable engines;
 GPU-only engines still require supported hardware.
 
-**Linked issue:** [#569](https://github.com/debpalash/VoiceStudio/issues/569)
+**Linked issue:** [#569](https://github.com/Anvarjon090/sado/issues/569)
 
 ## 12b. My AMD Radeon GPU is not used (CPU is busy, GPU is idle)
 
@@ -677,7 +677,7 @@ PyTorch build and, for every engine, whether it uses the GPU.
 **Fix, by platform:**
 
 - **Windows:** PyTorch engines stay on the CPU (no ROCm wheels exist for the
-  PyTorch version VoiceStudio ships). Engines with their own GPU runtime — today
+  PyTorch version Sado ships). Engines with their own GPU runtime — today
   audio.cpp (Vulkan) — do use a Radeon: install its runtime from **Settings →
   Models**. Details and the advanced, unsupported AMD-wheels route:
   [windows.md — GPU support](windows.md#gpu-support).
@@ -687,7 +687,7 @@ PyTorch build and, for every engine, whether it uses the GPU.
   driver is loaded and your user can open `/dev/kfd` (`render` and `video`
   groups).
 
-**Linked issue:** [#2468](https://github.com/debpalash/VoiceStudio/issues/2468)
+**Linked issue:** [#2468](https://github.com/Anvarjon090/sado/issues/2468)
 
 ## 13. Stuck on the download page / incomplete model cache ("only `refs/`")
 
@@ -705,7 +705,7 @@ time.
 
 **Fix — force a clean re-download:**
 
-1. **Fully quit VoiceStudio.** Check Task Manager (Windows) / Activity Monitor
+1. **Fully quit Sado.** Check Task Manager (Windows) / Activity Monitor
    (macOS) and end any leftover `omnivoice` / `python` process — a half-running
    one keeps the cache locked.
 2. **Delete the incomplete model folder(s) entirely** from the HF cache (the
@@ -722,7 +722,7 @@ order:
 - **Connection** — use a stable, direct connection; pause any VPN; avoid
   corporate/school networks.
 - **Region mirror** — if `huggingface.co` is slow/blocked where you are,
-  VoiceStudio normally handles this automatically: with no endpoint explicitly
+  Sado normally handles this automatically: with no endpoint explicitly
   configured it probes both the official endpoint and the `hf-mirror.com`
   community mirror and downloads from whichever works (downloads are
   checksum-verified either way; see
@@ -751,13 +751,13 @@ huggingface-cli download k2-fsa/OmniVoice
 huggingface-cli download Systran/faster-whisper-large-v3
 ```
 
-(If VoiceStudio uses a custom models directory, set `HF_HOME` to it first so the
+(If Sado uses a custom models directory, set `HF_HOME` to it first so the
 files land where the app looks.)
 
 > Newer builds detect an incomplete cache and re-offer the download instead of
 > stranding you on this page — update once the fix is in your channel.
 
-**Linked issue:** [#622](https://github.com/debpalash/VoiceStudio/issues/622)
+**Linked issue:** [#622](https://github.com/Anvarjon090/sado/issues/622)
 
 ## 14. "Can't reach the local backend" *during* generation / transcription / dubbing
 
@@ -839,7 +839,7 @@ rather than failing with "Can't reach the local backend". Nothing to do — it
 clears itself as soon as the job releases the event loop. If the dot turns
 **red** and names an exit code, that is a real crash; use the sections above.
 
-**Two things changed here** ([#1190](https://github.com/debpalash/VoiceStudio/issues/1190)):
+**Two things changed here** ([#1190](https://github.com/Anvarjon090/sado/issues/1190)):
 
 - **Waiting in line is no longer counted as compute.** The generate budget used
   to start the moment a job was *queued*, so on a 1-worker machine a request
@@ -868,7 +868,7 @@ of going quiet: a **429** with a `Retry-After` header means the request was
 *refused before it started* because the worker pool is already backed up (safe
 to retry verbatim — nothing ran), and a **503** with `Retry-After` means the
 job was accepted but hit its bound. Both carry
-`X-VoiceStudio-Retryable: true`, and the streaming NDJSON error frame carries
+`X-Sado-Retryable: true`, and the streaming NDJSON error frame carries
 `"retryable": true` with `retry_after`. Back off on those rather than
 hammering — on a 1-worker machine, concurrent requests serialize by design.
 
@@ -879,7 +879,7 @@ exits. The error message will then recommend switching the ASR engine to
 **Model Catalogue**: it runs transcription in a separate process that can be
 force-killed to reclaim a hung transcribe *and* its VRAM, at a small per-call
 overhead. It reuses your existing faster-whisper install (nothing extra to
-download). VoiceStudio never switches engines automatically — this stays your
+download). Sado never switches engines automatically — this stays your
 call.
 
 > **Seeing "The backend crashed (exit code …)" instead?** That's the other
@@ -897,11 +897,11 @@ call.
 > Outside the desktop app (browser dev, Docker, LAN share) the same notice is
 > raised by the **backend itself** on its next start — see **section 14c**.
 
-## 14b. "Can't reach the local VoiceStudio backend" flashing during startup or an automatic restart
+## 14b. "Can't reach the local Sado backend" flashing during startup or an automatic restart
 
 **Symptom (older builds):** while the backend was still starting — or while the
 desktop shell was auto-restarting a crashed backend — every click produced a
-**"Can't reach the local VoiceStudio backend"** toast, over and over, even though
+**"Can't reach the local Sado backend"** toast, over and over, even though
 the backend came back on its own a few seconds later.
 
 **Cause:** a real backend start/restart takes **10–20+ seconds** (Python venv
@@ -938,7 +938,7 @@ or files (#1635).
 
 ## 14c. "Can't reach the backend" in a browser — `bun run dev`, Docker, or LAN share
 
-**Symptom:** you're using VoiceStudio **outside the desktop app** — the dev
+**Symptom:** you're using Sado **outside the desktop app** — the dev
 stack (`bun run dev`), a Docker deployment, or a shared/remote backend — and
 requests fail with a "can't reach the backend" error.
 
@@ -981,10 +981,10 @@ Where the forensics live: `omnivoice.log`, `run_sentinel.json`, and
 Windows, `~/.omnivoice` on Linux, or `$OMNIVOICE_DATA_DIR` — the Docker image
 mounts it as the `omnivoice_data` volume).
 
-## 14d. "Can't reach the local VoiceStudio backend" when the backend never started
+## 14d. "Can't reach the local Sado backend" when the backend never started
 
 **Symptom (older builds):** the app opened, but every action failed with
-**"Can't reach the local VoiceStudio backend — it may still be starting up, or it
+**"Can't reach the local Sado backend — it may still be starting up, or it
 stopped."** Waiting and retrying never helped, and the message gave you nothing
 to act on or to put in a bug report.
 
@@ -1013,7 +1013,7 @@ later attempt can't erase the diagnosis of the first one.
 
 **From source (`bun run dev`)?** Run `bun run setup:api` first so the
 backend's Python environment exists. If the window never comes up, read the
-terminal output plus `omnivoice.log` and `backend_err.log` in your VoiceStudio
+terminal output plus `omnivoice.log` and `backend_err.log` in your Sado
 data folder. If a packaging build (`bun run dist`) stops while compiling the
 Rust native helper with a missing `pkg-config` library, install the package
 block in the [Linux source-build guide](linux.md#building-from-source).
@@ -1027,16 +1027,16 @@ This entry covered a corrupted WebView2 profile in the archived Tauri app
 (`IPC custom protocol failed, Tauri will now use the postMessage interface
 instead`, issue #879). The Electron app does not use WebView2. Install Electron
 with the [migration guide](../electron-migration.md); if the Electron app hangs
-at startup, see [14d](#14d-cant-reach-the-local-voicestudio-backend-when-the-backend-never-started).
+at startup, see [14d](#14d-cant-reach-the-local-sado-backend-when-the-backend-never-started).
 
-## 16. macOS: microphone permission never prompts, VoiceStudio never appears in System Settings
+## 16. macOS: microphone permission never prompts, Sado never appears in System Settings
 
 **Symptom:** clicking record shows "Microphone access denied. macOS: open
-System Settings → Privacy & Security → Microphone and enable VoiceStudio" —
-but VoiceStudio never appears in that list, so there's nothing to enable.
+System Settings → Privacy & Security → Microphone and enable Sado" —
+but Sado never appears in that list, so there's nothing to enable.
 `NSMicrophoneUsageDescription` is present in the app's `Info.plist`, and
 resetting the permission (`tccutil reset Microphone
-com.voicestudio.desktop`) followed by a relaunch changes nothing — no
+com.sado.desktop`) followed by a relaunch changes nothing — no
 system prompt ever appears.
 
 **Cause:** the app bundle was missing the Hardened Runtime *entitlement* for
@@ -1049,17 +1049,17 @@ the System Settings list. (Diagnosed in the archived Tauri app by
 [@MahdiHedhli](https://github.com/MahdiHedhli).)
 
 **Fix:** fixed since the release after v0.3.12
-([#1016](https://github.com/debpalash/VoiceStudio/pull/1016)); the Electron app
+([#1016](https://github.com/Anvarjon090/sado/pull/1016)); the Electron app
 signs with the same entitlement (`electron/build/entitlements.mac.plist`).
 Update and live recording works, with a normal macOS permission prompt on
 first use.
 
 **Workaround on older builds (≤ v0.3.12):** record your voice sample in any
 other app (Voice Memos, QuickTime, etc.) and upload the resulting file in
-VoiceStudio instead of using live recording — upload-based cloning is
+Sado instead of using live recording — upload-based cloning is
 unaffected and works normally.
 
-**Linked issue:** [#1013](https://github.com/debpalash/VoiceStudio/issues/1013)
+**Linked issue:** [#1013](https://github.com/Anvarjon090/sado/issues/1013)
 
 > **Tip:** current builds surface the live OS grant state in-app — **Settings →
 > Permissions** shows whether the microphone (and, on macOS, Accessibility) is
@@ -1070,7 +1070,7 @@ unaffected and works normally.
 ## 17. Windows: backend won't start with a non-English (CJK) username — `UnicodeDecodeError` in `site`
 
 **Symptom:** the app never gets past first-run setup / "starting_backend", and
-the backend log shows the interpreter dying before any VoiceStudio code runs:
+the backend log shows the interpreter dying before any Sado code runs:
 
 ```
 Fatal Python error: init_import_site: Failed to import the site module
@@ -1086,13 +1086,13 @@ install `.pth` embeds that path in UTF-8, which is rarely a valid byte
 sequence in the active ANSI code page (`gbk`, `shift_jis`, etc.), and the
 interpreter can never start (#1783).
 
-**Fix:** VoiceStudio now rewrites those `.pth` entries to ASCII-only paths after
+**Fix:** Sado now rewrites those `.pth` entries to ASCII-only paths after
 each runtime install and before each launch, so existing environments recover
 on the next start. If the backend still cannot start, keep the app
 environment on an ASCII-only path. On the first-run
 setup screen, press **Change…** beside **App environment** and pick a folder
-such as `C:\VoiceStudio` before setup starts. An environment that cannot start
-fails VoiceStudio's runtime check, so setup opens again: choose an ASCII-only
+such as `C:\Sado` before setup starts. An environment that cannot start
+fails Sado's runtime check, so setup opens again: choose an ASCII-only
 App environment location there. The broken environment is left in place for
 manual removal.
 
@@ -1103,7 +1103,7 @@ Re-enabling 8.3 short filenames (`fsutil 8dot3name`) is deliberately **not**
 recommended: the setting is per-volume and only affects directories created
 *after* it's changed, so it does nothing for a folder that already exists.
 
-**Linked issue:** [#1783](https://github.com/debpalash/VoiceStudio/issues/1783) (auto-captured from [#1771](https://github.com/debpalash/VoiceStudio/issues/1771))
+**Linked issue:** [#1783](https://github.com/Anvarjon090/sado/issues/1783) (auto-captured from [#1771](https://github.com/Anvarjon090/sado/issues/1771))
 
 ## Dub: "translation engine needs the optional … package"
 
@@ -1130,11 +1130,11 @@ Full guide: [dubbing/translation-engines.md](../dubbing/translation-engines.md#i
 
 On networks that block or can't resolve **GitHub**, the first-run bootstrap may
 fail to download the managed Python (`uv venv ... failed`, often a DNS error).
-VoiceStudio now tries, in order: the default GitHub host → a gh-proxy mirror → your
+Sado now tries, in order: the default GitHub host → a gh-proxy mirror → your
 **system Python** (if 3.11+ is installed). If all three fail:
 
 1. **Install Python 3.11+** from <https://www.python.org/downloads/> (on Windows,
-   tick *"Add Python to PATH"*), then relaunch — VoiceStudio will use it.
+   tick *"Add Python to PATH"*), then relaunch — Sado will use it.
 2. **Point at a reachable mirror** for the Python download:
    - `UV_PYTHON_INSTALL_MIRROR=https://gh-proxy.com/https://github.com/astral-sh/python-build-standalone/releases/download`
 3. **Point at a PyPI mirror** for the dependency install (`uv sync`):
@@ -1145,16 +1145,16 @@ VoiceStudio now tries, in order: the default GitHub host → a gh-proxy mirror �
    (`UV_HTTP_TIMEOUT=120`, `UV_HTTP_CONNECT_TIMEOUT=30`, `UV_HTTP_RETRIES=5`);
    you can raise them further in the environment if a mirror is very slow.
 
-**Linked issues:** [#130](https://github.com/debpalash/VoiceStudio/issues/130), [#60](https://github.com/debpalash/VoiceStudio/issues/60), [#57](https://github.com/debpalash/VoiceStudio/issues/57)
+**Linked issues:** [#130](https://github.com/Anvarjon090/sado/issues/130), [#60](https://github.com/Anvarjon090/sado/issues/60), [#57](https://github.com/Anvarjon090/sado/issues/57)
 
 ## Workspace navigation crashes with `insertBefore` / `NotFoundError`
 
 This was a `v0.5.0` workspace-lifecycle bug exposed by rapid Launchpad ↔ Dub
 navigation while media renderers were cleaning up. Current builds isolate each
-workspace under its own DOM owner. Update VoiceStudio; no model or project data
+workspace under its own DOM owner. Update Sado; no model or project data
 repair is required.
 
-**Linked issue:** [#1590](https://github.com/debpalash/VoiceStudio/issues/1590)
+**Linked issue:** [#1590](https://github.com/Anvarjon090/sado/issues/1590)
 
 
 ## Reading the first-run install log after setup finishes
@@ -1188,8 +1188,8 @@ crash (exit code `0xffffffff` / `-1073741819`) rather than a Python traceback.
 `sm_120` is in `torch.cuda.get_arch_list()`, and that build imports and runs
 CUDA normally on some Blackwell cards, so this is not simply a wheel without
 kernels for your GPU. What is confirmed is that on the Windows setups in
-[#1931](https://github.com/debpalash/VoiceStudio/issues/1931) `import torch`
-dies natively before any VoiceStudio code can classify it, which is why the app
+[#1931](https://github.com/Anvarjon090/sado/issues/1931) `import torch`
+dies natively before any Sado code can classify it, which is why the app
 can only say the backend did not start. Moving to torch 2.9.x clears it for the
 users who hit it.
 
@@ -1209,22 +1209,22 @@ uv run python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_
 
 `True (12, 0)` means Blackwell is working.
 
-**Note.** torchaudio 2.9 removed `set_audio_backend()`. VoiceStudio's call is
+**Note.** torchaudio 2.9 removed `set_audio_backend()`. Sado's call is
 guarded, so the upgrade above no longer trades one startup crash for another —
 but if you are on a build older than that guard you will see
 `AttributeError: module 'torchaudio' has no attribute 'set_audio_backend'`
-in the same phase. Update VoiceStudio, or delete that line in
+in the same phase. Update Sado, or delete that line in
 `backend/main.py`.
 
 **Why the pin has not moved.** Raising it for everyone changes the CUDA build
 on every platform, in Docker, and in CI, so it is a deliberate decision rather
-than a patch. Track it in [#1931](https://github.com/debpalash/VoiceStudio/issues/1931).
+than a patch. Track it in [#1931](https://github.com/Anvarjon090/sado/issues/1931).
 
-## Uninstalling / removing all of VoiceStudio's data
+## Uninstalling / removing all of Sado's data
 
-VoiceStudio is fully local — no accounts, no services, nothing to deactivate. To
+Sado is fully local — no accounts, no services, nothing to deactivate. To
 reclaim disk space or fully remove it, run the uninstaller, which lists every
-VoiceStudio folder with its size (dry-run first) and deletes on `--yes`:
+Sado folder with its size (dry-run first) and deletes on `--yes`:
 
 ```bash
 scripts/uninstall.sh            # macOS/Linux — dry-run
@@ -1242,21 +1242,21 @@ per-platform path list, env-var overrides, portable-mode note, and the steps to
 remove the app binary itself are in
 [docs/install/uninstall.md](uninstall.md).
 
-**Linked issue:** [#1089](https://github.com/debpalash/VoiceStudio/issues/1089)
+**Linked issue:** [#1089](https://github.com/Anvarjon090/sado/issues/1089)
 
 ### Pedalboard illegal-instruction crashes
 
-VoiceStudio pins pedalboard to `>=0.9.14,<0.9.21` while [upstream portable-wheel repair #466](https://github.com/spotify/pedalboard/pull/466) remains open. Re-sync the locked environment after updating from a build with newer affected wheels. This keeps the existing effects API floor while avoiding the reported Linux CPU import crash.
+Sado pins pedalboard to `>=0.9.14,<0.9.21` while [upstream portable-wheel repair #466](https://github.com/spotify/pedalboard/pull/466) remains open. Re-sync the locked environment after updating from a build with newer affected wheels. This keeps the existing effects API floor while avoiding the reported Linux CPU import crash.
 
 ### TorchCodec unavailable
 
-When torchaudio requires an unavailable TorchCodec installation, VoiceStudio writes through soundfile and reads audio (reference clips, dub segments, cached-segment headers) through soundfile or its FFmpeg fallback, so dub assembly works on torchaudio 2.9 without TorchCodec. Reference amplitude is normalized using the decoded sample representation, including 8-, 24-, and 32-bit PCM.
+When torchaudio requires an unavailable TorchCodec installation, Sado writes through soundfile and reads audio (reference clips, dub segments, cached-segment headers) through soundfile or its FFmpeg fallback, so dub assembly works on torchaudio 2.9 without TorchCodec. Reference amplitude is normalized using the decoded sample representation, including 8-, 24-, and 32-bit PCM.
 
 ### Isolated engine timeouts
 
 Generation has a separate deadline from health checks. Default sidecar deadlines scale with text length and the host execution budget; per-engine timeout overrides remain supported. The outer job guard includes time for sidecar termination and error reporting. A timeout identifies the deadline, while a closed pipe without a timeout indicates a crash.
 
-VoiceStudio 0.5.6 could report an installed one-click TTS engine such as
+Sado 0.5.6 could report an installed one-click TTS engine such as
 VoxCPM2 or MOSS-TTS-Nano as unavailable when **Test engine** probed its
 in-process adapter instead of the installed isolated runtime. Update to a
 newer desktop build; reinstalling the engine or downloading its model again
@@ -1266,7 +1266,7 @@ Per-engine receive overrides include `OMNIVOICE_CONFUCIUS4_RECV_TIMEOUT_S`, `OMN
 
 ### FFprobe alongside FFmpeg
 
-When FFprobe is not on PATH, VoiceStudio also checks beside the selected FFmpeg binary. Parent folders named `ffmpeg` remain unchanged; only the executable name becomes `ffprobe` (or `ffprobe.exe` on Windows).
+When FFprobe is not on PATH, Sado also checks beside the selected FFmpeg binary. Parent folders named `ffmpeg` remain unchanged; only the executable name becomes `ffprobe` (or `ffprobe.exe` on Windows).
 
 ### Subtitle and manuscript encodings
 
@@ -1275,7 +1275,7 @@ Electron and web imports accept UTF-8, UTF-16 with a byte-order mark, and Window
 
 ### Compile fallback after startup
 
-An architecture accepted by the torch.compile preflight may still encounter independent Dynamo, Inductor, Triton, or CUDA-graph runtime errors. VoiceStudio distinguishes those from GPU memory exhaustion and retries with eager execution; architecture support alone does not guarantee compilation succeeds.
+An architecture accepted by the torch.compile preflight may still encounter independent Dynamo, Inductor, Triton, or CUDA-graph runtime errors. Sado distinguishes those from GPU memory exhaustion and retries with eager execution; architecture support alone does not guarantee compilation succeeds.
 
 ### Native engine installation from a remote client
 
@@ -1314,7 +1314,7 @@ the message:
 
 - **`Could not start <program>: spawn UNKNOWN`** — Windows (or your security
   software) refused to run the Python runtime; `UNKNOWN` is how the OS reports a
-  blocked executable. Add VoiceStudio's runtime folder to your antivirus
+  blocked executable. Add Sado's runtime folder to your antivirus
   exclusions (Windows Security → Virus & threat protection → Manage settings →
   Exclusions) and make sure it is not inside OneDrive, then retry.
 - **`Backend did not answer on port 3900 within N s`** — the wait for the
@@ -1345,7 +1345,7 @@ paths; if a load ever wedges past its deadline, retries fail immediately with a
 persists, attach the full faulthandler dump (the `Windows fatal exception` block
 including every `Thread` section) from Settings → Logs → Backend. Bug reports
 already carry a condensed copy: the crash message names the faulting frame, and
-the report keeps the faulting thread's VoiceStudio frames (which model or job
+the report keeps the faulting thread's Sado frames (which model or job
 was loading) plus the frame each other thread was running.
 
 ### ASR initialization errors

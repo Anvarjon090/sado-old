@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to VoiceStudio.
+All notable changes to Sado.
 
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com/).
 `package.json` is the maintained app-version source of truth; Electron package
@@ -20,6 +20,7 @@ metadata and the backend fallback mirror it.
 
 ### Changed
 
+- The app is Sado everywhere: name, package ids, installer identity, environment variables, docs and error strings
 - Sado app icon, favicon and installer icons: a teal tile with four waveform bars (PNG, ICO and ICNS regenerated from one mark)
 - Sado brand accent: the default palette's primary is teal (deep on light, neon on dark) with dark ink on filled controls
 - Uzbek dubbing runs on Navoiy-TTS automatically once it is installed; a mixed-language job, an explicit engine pick or an env pin keeps the configured engine
@@ -27,9 +28,9 @@ metadata and the backend fallback mirror it.
 
 ## [0.5.7] — 2026-10-05
 
-**VoiceStudio now runs on PCs without a GPU and recovers instead of giving up.** Voice cloning uses the speech-to-text model you installed from Model Catalogue, GPU-less computers get the small CPU PyTorch build, and slow or busy backends are no longer reported as failed.
+**Sado now runs on PCs without a GPU and recovers instead of giving up.** Voice cloning uses the speech-to-text model you installed from Model Catalogue, GPU-less computers get the small CPU PyTorch build, and slow or busy backends are no longer reported as failed.
 
-This release also adds a GPU acceleration panel with honest Radeon reporting, the Ask VoiceStudio Agent, and a batch of fixes to dubbing, audiobooks, downloads and dictation.
+This release also adds a GPU acceleration panel with honest Radeon reporting, the Ask Sado Agent, and a batch of fixes to dubbing, audiobooks, downloads and dictation.
 
 **Download**
 
@@ -52,7 +53,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - PCs without a dedicated GPU install the small CPU PyTorch build and run, with generation budgets that scale on slower hosts; Windows on ARM gets an experimental native installer (#2500, #2611)
 - Settings → Performance → GPU acceleration shows your GPUs, the PyTorch build and why each engine runs on GPU or CPU, with honest Radeon reporting on Windows (#2468, #2501)
 - A slow or busy backend is no longer declared failed or crashed; start-up failures name what could not launch (#2445, #2499, #2608)
-- Ask VoiceStudio Agent adds chat, harness selection, feature presets, read-only planning and autopilot app actions without a source checkout (#2407)
+- Ask Sado Agent adds chat, harness selection, feature presets, read-only planning and autopilot app actions without a source checkout (#2407)
 
 ### Changed
 
@@ -78,10 +79,10 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - OmniVoice sidecars reuse installed speech recognition for short references without transcripts, matching in-process cloning (#2320) — thanks @ewh1tman!
 - Electron recovers from OS-denied default backend ports without changing explicitly configured ports (#2358) — thanks @rishi2288!
 - Home opens directly on project actions, and Integrations lists only connectors with completed in-app setup (#2351)
-- Multi-GPU NVIDIA hosts can choose which physical CUDA adapter VoiceStudio and its engine subprocesses use (#2346) — thanks @z0tedd!
+- Multi-GPU NVIDIA hosts can choose which physical CUDA adapter Sado and its engine subprocesses use (#2346) — thanks @z0tedd!
 - MCP clients on another machine can connect through PIN-gated Local network sharing, which admits LAN hosts only while sharing is enabled (#2347) — thanks @z0tedd!
-- Docker, web setup, and documentation now use the canonical `ghcr.io/debpalash/voicestudio` image while the old GHCR path remains compatible (#2350)
-- GHCR publishes the VoiceStudio container coordinate alongside the existing path, with a release-tag backfill for a safe migration (#2348)
+- Docker, web setup, and documentation now use the canonical `ghcr.io/debpalash/sado` image while the old GHCR path remains compatible (#2350)
+- GHCR publishes the Sado container coordinate alongside the existing path, with a release-tag backfill for a safe migration (#2348)
 - Electron is now the only desktop and web UI, with native helpers, packaging, setup, Docker and Network Sharing owned by maintained Electron paths (#2343)
 - Docker, `build:web`, and `dev:web` now build the maintained Electron renderer instead of the archived browser interface (#2341)
 - Twilio setup is a guided checklist: account, tunnel, phone number and voice steps with live status, exact tunnel commands for your OS and gateway port, copyable webhook URL, a readiness panel and clear reasons when an action is unavailable (#2304)
@@ -91,7 +92,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Voice Clone shows upload and record side by side instead of behind a toggle (#2307)
 - Removed the Preview update channel, which never had a published feed; a saved Preview choice moves to Stable (#2578)
 - Docker Compose and the Docker quick starts pull the `:stable` and `:stable-rocm` release images (#2578)
-- `OMNIVOICE_UI_PORT` is the one UI-port setting (`VOICESTUDIO_UI_PORT` still works), and ports are no longer saved to settings (#2578)
+- `OMNIVOICE_UI_PORT` is the one UI-port setting (`SADO_UI_PORT` still works), and ports are no longer saved to settings (#2578)
 - `OMNIVOICE_PROGRESS_EXTENSION_CAP_S` replaces `OMNIVOICE_MODEL_LOAD_TIMEOUT_S`, which is still accepted (#2578)
 - The backend no longer accepts the retired Tauri app's web origins, and installs no longer pull PyInstaller (#2578)
 - `backend.speech_client` dictation control commands, which drove the retired Tauri app, now exit with an explanation (#2578)
@@ -105,7 +106,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Windows on ARM: native ARM64 installer; the AI backend runs as x64 under emulation on the CPU (experimental) (#2500)
 - `OMNIVOICE_TORCH_VARIANT=auto|cuda|cpu` and `OMNIVOICE_CPU_DTYPE=bfloat16` override the automatic PyTorch build and CPU precision (#2500)
 - Bug reports include CPU architecture, free disk space and the active speech recognition engine (#2433) — thanks @HoneyTyagii, @Rey-de-la-Tierra!
-- `VOICESTUDIO_DISABLE_UPDATER=1` turns off the in-app updater for package-managed installs, and the Linux guide lists the community AUR package (#2557)
+- `SADO_DISABLE_UPDATER=1` turns off the in-app updater for package-managed installs, and the Linux guide lists the community AUR package (#2557)
 - MCP agents can design a voice from a text description and reuse it by `profile_id` (`describe_voice`, `design_voice`) (#2368) — thanks @thelselutopia!
 - Dictation vocabulary hint in Settings → Dictation shortcut: names and jargon that Faster Whisper, MLX Whisper and OpenAI-compatible engines should expect (#2395) — thanks @m061i6!
 - Cheaper Inference is available as an optional LLM provider (#2325) — thanks @aiapienthusiast!
@@ -119,11 +120,11 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Linux AppImages include standard update information and a published `.zsync` file so AppImageUpdate and desktop managers can download only changed bytes (#2327) — thanks @shuvashish76!
 - Pull requests ask their opener and every commit author and co-author to sign a one-time Contributor License Agreement by comment; the contributing guide explains how (#2556)
 - Home credits contributors with over 10 commits in three responsive rows of round avatars stacked from right to left with an All contributors link, with GitHub and X links on Palash's hover card (#2407)
-- The VoiceStudio.sh Open Source title opens a website preview below the clicked item, within the right content area, with navigation and external-browser controls (#2407)
+- The Sado.sh Open Source title opens a website preview below the clicked item, within the right content area, with navigation and external-browser controls (#2407)
 - Top bar adds a GitHub Star shortcut beside Get Pro with an exact count refreshed every 20 minutes (#2407)
-- Footer adds one X button with follow cards for @idebpalash and @voicestudiosh plus a compact support-links menu beside Pro (#2407)
+- Footer adds one X button with follow cards for @idebpalash and @sadosh plus a compact support-links menu beside Pro (#2407)
 - Manage Projects with confirmed individual and bulk deletion, retry failed items, and keep exported files and render audio (#2333)
-- Footer shows Integrations, Become a Sponsor, and a VoiceStudio Pro shortcut (#2302)
+- Footer shows Integrations, Become a Sponsor, and a Sado Pro shortcut (#2302)
 - Pro keeps core generation unlimited and presents ten production benefits with $99/user yearly, $299/user lifetime, and Enterprise contact options, including quantity totals, commercial work, remote devices, workers, and GPU sharing (#2302)
 - MCP speech files and URLs can deliver Ogg/Opus instead of WAV; Ogg saves preserve int16 audio levels (#2321) — thanks @tracyndoan!
 
@@ -134,7 +135,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Commercial License client verification and test guide (#2432) — thanks @velixio!
 - Hardware support table with CPU-only and Windows-on-ARM guidance (#2500)
 - Maintainer guide for repository settings that can't live in code; the licence notice scope and the contributing guide's list of network calls match the current app (#2556)
-- Contact addresses are now hi@voicestudio.sh (general and licensing), partner@voicestudio.sh (partnerships) and security@voicestudio.sh (security reports) (#2556)
+- Contact addresses are now hi@sado.sh (general and licensing), partner@sado.sh (partnerships) and security@sado.sh (security reports) (#2556)
 - Chinese README now matches the Electron installation and migration guide (#2377) — thanks @lg114!
 - Record the supplied audio comparisons and installed-engine quality validation (#2406)
 - New call agent guide covering setup, disclosure, recording consent and safeguards (#2306)
@@ -196,7 +197,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Saving a cloned voice works offline: installed speech-to-text models load from disk and save-time transcription is time-limited (#2583) — thanks @simoncheese!
 - Apple Silicon Macs running the Intel build are pointed to the Apple Silicon download instead of failing setup on PyTorch (#2598) — thanks @igiteam!
 - Source checkouts that cannot start the backend say whether `.venv` is missing or which Python import failed (#2555) — thanks @spvn81!
-- Native backend crashes name the faulting frame and report the VoiceStudio frames and other threads that were running (#2382, #2250, #2187) — thanks @quan0pek and @geogjaime!
+- Native backend crashes name the faulting frame and report the Sado frames and other threads that were running (#2382, #2250, #2187) — thanks @quan0pek and @geogjaime!
 - Streaming previews play the last chunk to its end and resume at full volume after a generation pause (#2518) — thanks @rudycelekli!
 - Remote backend checks and WebSocket sign-in time out when a server stalls mid-response instead of waiting forever (#2527) — thanks @rudycelekli!
 - Remote backends served under a reverse-proxy path prefix keep that prefix for dictation, events and speech WebSockets (#2537) — thanks @rudycelekli!
@@ -264,7 +265,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Remote administrator sessions survive reloads and new tabs without storing the master API key (#2352) — thanks @brunobarrientos!
 - Dub extraction shows ffmpeg's actual error instead of its Homebrew version banner (#2353) — thanks @lyrenth!
 - Main-source installs use the built app version even when platform tooling has its own `Version` variable (#2343)
-- The macOS application menu says VoiceStudio instead of Electron in development launches (#2342)
+- The macOS application menu says Sado instead of Electron in development launches (#2342)
 - Engine health checks recognize one-click TTS engines such as VoxCPM2 and MOSS-TTS-Nano in their isolated environments (#2339)
 - Privacy controls stay expanded during first-run installation instead of hiding behind Advanced (#2337)
 - Preserve large workflow libraries and keyboard moves, secure library deletion and license storage, and keep analytics opt-out authoritative during startup (#2333)
@@ -272,7 +273,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 - Numbers grouped with a period in German, Spanish, French and the other comma-decimal languages, such as "10.000", keep their digits instead of being spoken as ten (#2334) — thanks @kevin9327!
 - Integration pages show each integration's own category and summary instead of borrowed labels such as "Dubbing" for Twilio (#2304)
 - Clone Import script reads Windows-1252 and BOM-tagged UTF-16 text the same way Stories and Dub paste already do (#2313) — thanks @kevin9327!
-- Integration and featured logos open their page in VoiceStudio; the vendor website opens only from the page's Website card (#2304)
+- Integration and featured logos open their page in Sado; the vendor website opens only from the page's Website card (#2304)
 - Stories caption imports drop the WebVTT header, NOTE/STYLE/REGION blocks and cue identifiers, keep `&` from `&amp;`, accept `.vtt`, and read CR-only files (#2310) — thanks @kevin9327!
 - Pickers show readable labels instead of raw values such as `__default__`, `auto` or language codes before they are opened (#2304)
 - Pure Dub timeline moves keep both millisecond cue times without unintended playback-speed changes (#2309) — thanks @kevin9327!
@@ -308,7 +309,7 @@ This release also adds a GPU acceleration panel with honest Radeon reporting, th
 
 ## [0.5.6] — 2026-09-23
 
-**VoiceStudio now talks to your other tools.** Answer Twilio phone calls in a saved voice, and connect Claude Code, Cursor, Codex CLI and the OpenAI Agents SDK to VoiceStudio with copyable setup that works, including in Docker, where MCP previously returned HTTP 405. Integration cards now say plainly which ones work with VoiceStudio and which are external links.
+**Sado now talks to your other tools.** Answer Twilio phone calls in a saved voice, and connect Claude Code, Cursor, Codex CLI and the OpenAI Agents SDK to Sado with copyable setup that works, including in Docker, where MCP previously returned HTTP 405. Integration cards now say plainly which ones work with Sado and which are external links.
 
 This release also lets you replace a saved clone's reference sample, clones long reference clips on OmniVoice, finishes long audiobook chapters on 8 GB GPUs, and keeps rendered chapters through a power-off or data-folder move.
 
@@ -330,7 +331,7 @@ This release also lets you replace a saved clone's reference sample, clones long
 **Highlights**
 
 - Answer Twilio phone calls with a greeting in a saved voice; off by default, with a local phone-quality test (#2291)
-- Claude Code, Cursor, Codex CLI and the OpenAI Agents SDK connect to VoiceStudio with working setup (#2289, #2290)
+- Claude Code, Cursor, Codex CLI and the OpenAI Agents SDK connect to Sado with working setup (#2289, #2290)
 - Replace a saved clone's reference sample, and clone from references longer than 20 s on OmniVoice (#2282, #2281) — thanks @Cengokill!
 - Long audiobook chapters finish on 8 GB GPUs and survive a power-off or data-folder move (#2287, #2279) — thanks @Tran-Van-Hieu and @castlecreati!
 - Malayalam numbers, chapter cue sheets, and captions without spoken markup tags (#2280, #2278, #2295) — thanks @nikhilkilivayil, @shivsin25 and @kevin9327!
@@ -345,11 +346,11 @@ This release also lets you replace a saved clone's reference sample, clones long
 - Answer Twilio phone calls in a saved voice: off by default, signed webhooks and single-use stream tokens, with a local phone-quality test (#2291)
 - Malayalam dubs and audiobooks speak numbers, percentages, and decimals in Malayalam instead of reading raw digits (#2280) — thanks @nikhilkilivayil!
 - Download a chapter cue sheet (`HH:MM:SS<TAB>Title`) after a Stories or Audiobook render; timestamps match the M4B's embedded chapters and give MP3 portable chapters (#2278) — thanks @shivsin25!
-- The OpenAI Agents integration page gives a copyable snippet that runs the Agents SDK voice pipeline on VoiceStudio (#2290)
+- The OpenAI Agents integration page gives a copyable snippet that runs the Agents SDK voice pipeline on Sado (#2290)
 - The OpenAI-compatible API adds `GET /v1/models` and `POST /v1/audio/translations` (multilingual Whisper models; turbo models are refused) (#2290)
 - Speech requests accept `stream_format` (`audio` or `sse`) and OpenAI's `{"id": ...}` voice object (#2290)
 - Transcriptions pass `language`, `prompt` and `temperature` to Whisper engines and return `words` with `timestamp_granularities[]=word` (#2290)
-- Integrations: copyable setup for Codex CLI (`config.toml`), any MCP client (HTTP or stdio), the VoiceStudio API (`curl` and OpenAI SDK), and Docker/GHCR (#2289)
+- Integrations: copyable setup for Codex CLI (`config.toml`), any MCP client (HTTP or stdio), the Sado API (`curl` and OpenAI SDK), and Docker/GHCR (#2289)
 
 ### Fixed
 
@@ -368,7 +369,7 @@ This release also lets you replace a saved clone's reference sample, clones long
 - An audiobook chapter-cache miss now logs which input changed since the cached render (#2279)
 - MCP clients pointed at `/mcp` connect on Docker and source builds instead of getting HTTP 405 (#2289)
 - MCP tools and `backend.speech_client` follow a backend moved with `OMNIVOICE_PORT` instead of assuming port 3900 (#2289)
-- Integration cards show real capabilities: "Works with VoiceStudio" only where a setup exists, "External link" everywhere else (#2289)
+- Integration cards show real capabilities: "Works with Sado" only where a setup exists, "External link" everywhere else (#2289)
 
 ### Docs
 
@@ -607,9 +608,9 @@ Already using Electron? Install over your existing app and keep your data. If pr
 
 **A new look. A new desktop app. Still your voices, on your machine.**
 
-VoiceStudio moves to **Electron** with v0.5.3: a redesigned workspace for voice cloning, voice design, stories, dubbing, and transcription. Electron is now the primary desktop app on Windows, macOS, and Linux. Local voice creation still runs on your own hardware, without a required account or API key.
+Sado moves to **Electron** with v0.5.3: a redesigned workspace for voice cloning, voice design, stories, dubbing, and transcription. Electron is now the primary desktop app on Windows, macOS, and Linux. Local voice creation still runs on your own hardware, without a required account or API key.
 
-![VoiceStudio's new Electron interface: voice cloning, saved voices, workspace navigation, and synthesis controls](https://raw.githubusercontent.com/debpalash/VoiceStudio/v0.5.3/docs/media/electron/voice-cloning.png)
+![Sado's new Electron interface: voice cloning, saved voices, workspace navigation, and synthesis controls](https://raw.githubusercontent.com/Anvarjon090/sado/v0.5.3/docs/media/electron/voice-cloning.png)
 
 **Highlights**
 
@@ -619,7 +620,7 @@ VoiceStudio moves to **Electron** with v0.5.3: a redesigned workspace for voice 
 - A simpler Model Catalogue and one-click installs for VoxCPM2, MOSS-TTS-Nano, and CosyVoice 3 (#2013, #2021, #2022, #2025)
 - More reliable generation on older NVIDIA GPUs and live remote-worker CPU, GPU, and memory readings (#2135, #2155)
 
-![The Electron dubbing workspace with source and translated demos, language controls, and synchronized playback](https://raw.githubusercontent.com/debpalash/VoiceStudio/v0.5.3/docs/media/electron/dubbing.png)
+![The Electron dubbing workspace with source and translated demos, language controls, and synchronized playback](https://raw.githubusercontent.com/Anvarjon090/sado/v0.5.3/docs/media/electron/dubbing.png)
 
 **Get the new desktop app**
 
@@ -632,14 +633,14 @@ VoiceStudio moves to **Electron** with v0.5.3: a redesigned workspace for voice 
 
 **Moving from Tauri? Install Electron separately.**
 
-v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to Electron; choose a **VoiceStudio-Electron** installer above. Legacy Tauri assets remain available for existing installations.
+v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to Electron; choose a **Sado-Electron** installer above. Legacy Tauri assets remain available for existing installations.
 
 1. Close Tauri and back up its entire data directory, plus any reference audio stored elsewhere.
 2. Install Electron and check its storage/backend configuration points to your existing data before generating. Never run both apps against that directory at once.
 3. Verify your voices, projects, history, and model locations; generate a short clip before removing Tauri.
 4. Recheck devices, shortcuts, theme, backend address, permissions, and credentials. Desktop preferences and credentials are not guaranteed to transfer.
 
-[Read the migration guide](https://github.com/debpalash/VoiceStudio/blob/v0.5.3/docs/electron-migration.md) · [Compare all changes since v0.5.2](https://github.com/debpalash/VoiceStudio/compare/v0.5.2...v0.5.3)
+[Read the migration guide](https://github.com/debpalash/VoiceStudio/blob/v0.5.3/docs/electron-migration.md) · [Compare all changes since v0.5.2](https://github.com/Anvarjon090/sado/compare/v0.5.2...v0.5.3)
 
 ### Changed
 
@@ -796,19 +797,19 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - audio.cpp (Breeze-TTS-2) is now a documented opt-in engine: prebuilt binary install, explicit GGUF download, voice modes, and the weights' research/non-commercial terms (#1891)
 - `docs/STRUCTURE.md` describes the tree as it is today, and a test now keeps its counts honest (#1981) — thanks @Dawcraft!
 - Local gigastt is now documented as a supported OpenAI-compatible ASR endpoint, with loopback privacy distinguished from remote servers (#1736) — thanks @ekhodzitsky!
-- The CosyVoice guide now states that packaged builds have no one-click runtime installer and records the exact readiness checks exposed by [Discussion 1631](https://github.com/debpalash/VoiceStudio/discussions/1631) (#1761)
+- The CosyVoice guide now states that packaged builds have no one-click runtime installer and records the exact readiness checks exposed by [Discussion 1631](https://github.com/Anvarjon090/sado/discussions/1631) (#1761)
 - A production private-API guide now covers pinned containers, root credentials, network isolation, streaming proxies, health checks, upgrades, and benchmark evidence (#1720)
 - RX 6700 XT/gfx1031 over WSL2 ROCDXG is now explicitly unverified until a published end-to-end GPU workload proves the mapped path (#1716)
 
 ### Fixed
 
-- One-click engine installs no longer inherit VoiceStudio's own PyTorch pin, which made MOSS-TTS-v1.5 and Confucius4 impossible to install (#2024)
-- Uninstalling a translation engine no longer removes a package VoiceStudio or another engine still needs (#2019)
+- One-click engine installs no longer inherit Sado's own PyTorch pin, which made MOSS-TTS-v1.5 and Confucius4 impossible to install (#2024)
+- Uninstalling a translation engine no longer removes a package Sado or another engine still needs (#2019)
 - Closing the dictation pill on Windows removes it from the screen: an empty dark rectangle used to stay there, always on top, until the app was quit (#2009)
 - The dictation pill on Windows no longer sits inside a bordered card wider than the pill itself (#2009)
 - Dictation uses the model you picked instead of one remembered from before the backend started, so it stops reporting no speech-to-text model while one is installed — and when none is, the main window offers the download (#2012)
 - The remote-worker loop-responsiveness tests no longer turn a build red over milliseconds of scheduling noise on shared CI hardware (#1990)
-- Remote GPU workers work when the machine running VoiceStudio is on Windows: a staged input is now identified the same way on every operating system, instead of with a path only Windows can read (#2005)
+- Remote GPU workers work when the machine running Sado is on Windows: a staged input is now identified the same way on every operating system, instead of with a path only Windows can read (#2005)
 - The pronunciation list badges an IPA or CMU entry as not applied yet, so you can see it without running a test (#1949) — thanks @utkarsha741!
 - A remote-worker test no longer fails at random on Windows CI: it waited for a background thread by spinning the event loop that thread's work needed (#1990)
 - The isolated backend test session passes on a stock Windows checkout, and CI now runs it there so it stays that way (#1990)
@@ -822,7 +823,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Voice synthesis progress no longer races to a fabricated 95%; it stays indeterminate until the active generation path reports real progress (#1907) — thanks @psiberfunk!
 - The Backend log tab keeps showing history across a log rollover, instead of going nearly empty until new lines arrive (#1920)
 - Clearing the logs now empties the rotated log files too, so it frees the space it appears to (#1920)
-- An error thrown by a browser extension no longer offers to file itself as a VoiceStudio bug (#1901)
+- An error thrown by a browser extension no longer offers to file itself as a Sado bug (#1901)
 - Clearing the desktop logs no longer wipes the backend's stderr, which is the only record a native crash leaves behind and is meant to survive a respawn (#1510)
 - Long audiobook chapters now use the same device- and text-length-aware synthesis timeout as other TTS routes (#1910) — thanks @psiberfunk!
 - Interrupted audiobook renders can resume cached chapters after tab navigation, and their chapter cache is available from the recovery card (#1911) — thanks @psiberfunk!
@@ -910,7 +911,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Source-mode development now restarts an isolated backend crash without tearing down the UI, while repeated crash loops still stop loudly with diagnostics (#1690)
 - Dubbing playback now keeps an audible companion source when a WebView can render the preview picture but cannot decode its audio (#1692)
 - Model Catalogue engine rows now use the available desktop width and keep identity, runtime state, and actions from crowding one another (#1689)
-- VoiceStudio now acts as a local speech platform: other apps can trigger its native dictation or connect through versioned HTTP, WebSocket, JSON-RPC, CLI, and MCP transports (#1646)
+- Sado now acts as a local speech platform: other apps can trigger its native dictation or connect through versioned HTTP, WebSocket, JSON-RPC, CLI, and MCP transports (#1646)
 - A timed-out in-process dub transcription no longer starts a second WhisperX/CTranslate2 call over the abandoned native worker, preventing the overlapping access that preceded Windows `0xC0000005` exits (#1669)
 - Windows debugger termination code `0x40010004` is no longer misreported as a backend crash or charged against automatic restart recovery (#1663)
 - Studio now keeps one generation reservation across page changes, preventing a remount from stacking native jobs until the backend reports capacity busy or is killed under memory pressure (#1670)
@@ -938,7 +939,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - A bundled Rust loopback sidecar exposes dictation start/stop/toggle, focused-output sessions, discovery, and JSON-RPC; the backend adds versioned streaming events and a dependency-free CLI bridge for Herdr, coding agents, editors, desktop apps, and TUIs (#1646)
 - Headless NVIDIA and ROCm machines can now join as worker-only Docker Compose services with no published UI and durable protocol-v2 enrollment; update both machines together before reconnecting (#1638) — thanks @jkrogers9862!
 - Linux ARM64 (Asahi Apple Silicon) support for the OmniVoice GGUF engine — a `linux-aarch64` binary built with GGML Vulkan where the toolchain allows it, so Apple GPUs accelerate generation through the open-source Honeykrisp driver instead of falling back to CPU-only (#1641)
-- One-command install on every desktop OS: `curl -fsSL https://voicestudio.sh/install | sh` (macOS/Linux/WSL) or `irm https://voicestudio.sh/install | iex` (Windows) — the URL serves the right script per platform, and Windows gains a source installer (`scripts/install.ps1`) with a 3-OS CI smoke (#1626)
+- One-command install on every desktop OS: `curl -fsSL https://sado.sh/install | sh` (macOS/Linux/WSL) or `irm https://sado.sh/install | iex` (Windows) — the URL serves the right script per platform, and Windows gains a source installer (`scripts/install.ps1`) with a 3-OS CI smoke (#1626)
 - Per-line subtitle management in the dub table: a line's end time is editable alongside its start (typing a time and dragging its timeline edge now take the same path), lines merge with the previous row as well as the next (`Ctrl/Cmd+Shift+M`), and a new line can be inserted into the gap after any row (#1612) — thanks @invio-a11y!
 - CI now enforces performance regression budgets on the hot paths — operation-count tests pin streaming TTS to one synthesis per sentence and cached dub re-mixes to zero re-synthesis; fast-path guards cover zero re-decoding and ⌈N/W⌉ native batch calls when enabled (#1594)
 - Default-engine dubbing now synthesizes several segments per forward pass instead of one call per line — the width follows the host's device headroom (1 on CPU and low-VRAM cards, up to 8), `OMNIVOICE_DUB_BATCH_WIDTH` overrides it, and engines without native batching keep the single-segment path (#1594)
@@ -980,7 +981,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Dictation now ships Whisper Tiny as its one cross-platform default, avoiding Parakeet's measured empty decoding on Windows while keeping Parakeet selectable behind runtime fallback (#1175)
 - Re-mixing a dub no longer decodes, rewrites, and re-reads every cached segment — same-rate cached audio is reused directly (and rejected if truncated), switching timing modes can't reuse slot-truncated audio as natural-rate, and RVC respects natural-rate modes (#1594)
 - PocketTTS French works again — pocket-tts only ships a 24-layer French model and rejected the name the sidecar asked for, so every French request failed at model load; French now always loads `french_24l` (#1613) — thanks @paoloantinori!
-- Installing IndexTTS 2.5 no longer fails claiming an interrupted download — the weights repo ships `config.yaml` and VoiceStudio demanded a `config_v2_5.yaml` that exists in no upstream release; both names are accepted, so a hand-renamed checkout keeps working (#1611) — thanks @zuiaiyutu!
+- Installing IndexTTS 2.5 no longer fails claiming an interrupted download — the weights repo ships `config.yaml` and Sado demanded a `config_v2_5.yaml` that exists in no upstream release; both names are accepted, so a hand-renamed checkout keeps working (#1611) — thanks @zuiaiyutu!
 - IndexTTS 2.5 no longer has long-text generation killed at 60 seconds — the sidecar now proves it is alive every 5 seconds while `infer()` runs, and its deadline rises to 900s (`OMNIVOICE_INDEXTTS_RECV_TIMEOUT_S`) (#1611) — thanks @zuiaiyutu!
 - The OpenAI-compatible `/v1/audio/speech` route now reuses the shared cached engine for explicit `model` ids instead of constructing a fresh engine — and its sidecar/model load, a ~28s floor per call for subprocess engines — on every request, with the same single-engine-resident discipline `/generate` applies (#1614) — thanks @paoloantinori!
 - The setup wizard's RAM check no longer blocks 8 GB machines whose OS reports ~7.8 GB usable — the thresholds now tolerate reserved memory, and `OMNIVOICE_RAM_PREFLIGHT=0` turns a genuine block into a warning for those who accept the OOM risk (#1618)
@@ -1012,23 +1013,23 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 
 **Highlights**
 
-- The app is now **VoiceStudio** (previously OmniVoice-Studio) — one waveform-and-spark identity across the app, docs and installers. Your data folder, settings and Docker image paths stay put.
+- The app is now **Sado** (previously OmniVoice-Studio) — one waveform-and-spark identity across the app, docs and installers. Your data folder, settings and Docker image paths stay put.
 - **Model Catalogue** — engines and models in one workspace: every TTS, transcription and LLM engine with its device routing and install state, defaults picked there.
 - Switch TTS, ASR and LLM engines from the status bar or any workspace — ready-only choices, memory status, environment-pin protection, `Ctrl/Cmd+E`. (#1530)
 - Lend another machine's GPU with a join code and a QR scan — a Compute control in the status bar picks where jobs run, and several people can share one GPU box with revocable, certificate-pinned connections. (#1516, #1496)
 - Server mode is locked down: admin actions require an API key (#1525), and the remote UI exchanges it for short-lived sessions that never sit in browser storage or WebSocket URLs (#1528) — thanks @bultodepapas!
 - A faster, cleaner Dub workspace for multilingual production, with a production command bar and per-language cards. (#1489)
-- The demo audio and video the app always advertised now actually ship, rendered by VoiceStudio's own engine. (#1517)
+- The demo audio and video the app always advertised now actually ship, rendered by Sado's own engine. (#1517)
 - Dictation works on Wayland now — the portal shortcut actually fires (#1490, #1526) — and the recording pill is back on every desktop.
 - The Launchpad wears the project's signal-field waveform artwork over a quieter, borderless layout. (#1533)
 - The catalogue reads as headroom, not breakage: available engines sort first, uninstalled ones say what they need (#1531), and the LLM row names the provider that actually answers (#1538).
 - Gallery voices can be saved as local profiles — audio lands in your profile store with validated, content-addressed references. (#1542)
 
-<img src="https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/quick-switch.gif" alt="Switching TTS engines from the status bar" width="820" />
+<img src="https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/quick-switch.gif" alt="Switching TTS engines from the status bar" width="820" />
 
 | The Model Catalogue | The Voice Gallery |
 | --- | --- |
-| <img src="https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/catalogue.png" alt="Model Catalogue — engines pane" width="420" /> | <img src="https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/gallery-save.png" alt="Voice Gallery — save a voice as a profile" width="420" /> |
+| <img src="https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/catalogue.png" alt="Model Catalogue — engines pane" width="420" /> | <img src="https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/gallery-save.png" alt="Voice Gallery — save a voice as a profile" width="420" /> |
 
 ### Changed
 
@@ -1050,10 +1051,10 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Voice, Stories, Audiobook, Gallery, Settings, profiles, and Launchpad now use compact, responsive layouts with accessible controls. (#1491)
 - Dubbing's Generate Dub, Verify, and Export actions now use a compact hierarchy with visible labels, responsive reflow, and motion-safe feedback. (#1493)
 - The Dub workspace now has a compact production command bar, responsive flag-based language cards, media previews in Dub History, and a narrower Projects rail. (#1489)
-- VoiceStudio now uses one waveform-and-spark mark across the title bar, About screen, README, browser favicon, and every desktop/platform icon. (#1487)
+- Sado now uses one waveform-and-spark mark across the title bar, About screen, README, browser favicon, and every desktop/platform icon. (#1487)
 - PocketTTS now asks you to review its code license, model license and gated-access conditions before first use, and explains how to unlock the model instead of showing a raw download failure — thanks @paoloantinori! (#1442)
-- The repository moved to github.com/debpalash/VoiceStudio. Every link in the app, docs and scripts now points there; GitHub redirects the old URLs, and the Docker image paths, the app bundle identifier and your data folder are all deliberately unchanged. (#1394)
-- The app is now **VoiceStudio** (previously OmniVoice-Studio). Only the name you see changes — your data folder, settings and the Docker image paths stay put, so upgrading needs nothing from you. On Linux the .deb is now `voicestudio`; remove the old `omnivoice-studio` package once.
+- The repository moved to github.com/Anvarjon090/sado. Every link in the app, docs and scripts now points there; GitHub redirects the old URLs, and the Docker image paths, the app bundle identifier and your data folder are all deliberately unchanged. (#1394)
+- The app is now **Sado** (previously OmniVoice-Studio). Only the name you see changes — your data folder, settings and the Docker image paths stay put, so upgrading needs nothing from you. On Linux the .deb is now `sado`; remove the old `omnivoice-studio` package once.
 - macOS floor raised to 13.3 (Ventura) — the frontend has required Safari 16.4 for some time, so macOS 12 was a promise the stack could not keep (#1268)
 - The first-run setup screen no longer overpromises. It claimed "no account, no cloud, no telemetry" without qualification — untrue for anyone who opts into analytics — and now says what actually holds either way: your voices, recordings and projects never leave the machine, and no processing happens in the cloud.
 - Dictation no longer shows a floating pill. The hotkey records, transcribes and pastes with nothing on screen; the tray icon still marks recording, and anything needing your attention (Accessibility, microphone, a failed transcription) now arrives as a notification in the main window.
@@ -1062,7 +1063,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 
 - Gallery personas preview through the local backend, keep their full voice-design recipe, and open directly in Voice, Stories, or Audiobook — and can be saved as local profiles with validated audio references. (#1542)
 - The demo audio the app has always advertised now actually ships: previews for all seven voice-design presets, the three dictation replay clips, and the dubbing demo's source video plus four dubbed languages with subtitles. Every one of those was a dead link before — the tooling that renders them required macOS, so on Windows and Linux the files were never built. (#1517)
-- Demo assets are rendered by VoiceStudio's own engine, so the tooling runs wherever the app does, and the demos are made by the thing they demonstrate. (#1517)
+- Demo assets are rendered by Sado's own engine, so the tooling runs wherever the app does, and the demos are made by the thing they demonstrate. (#1517)
 - A machine can now join a control plane from the app: Settings → System → Remote workers → **Lend this machine's GPU**, paste the join code, done — no environment variables and no restart. The address travels with the code, so the machine reconnects on its own afterwards. (#1516)
 - Join codes and connection strings are shown as a **QR code** alongside the text, with a live expiry countdown — scan it from the other machine instead of retyping forty characters. (#1516)
 - A **Compute** control in the status bar: pick local or a remote machine, turn remote workers on or off, and mint a join code without opening Settings. It appears only once you have opted in or enrolled a machine. (#1516)
@@ -1111,7 +1112,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - The AudioSeal watermark models are released after the same idle period as everything else, instead of staying in memory for the life of the app once anything was watermarked. (#1495)
 - Remote GPU workers now synthesize a dub's fresh segments as one coarse job with live progress and cancellation; fitting, assembly and RVC remain local. (#1478)
 - Gallery voice previews now fall back to a local render when a downloaded clip cannot be decoded, instead of failing silently. (#1478)
-- A second VoiceStudio instance can no longer silently share the remote-worker port; it keeps running locally and explains how to resolve the conflict. (#1478)
+- A second Sado instance can no longer silently share the remote-worker port; it keeps running locally and explains how to resolve the conflict. (#1478)
 - Remote GPU jobs stay pinned to the selected worker across retries and restarts, stop when their caller leaves, and cannot return from cancellation as completed. (#1478)
 - Remote GPU model labels now survive registration, legacy blank model IDs share one capacity slot, long jobs retain bounded leases, and idle cleanup cannot evict a live local render. (#1478)
 - Remote GPU jobs now stop before dispatch when that worker lacks the model, offer the download there, and refresh scheduling as soon as it finishes. (#1478)
@@ -1132,11 +1133,11 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - GPT-SoVITS connections now stay on loopback or explicitly trusted networks and cannot escape through redirects or DNS rebinding. (#1463)
 - Engine discovery no longer exposes probe exceptions, local paths or credentials in API responses and logs. (#1460)
 - Failed gallery, batch-video, and desktop-log cleanup is now reported instead of silently claiming success, and diagnostic redaction fails closed if a scrubber breaks. (#1458)
-- Remote backends can no longer probe or overwrite arbitrary host files through native-only tools, and imported or persisted paths cannot escape their VoiceStudio data folders. (#1455)
+- Remote backends can no longer probe or overwrite arbitrary host files through native-only tools, and imported or persisted paths cannot escape their Sado data folders. (#1455)
 - Linux releases now verify that the AppImage actually contains the compatibility launcher, instead of silently shipping Tauri's stock launcher and opening as a blank window on newer Mesa systems. (#1464)
-- Patched dependency releases now cover 35 Python and Rust security advisories without weakening VoiceStudio's GPU or offline-runtime compatibility. (#1456, #1472, #1473, #1474, #1475, #1476, #1477)
+- Patched dependency releases now cover 35 Python and Rust security advisories without weakening Sado's GPU or offline-runtime compatibility. (#1456, #1472, #1473, #1474, #1475, #1476, #1477)
 - Curated models now install and repair from reviewed, immutable revisions; custom MOSS remote code requires an explicit safety opt-in. (#1453)
-- YouTube imports that require a signed-in session can now use an explicitly selected `cookies.txt` export for one import; VoiceStudio never reads browser cookies silently and makes two best-effort attempts to delete its temporary copy. (#1429, #1432) — thanks @dongqing1968-sudo and @phamvandu9595-tech!
+- YouTube imports that require a signed-in session can now use an explicitly selected `cookies.txt` export for one import; Sado never reads browser cookies silently and makes two best-effort attempts to delete its temporary copy. (#1429, #1432) — thanks @dongqing1968-sudo and @phamvandu9595-tech!
 - First-run source builds no longer stop after uv was successfully downloaded just because its installer failed during a later shell-profile step; app-private uv installs no longer touch shell profiles at all. (#1438) — thanks @AdrianoCahete!
 - Model files damaged by an interrupted download now repair themselves instead of failing every generation, including invalid `config.json` files and corrupt weight headers. — thanks @overrunau and @zherunh! (#1406, #1437)
 - ROCm Docker now installs and starts the backend with the same Python whose AMD torch build was validated, instead of launching a second CUDA-only environment and silently running on CPU. (#1274) — thanks @simmessa and @spicchio72!
@@ -1152,7 +1153,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - A slow machine is no longer told its IndexTTS-2 install isn't there. The check that confirms an engine's virtualenv gave up after 10 seconds and counted that as a broken install, so a cold first run 500'd; it now waits longer and treats slow as unproven, not broken. (#1414) — thanks @OracleNightmare!
 - A broken Python environment now says so, instead of blaming the app's own install. A missing or mismatched torch/transformers surfaced as "omnivoice not importable" and sent people reinstalling the wrong thing. (#1415)
 - A model that fails to load at startup no longer leaves the app looking healthy while producing nothing — the failure and its remedy now show up in the model status. (#1415)
-- Generating with the default engine works again on everything built from `main` since the rename — source checkouts, preview builds and Docker `:latest` all run the same backend, whose model import had been rewritten to a class name the library doesn't export, failing every generation with "cannot import name 'VoiceStudio'". The class keeps its library name, and a guard test now pins it. (#1420)
+- Generating with the default engine works again on everything built from `main` since the rename — source checkouts, preview builds and Docker `:latest` all run the same backend, whose model import had been rewritten to a class name the library doesn't export, failing every generation with "cannot import name 'Sado'". The class keeps its library name, and a guard test now pins it. (#1420)
 - Running from source no longer dies at startup when a database migration is pending. Alembic resolved the migrations folder relative to wherever the app was launched from — fine from the repo root, fatal from the desktop shell (`tauri dev`), which reported "Path doesn't exist: backend/migrations" and stopped. The path is now anchored to the repo, wherever you start it. (#1420)
 - The first generation after startup no longer stalls or 500s while the model is still loading. A cold load reached from a worker thread waited on a lock owned by a different event loop, which either errored outright or deadlocked until the job was abandoned. (#1417)
 - The voice-design model on Apple Silicon works again. Its description was being dropped before it reached the engine, so every generation failed with a raw 400 no matter what you typed. (#1405)
@@ -1168,7 +1169,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - A take that is missing part of your text now says so instead of coming back quietly short. When the engine renders a sentence to nothing, the app names the missing text and suggests re-generating — until now the only way to notice was to read along. (#1330)
 - A long render on modest hardware is no longer abandoned as "too heavy for the available compute" while it is visibly working. A generate that keeps finishing chunks now extends its own deadline (bounded), the way a model download already could; one that stops producing anything still fails on time. (#1338, #1348, #1391)
 - A backend that dies while loading its own Python dependencies is no longer reported as a memory problem. The crash notice now says the environment is incomplete and points at "Clean & Retry", instead of sending users to flush a model that had nothing to do with it. (#1282, #1376)
-- A UI whose API requests land on the wrong host — a rehosted frontend, or a reverse proxy with no API route — no longer echoes that host's raw 404 page as the error. It now says the responding server is not a VoiceStudio backend and points at the Backend URL setting and the proxy route. (#1385)
+- A UI whose API requests land on the wrong host — a rehosted frontend, or a reverse proxy with no API route — no longer echoes that host's raw 404 page as the error. It now says the responding server is not a Sado backend and points at the Backend URL setting and the proxy route. (#1385)
 - Building the GGUF engine from source produced a binary that died on its very first spawn ("libggml.so.0: cannot open shared object file") — the build script deleted the shared libraries it had just linked against. It now ships them next to the binary on every platform, and the backend puts that folder on the loader path — thanks @vanderlpp! (#1348)
 - The GGUF engine's hard 120-second per-render kill switch — which was reaping legitimate CPU-only renders mid-synthesis — is now 600s, tunable via `OMNIVOICE_GGUF_GENERATE_TIMEOUT_S`, and the timeout error names that setting — thanks @vanderlpp! (#1348)
 - Every subprocess TTS engine would have turned a stereo render into noise: the mono downmix always averaged axis 0, which is time rather than channels for channels-last audio. Unreachable today since every engine returns mono, fixed in all five before it isn't. (#1328)
@@ -1177,7 +1178,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - ...and deleting a dub whose files an existing saved dub still renders from now keeps those files on disk (the history entry still disappears) — protecting dubs created before this fix, whose references already cross directories. (#1331)
 - An unclean previous shutdown is no longer announced as a crash: the notice says what it actually knows, names the benign causes (sleep, force-quit, a stopped VM), and the one-click bug report is only offered when there is evidence to put in it — an empty report helps nobody. (#1375)
 - A first-use generate no longer fails at 300s while its model is still downloading: the download's own progress heartbeats now extend the generation budget (bounded), so a slow connection isn't reported as too-slow hardware. A job that goes silent still dies at the original deadline. (#1367)
-- A generation that hits its time limit now says so, instead of "an error VoiceStudio doesn't recognize" followed by an empty `TimeoutError:`. It names the likely causes and the setting that raises the limit. (#1368)
+- A generation that hits its time limit now says so, instead of "an error Sado doesn't recognize" followed by an empty `TimeoutError:`. It names the likely causes and the setting that raises the limit. (#1368)
 - The "transformers install is incomplete" advice now names torchvision — the package whose version mismatch actually produces that error — and points at the pinned reinstall that repairs it, instead of a reinstall that left the broken package untouched. (#1376, #1357)
 - A model download cut off mid-request is no longer reported as a broken transformers install — reinstalling could never have fixed a dropped connection. (#1347)
 - A TLS connection cut during generation is explained as the dropped download it is, instead of falling through as an unrecognized error carrying `_ssl.c:1016`. (#1335)
@@ -1206,7 +1207,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Linux AppImage: recording failed with "No microphone found" on hosts whose GStreamer is newer than the build runner's, even with a verified-healthy audio stack — your own GStreamer now takes precedence, and the plugin cache is app-private so it can neither be confused by nor corrupt the one other apps use — thanks @Kakuzen93! (#1333)
 - Linux AppImage: that GStreamer preference actually takes effect — the check guarding it could never pass, so it had been silently doing nothing. (#1333)
 - A TTS job abandoned for exceeding its compute budget now records where it was actually stuck, so a hang stops being reported as a machine that is merely too slow. (#1338, #1329, #1348)
-- Translation through LM Studio works. The built-in model name was the placeholder `local-model`, which LM Studio rejects because it serves whatever you have loaded — VoiceStudio now asks it, and a 404 from a local server names the models that ARE loaded instead of telling you to check a URL that was fine — thanks @biga73! (#1332)
+- Translation through LM Studio works. The built-in model name was the placeholder `local-model`, which LM Studio rejects because it serves whatever you have loaded — Sado now asks it, and a 404 from a local server names the models that ARE loaded instead of telling you to check a URL that was fine — thanks @biga73! (#1332)
 - Generation that silently dropped the end of the input now says so. When an engine returns no audio for part of the text the result sounds clean and is simply short, so the only way to notice was to read along; the backend log now names the sentences that produced nothing. (#1330)
 - Dubbing: a re-rendered line that quietly came back in a default voice instead of the cloned one now says why in the backend log — the clone clips are extracted per job and a saved dub outlives them, so regenerating after cleanup loses the reference with no error. (#1331)
 - RTX 40-series GPUs are used again instead of being sent to the CPU. (#1289)
@@ -1249,7 +1250,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 **Highlights**
 
 - AMD GPUs are used again — every ROCm host was silently running on the CPU
-- Two synth failures that used to say "an error VoiceStudio doesn't recognize" now say what actually went wrong
+- Two synth failures that used to say "an error Sado doesn't recognize" now say what actually went wrong
 - A dub URL ingest that fails on a disk problem now says which folder and why
 - A broken audio dependency no longer takes the whole backend down at startup
 - A GPU too small for the chosen engine now says so up front, not after a five-minute wait
@@ -1283,7 +1284,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Picking a language the active engine can't speak recited 23 codes without saying which engine refused or that switching engine was the fix — thanks @pulananave! (#1257)
 - A YouTube import that failed as "DRM protected" and then worked on a manual retry now escalates the player client automatically, and a genuinely undownloadable video says so — thanks @gysahlgreene! (#1254)
 - Exporting a voice profile, persona, dub, subtitle or stem whose name is Chinese, Japanese, Korean, Cyrillic, Greek, Hebrew or emoji failed with a `'latin-1' codec` 500 — every download endpoint now sends the name correctly, and browsers get the real one back — thanks @zvxzdx! (#1262)
-- A synth that failed because ffmpeg/ffprobe wasn't on the system path said "an error VoiceStudio doesn't recognize"; it now names the media engine and points at Settings → Audio tools, and the app's own copy is published on PATH so dependencies find it in the first place — thanks @Heuvelsma! (#1256)
+- A synth that failed because ffmpeg/ffprobe wasn't on the system path said "an error Sado doesn't recognize"; it now names the media engine and points at Settings → Audio tools, and the app's own copy is published on PATH so dependencies find it in the first place — thanks @Heuvelsma! (#1256)
 - Windows "The paging file is too small" arrived as a bare 500; it now explains that this is a virtual-memory setting, not full RAM, and gives the steps to raise it — thanks @trankeny545-sudo! (#1251)
 - AMD/ROCm: every ROCm host was silently force-routed to the CPU — the compatibility gate compared a CUDA `sm_` tag against a ROCm build's `gfx` list, which can never match — thanks @simmessa! (#1228)
 - AMD/ROCm: `torch.compile` was disabled on all AMD hosts by the same mismatched comparison (#1228)
@@ -1344,7 +1345,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - First-run consent question for the existing opt-in analytics (two equal buttons, skip = no)
 - First run: when the app auto-opens in a non-English system language, a one-time, dismissible banner offers to switch the UI to English — shown only until you pick a language, never for English systems (#1215)
 - Source builds carry the publishable analytics token and get the same first-run consent ask as installers; opt-in events now note the install channel (installer / docker / source) — thanks @agudmund! (#1193)
-- Official Google Colab notebook (`notebooks/VoiceStudio_Studio_Colab.ipynb`) — full app + API feature tour on a free T4
+- Official Google Colab notebook (`notebooks/Sado_Studio_Colab.ipynb`) — full app + API feature tour on a free T4
 - ROCm Docker image `ghcr.io/debpalash/omnivoice-studio:rocm` (+ `:stable-rocm`, `:X.Y.Z-rocm`) (#1165)
 - `OMNIVOICE_TRUSTED_NETWORKS` — comma-separated CIDRs exempted from the consumption auth gates (share PIN / API key / dictation WS); admin routes stay loopback-only (#1170)
 - Info/warn system notifications are dismissible and stay dismissed across restarts; error-level notices can't be dismissed, and the unclean-shutdown notice is now acknowledged server-side — thanks @agudmund! (#1192)
@@ -1374,7 +1375,7 @@ v0.5.3 is also the final Tauri update. The Tauri updater will not switch you to 
 - Voice-clone trimmer: the preview now plays exactly the selected region on variable-bitrate clips (it had drifted off on VBR/mis-reported-duration files by playing the original file on a different timeline) (#1210)
 - Screen readers now announce the hidden file-picker buttons (batch add, gallery import, stories import) (#1211)
 - Audiobook language selection now reaches the backend — the client had dropped the `language` field, and the tab's Markup reference now lists the reaction tags (`[laughter]`, `[sigh]`, …) that already work there (#1208)
-- A backend that fails to start now says why — exit code and error output, with actionable hints and a one-click report — instead of the evidence-free "Can't reach the local VoiceStudio backend" (#1177)
+- A backend that fails to start now says why — exit code and error output, with actionable hints and a one-click report — instead of the evidence-free "Can't reach the local Sado backend" (#1177)
 - Generation no longer crawls on CPU after a cancelled or failed dub: the TTS model is moved back to the GPU on every exit path, and each generation now verifies its own placement (#1191)
 - A generation queued behind a busy one no longer spends its timeout waiting: the budget starts when a GPU worker picks the job up, so a queued request can't be failed as "too heavy for the available compute" without having run (#1190)
 - One request's timeout no longer cancels unrelated jobs already waiting in the GPU queue (#1190)
@@ -1438,11 +1439,11 @@ The dubbing release. Dubbed videos stop sounding like a compromise: the music ke
 
 - **In-app analytics is now wired end to end — and still off until you say yes.** The frontend analytics SDK is only ever started *after* you opt in (Settings → Privacy), never at app launch, so a default install still transmits nothing. Two of the SDK's defaults are explicitly disabled because they would be actively harmful here: **autocapture**, which sends the text content of whatever you click — in this app, the script you are about to synthesise, your voice names, your file names — and **session recording**, which records the screen. Events carry metadata only, filtered through the same allowlist as the backend, so no future change can leak your content by adding a field.
 
-- **Opt-in analytics — off by default, and it can't lie to you.** VoiceStudio still sends **nothing** out of the box: no accounts, no telemetry, no phone-home, and your text, audio, voices, and projects never leave your machine regardless of what you choose. There is now one toggle in **Settings → Privacy → "Help improve VoiceStudio"**, **off unless you turn it on**. If you do, it sends anonymous usage stats — which engine and language you used, how long a generation took, how many *characters* the text had (a number, not the text), and the *type* of any error. It never sends the text you type, your audio, your file names, your voice names, or anything identifying you. That isn't a promise in a policy: an **allowlist in the code** drops any property that isn't on it, so a future change can't leak content by accident, and crash tracebacks are deliberately **not** auto-captured (they can carry file paths and tokens). Turning it off stops everything immediately. Builds from source have no analytics destination at all and don't even show the toggle.
+- **Opt-in analytics — off by default, and it can't lie to you.** Sado still sends **nothing** out of the box: no accounts, no telemetry, no phone-home, and your text, audio, voices, and projects never leave your machine regardless of what you choose. There is now one toggle in **Settings → Privacy → "Help improve Sado"**, **off unless you turn it on**. If you do, it sends anonymous usage stats — which engine and language you used, how long a generation took, how many *characters* the text had (a number, not the text), and the *type* of any error. It never sends the text you type, your audio, your file names, your voice names, or anything identifying you. That isn't a promise in a policy: an **allowlist in the code** drops any property that isn't on it, so a future change can't leak content by accident, and crash tracebacks are deliberately **not** auto-captured (they can carry file paths and tokens). Turning it off stops everything immediately. Builds from source have no analytics destination at all and don't even show the toggle.
 
 - **Settings → Usage: see what you've made, counted entirely on your own machine.** Takes generated, audio produced, voices, days used, and a breakdown by mode and language — all computed from the history already in your own database. It collects nothing new, stores nothing new, and transmits nothing anywhere, no matter what you've chosen under Settings → Privacy: this panel is *yours*, it works with analytics switched off, and it never phones home. If you want to know what you've been making, the answer shouldn't require sending it to anyone.
 
-- **The memory panel now tells the whole truth.** `Settings → Models` (and `GET /model/loaded`) used to report only the VoiceStudio core model — a resident second engine like MLX-Audio, or the warm dictation model, was invisible, so the memory picture looked ~2 GB lighter than reality. It now lists every resident model (in-process engines and the dictation ASR included) and adds a system block with free/total RAM (and free VRAM on a dedicated GPU) plus a low-memory warning. On top of that, a load that starts while memory is already low leaves a breadcrumb in the backend log, so a subsequent out-of-memory kill points at the load that tipped it instead of dying silently. Advisory only — nothing is blocked (the OS can reclaim memory, and refusing a load on an estimate would brick machines that would actually cope). Tune the threshold with `OMNIVOICE_LOW_MEMORY_HEADROOM_GB` (default 2).
+- **The memory panel now tells the whole truth.** `Settings → Models` (and `GET /model/loaded`) used to report only the Sado core model — a resident second engine like MLX-Audio, or the warm dictation model, was invisible, so the memory picture looked ~2 GB lighter than reality. It now lists every resident model (in-process engines and the dictation ASR included) and adds a system block with free/total RAM (and free VRAM on a dedicated GPU) plus a low-memory warning. On top of that, a load that starts while memory is already low leaves a breadcrumb in the backend log, so a subsequent out-of-memory kill points at the load that tipped it instead of dying silently. Advisory only — nothing is blocked (the OS can reclaim memory, and refusing a load on an estimate would brick machines that would actually cope). Tune the threshold with `OMNIVOICE_LOW_MEMORY_HEADROOM_GB` (default 2).
 
 ### Fixed
 
@@ -1478,13 +1479,13 @@ The dubbing release. Dubbed videos stop sounding like a compromise: the music ke
 
 - **Clicking "Install" on an engine right after opening Settings could silently do nothing.** When the Engines page opens, it quietly checks each installable engine for an in-flight install to re-attach to. If you clicked Install while that check was still running, your click's status update was thrown away to keep requests orderly — so no progress panel, no error, no retry, just nothing (the install itself *did* start in the background; the UI simply never showed it). Fast machines usually won the race, which is why this mostly showed up as a once-in-a-while CI test failure. The Install click's update can no longer be dropped — it politely waits out the startup check instead. (#1131)
 
-- **Cloning re-listened to your reference clip for every chunk of text — now it listens once.** Before VoiceStudio can speak in a cloned voice it has to *encode* the reference clip you gave it. That encode was being redone on **every single piece of the job**: long text is split into chunks, and each chunk re-encoded the same reference from scratch; so did each `[pause]` span, and each chapter segment of an audiobook. A cache to prevent exactly this was written a while back — and then quietly bypassed on the path the Generate button actually takes, so for several releases it only ever helped the API. It's now wired into every path. Measured on an M2, one encode costs **0.4 seconds**, so this gives back roughly **3–4 seconds on a long paragraph** and **about a minute on a 166-segment audiobook** — the same voice, the same audio out, just without listening to your reference clip 166 times. As a bonus, `preprocess_prompt` on the OpenAI-compatible endpoint now actually does something; it was being accepted and silently discarded. (#1130)
+- **Cloning re-listened to your reference clip for every chunk of text — now it listens once.** Before Sado can speak in a cloned voice it has to *encode* the reference clip you gave it. That encode was being redone on **every single piece of the job**: long text is split into chunks, and each chunk re-encoded the same reference from scratch; so did each `[pause]` span, and each chapter segment of an audiobook. A cache to prevent exactly this was written a while back — and then quietly bypassed on the path the Generate button actually takes, so for several releases it only ever helped the API. It's now wired into every path. Measured on an M2, one encode costs **0.4 seconds**, so this gives back roughly **3–4 seconds on a long paragraph** and **about a minute on a 166-segment audiobook** — the same voice, the same audio out, just without listening to your reference clip 166 times. As a bonus, `preprocess_prompt` on the OpenAI-compatible endpoint now actually does something; it was being accepted and silently discarded. (#1130)
 
 - **Dubbing loaded the 3 GB voice model, threw it away, and loaded it again.** Before transcribing, a dub pulled the entire voice model into memory to read a single setting off it — one that is empty unless you've turned on an off-by-default flag. So it loaded ~3 GB, found nothing, released it a moment later (on Apple Silicon that's a *full* unload), and then had to load the very same model again from cold when it was time to actually speak. Every dub paid for that round trip — roughly **8 seconds**, plus the memory churn on exactly the 16 GB machines where memory pressure is the problem. It now only loads the model when there's genuinely something to read. (#1130)
 
-- **The backend stopped holding the voice model hostage while it loads the transcription model — the 16 GB dub crash.** Before transcribing a dub, VoiceStudio makes room by setting the TTS model aside. On an NVIDIA GPU it did. On **Apple Silicon it did nothing at all** — the code bailed out with "unified memory doesn't benefit from offloading". That was half right and wholly wrong: on unified memory, *moving* a model to "CPU" frees nothing (it's the same RAM), but the answer is to **release** it, not to skip the step. So a 16 GB Mac went into a dub holding the ~3 GB voice model, then loaded a ~3 GB transcription model on top of it — measured here: 4.1 GB free before, and large-v3 needs 3 — and the operating system killed the backend mid-transcription. That's the dub that "dropped before emitting any segments". The voice model is now genuinely released when memory is tight (and left alone when it isn't, so a roomy machine pays nothing); it reloads by itself on your next generation. (#1119)
+- **The backend stopped holding the voice model hostage while it loads the transcription model — the 16 GB dub crash.** Before transcribing a dub, Sado makes room by setting the TTS model aside. On an NVIDIA GPU it did. On **Apple Silicon it did nothing at all** — the code bailed out with "unified memory doesn't benefit from offloading". That was half right and wholly wrong: on unified memory, *moving* a model to "CPU" frees nothing (it's the same RAM), but the answer is to **release** it, not to skip the step. So a 16 GB Mac went into a dub holding the ~3 GB voice model, then loaded a ~3 GB transcription model on top of it — measured here: 4.1 GB free before, and large-v3 needs 3 — and the operating system killed the backend mid-transcription. That's the dub that "dropped before emitting any segments". The voice model is now genuinely released when memory is tight (and left alone when it isn't, so a roomy machine pays nothing); it reloads by itself on your next generation. (#1119)
 
-- **Dubbing on a Mac was transcribing on the CPU — with the GPU sitting idle.** VoiceStudio picked its transcription engine without ever looking at your hardware: WhisperX won every time, and WhisperX (like faster-whisper) is built on CTranslate2, which **has no Metal backend at all**. So on Apple Silicon it ran whisper-large-v3 on the *processor*. Measured on an M2, one 30-second chunk: **90 seconds on the CPU versus 20 on the GPU** — slower than realtime, which turned a 16-minute video into a ~48-minute transcribe that looked exactly like a hang. Worse, the slowest chunks blew past the 2-minute per-chunk timeout and were **abandoned entirely**, so the transcript came back with pieces missing and the app blamed a "VRAM-starved GPU" — on a machine that has no VRAM. Apple Silicon now uses MLX, which runs the **same** whisper-large-v3 on the GPU, roughly **4x faster**. Word timing is unchanged: the wav2vec2 forced alignment that lip-sync depends on (±10-30 ms, versus Whisper's own ±100-300 ms) is layered on top exactly as before. Same model, same alignment, four times the speed. Nothing changes on NVIDIA or Linux, where WhisperX already used the GPU. (#1127)
+- **Dubbing on a Mac was transcribing on the CPU — with the GPU sitting idle.** Sado picked its transcription engine without ever looking at your hardware: WhisperX won every time, and WhisperX (like faster-whisper) is built on CTranslate2, which **has no Metal backend at all**. So on Apple Silicon it ran whisper-large-v3 on the *processor*. Measured on an M2, one 30-second chunk: **90 seconds on the CPU versus 20 on the GPU** — slower than realtime, which turned a 16-minute video into a ~48-minute transcribe that looked exactly like a hang. Worse, the slowest chunks blew past the 2-minute per-chunk timeout and were **abandoned entirely**, so the transcript came back with pieces missing and the app blamed a "VRAM-starved GPU" — on a machine that has no VRAM. Apple Silicon now uses MLX, which runs the **same** whisper-large-v3 on the GPU, roughly **4x faster**. Word timing is unchanged: the wav2vec2 forced alignment that lip-sync depends on (±10-30 ms, versus Whisper's own ±100-300 ms) is layered on top exactly as before. Same model, same alignment, four times the speed. Nothing changes on NVIDIA or Linux, where WhisperX already used the GPU. (#1127)
 
 - **The transcribe screen invented its ETA, and the number was a fiction.** It assumed transcription runs at ~20x realtime — true on a fast GPU — and predicted from the video's length alone. For a 16-minute video it promised **56 seconds**. Once reality overran the guess it pinned itself at "~0s remaining" with the bar frozen at 95%, and sat there for the next three quarters of an hour. It now reports the *real* fraction of the audio transcribed and extrapolates the time left from the speed it can actually observe — so it is right on a fast machine and a slow one, and says nothing at all until it has something true to say. (#1127)
 
@@ -1498,59 +1499,59 @@ The memory release. The reason the app kept saying "Can't reach the local backen
 
 ### Added
 
-- **Factory reset grew up: Settings → Storage → "Reset & remove".** It used to do exactly one thing — clear your UI preferences — while the only other option was deleting everything and starting over. Between "forget my theme" and "wipe the machine" sat every reset people actually needed. Now there are four one-click tiers — **UI preferences**, **all settings**, **downloaded assets & models**, and **everything VoiceStudio did** — plus a per-item checklist if you want to drop just the model weights, just a wedged sidecar engine, or just the history. Every option shows its **real size on disk before you commit**, and the number on the button is exactly what gets freed. Deleting voices, projects or audio asks you to type `DELETE`; nothing irreversible happens on a single click. "Everything" deliberately stops short of the Python environment, so you land on a working first-run screen rather than a rebuild — the app stops its engine, deletes, and starts it again for you. On macOS and Linux the model cache is the **shared** Hugging Face cache, so it's its own checkbox and says so; on Windows and portable installs it's VoiceStudio's own, and the app doesn't pretend otherwise.
+- **Factory reset grew up: Settings → Storage → "Reset & remove".** It used to do exactly one thing — clear your UI preferences — while the only other option was deleting everything and starting over. Between "forget my theme" and "wipe the machine" sat every reset people actually needed. Now there are four one-click tiers — **UI preferences**, **all settings**, **downloaded assets & models**, and **everything Sado did** — plus a per-item checklist if you want to drop just the model weights, just a wedged sidecar engine, or just the history. Every option shows its **real size on disk before you commit**, and the number on the button is exactly what gets freed. Deleting voices, projects or audio asks you to type `DELETE`; nothing irreversible happens on a single click. "Everything" deliberately stops short of the Python environment, so you land on a working first-run screen rather than a rebuild — the app stops its engine, deletes, and starts it again for you. On macOS and Linux the model cache is the **shared** Hugging Face cache, so it's its own checkbox and says so; on Windows and portable installs it's Sado's own, and the app doesn't pretend otherwise.
 
 - **The Storage panels got a design.** "Remove all data" and "Reset & remove" listed folders as a flat run of text, so a 7.5 GB model cache and a 391-byte config file carried exactly the same visual weight — the one thing you actually wanted to see (where the space went) was the one thing you couldn't. Every row now has an icon, a dimmed path, and a **proportional bar showing its share of what will be freed**, so the big one looks big. The shared Hugging Face cache is promoted out of the confirm dialog into its own "Optional" row with a checkbox, so ticking it moves the running total **in front of you** instead of springing a different number on you at the point of no return, and the dialog now lists exactly what is about to go.
 
 ### Fixed
 
-- **Switching TTS engines no longer stacks their models in memory.** Using a second engine in a session (or a per-request engine override) loaded its model *on top of* the first one's, because the VoiceStudio core model and the other engines live in two separate caches that never coordinated — measured on a 16 GB M2, an `omnivoice` → `mlx-audio` switch left the machine holding both (footprint 3.9 GB → 4.3 GB, the ~2.8 GB core never freed). That accumulation is a direct contributor to the memory pressure behind the "Can't reach the local backend" OOM deaths. Now only one TTS engine's model stays resident: resolving an engine hands back every *other* resident engine first (the same `omnivoice → mlx-audio` switch now drops to ~1.5 GB). Steady-state single-engine use is unaffected; an A/B switch pays a re-load on the way back (~8 s for the VoiceStudio core, ~1–2 s for the lighter engines). Opt out with `OMNIVOICE_SINGLE_ENGINE_RESIDENT=0` if you have RAM to keep several warm. Two underlying leaks are fixed as part of this: every in-process TTS engine's `unload()` now actually frees its model and empties the device cache (previously all but VoiceStudio were silent no-ops), and `faster-whisper`'s `unload()` cleared the wrong attribute so its model was never released.
+- **Switching TTS engines no longer stacks their models in memory.** Using a second engine in a session (or a per-request engine override) loaded its model *on top of* the first one's, because the Sado core model and the other engines live in two separate caches that never coordinated — measured on a 16 GB M2, an `omnivoice` → `mlx-audio` switch left the machine holding both (footprint 3.9 GB → 4.3 GB, the ~2.8 GB core never freed). That accumulation is a direct contributor to the memory pressure behind the "Can't reach the local backend" OOM deaths. Now only one TTS engine's model stays resident: resolving an engine hands back every *other* resident engine first (the same `omnivoice → mlx-audio` switch now drops to ~1.5 GB). Steady-state single-engine use is unaffected; an A/B switch pays a re-load on the way back (~8 s for the Sado core, ~1–2 s for the lighter engines). Opt out with `OMNIVOICE_SINGLE_ENGINE_RESIDENT=0` if you have RAM to keep several warm. Two underlying leaks are fixed as part of this: every in-process TTS engine's `unload()` now actually frees its model and empties the device cache (previously all but Sado were silent no-ops), and `faster-whisper`'s `unload()` cleared the wrong attribute so its model was never released.
 
-- **The backend no longer sits on ~2 GB of idle dictation model — the real reason it was being killed on 16 GB Macs.** Four reports of *"Can't reach the local VoiceStudio backend"* (#1076, #1092, #1093, #1101) all died at the same moment: during a generate, on a 16 GB machine. Measuring it showed the generate was never the problem — it costs about 116 MB. The problem was the **baseline**: the backend sat at **~6.2 GB even while idle**. The TTS model has always been unloaded after an idle timeout, but the speech-recognition model used for dictation never was — so once you dictated a single time, ~2 GB stayed resident for as long as the app ran. On a 16 GB Mac, that plus the app, macOS, and your other programs is enough for the system to run out of memory and kill the backend, which surfaced as the "can't reach the backend" error. Dictation's model now gets the same idle release the TTS model already had, handing that memory back. The only cost is a ~1.4-second re-warm on your next dictation after a long pause, and a live dictation session is pinned so nothing is ever unloaded mid-sentence.
+- **The backend no longer sits on ~2 GB of idle dictation model — the real reason it was being killed on 16 GB Macs.** Four reports of *"Can't reach the local Sado backend"* (#1076, #1092, #1093, #1101) all died at the same moment: during a generate, on a 16 GB machine. Measuring it showed the generate was never the problem — it costs about 116 MB. The problem was the **baseline**: the backend sat at **~6.2 GB even while idle**. The TTS model has always been unloaded after an idle timeout, but the speech-recognition model used for dictation never was — so once you dictated a single time, ~2 GB stayed resident for as long as the app ran. On a 16 GB Mac, that plus the app, macOS, and your other programs is enough for the system to run out of memory and kill the backend, which surfaced as the "can't reach the backend" error. Dictation's model now gets the same idle release the TTS model already had, handing that memory back. The only cost is a ~1.4-second re-warm on your next dictation after a long pause, and a live dictation session is pinned so nothing is ever unloaded mid-sentence.
 
 - **Folder sizes under 1 KB displayed as "0 KB".** The uninstall panel's `391 B` config folder rendered as `0 KB` — which reads as "nothing here" for a folder that very much exists. The Storage panels now share one byte formatter that can say `391 B`.
 
 - **Some styling silently did nothing.** A handful of components referenced CSS custom properties that were never defined (`--chrome-fg-subtle`, `--chrome-bg-raised`, `--color-warning`). An undefined `var()` makes the whole declaration invalid, so the browser drops it and the element quietly inherits — the dimmed folder paths in the Storage panels weren't dimmed at all. Fixed in those panels, and a new guard (`frontend/src/test/cssTokens.test.js`) fails on any bare `var(--token)` in JSX that isn't defined in a stylesheet or documented as runtime-injected, so a typo can't ship as invisible styling again.
 
-- **Uninstalling now removes the saved-environment file it used to leave behind.** VoiceStudio keeps a small `~/.config/omnivoice/env` file (the model-cache location you chose, and any saved Hugging Face token). Every uninstall path — the in-app "Remove all data", `scripts/uninstall.sh`, and `scripts/uninstall.ps1` — walked right past it, so a later reinstall silently picked the *old* file back up and redirected its downloads to a location you may have long since deleted. All three now list and remove it (it's the same `~/.config/omnivoice` path on every OS, Windows included), and the per-platform tables in `docs/install/uninstall.md` document it.
+- **Uninstalling now removes the saved-environment file it used to leave behind.** Sado keeps a small `~/.config/omnivoice/env` file (the model-cache location you chose, and any saved Hugging Face token). Every uninstall path — the in-app "Remove all data", `scripts/uninstall.sh`, and `scripts/uninstall.ps1` — walked right past it, so a later reinstall silently picked the *old* file back up and redirected its downloads to a location you may have long since deleted. All three now list and remove it (it's the same `~/.config/omnivoice` path on every OS, Windows included), and the per-platform tables in `docs/install/uninstall.md` document it.
 
 - **Disk usage now counts installed sidecar engines instead of hiding them.** Settings → Storage measured engine venvs in `backend/engines` — the built-in engine *code*, which has no venvs — so a multi-GB IndexTTS-2 install (which actually lives in `DATA_DIR/engines/<id>`) was invisible in the engine row and quietly rolled into the data dir's "other" subtotal. The report now points at the real install location and sizes the **whole** install (venv + checkout + weights), counted once, so "IndexTTS-2 — 6.2 GB" shows up where you'd look for it.
 
 ## [0.3.20] — 2026-07-12
 
-The follow-through release. v0.3.19 promised that "Can't reach the local VoiceStudio backend" would stop firing while the backend was merely restarting — and then a user hit it anyway, on 0.3.19, because the fix had a race in it. That's closed properly here. Uninstalling also stopped being a thing only maintainers could do: it's now a button in the app, where the person who asked for it can actually reach it.
+The follow-through release. v0.3.19 promised that "Can't reach the local Sado backend" would stop firing while the backend was merely restarting — and then a user hit it anyway, on 0.3.19, because the fix had a race in it. That's closed properly here. Uninstalling also stopped being a thing only maintainers could do: it's now a button in the app, where the person who asked for it can actually reach it.
 
 ### Added
 
-- **Uninstall is now in the app: Settings → Storage → "Remove all data".** The v0.3.19 uninstaller was a *script* — which never reached the people who needed it, since anyone who installed the .dmg / .msi / AppImage has no repo to run it from (exactly the case in #1089). The app now lists every folder this install owns with its real size, deletes them behind a typed confirmation, and quits. The **downloaded model weights are a separate, opt-in checkbox**, because that's the standard Hugging Face cache shared with other AI tools on your machine — removing it can delete models VoiceStudio never downloaded. Custom and portable install locations are honored, and nothing outside VoiceStudio's own folders can be touched. The scripts now also ship as **release assets**, so you can clean up without launching the app at all. (#1089)
+- **Uninstall is now in the app: Settings → Storage → "Remove all data".** The v0.3.19 uninstaller was a *script* — which never reached the people who needed it, since anyone who installed the .dmg / .msi / AppImage has no repo to run it from (exactly the case in #1089). The app now lists every folder this install owns with its real size, deletes them behind a typed confirmation, and quits. The **downloaded model weights are a separate, opt-in checkbox**, because that's the standard Hugging Face cache shared with other AI tools on your machine — removing it can delete models Sado never downloaded. Custom and portable install locations are honored, and nothing outside Sado's own folders can be touched. The scripts now also ship as **release assets**, so you can clean up without launching the app at all. (#1089)
 
 ### Fixed
 
-- **"Can't reach the local VoiceStudio backend" could still fire on 0.3.19 — the fix had a hole.** The app asks the desktop shell whether a start/restart is in progress before showing that error, but the shell learns of a dead backend from a **2-second poll**: when the backend dies mid-generation, the supervisor needs a moment to notice it, record the crash, and flip its state to "restarting". The app was asking **once**, ~3 seconds in — often still hearing "everything's fine" — and dead-ending on the generic toast anyway. A failed connection *contradicts* "everything's fine", so that answer is now treated as stale rather than authoritative: the app keeps retrying briefly, letting the shell catch up, which turns the failure into the "backend is restarting — hang tight" banner (and gives the crash report time to be written, so you get the real cause instead of a guess). A shell that has genuinely given up, or no shell at all, still errors immediately. (#1101)
+- **"Can't reach the local Sado backend" could still fire on 0.3.19 — the fix had a hole.** The app asks the desktop shell whether a start/restart is in progress before showing that error, but the shell learns of a dead backend from a **2-second poll**: when the backend dies mid-generation, the supervisor needs a moment to notice it, record the crash, and flip its state to "restarting". The app was asking **once**, ~3 seconds in — often still hearing "everything's fine" — and dead-ending on the generic toast anyway. A failed connection *contradicts* "everything's fine", so that answer is now treated as stale rather than authoritative: the app keeps retrying briefly, letting the shell catch up, which turns the failure into the "backend is restarting — hang tight" banner (and gives the crash report time to be written, so you get the real cause instead of a guess). A shell that has genuinely given up, or no shell at all, still errors immediately. (#1101)
 
 - **The uninstaller was leaving the backend's log folder behind on Linux and Windows.** It cleaned the app-data, config, and Python-env folders but missed where the backend actually writes `backend.log` / `backend_err.log` — `~/.local/state/OmniVoice` on Linux and `%LOCALAPPDATA%\OmniVoice\Logs` on Windows. Both the scripts and the documented path lists now cover them. (#1089)
 
 ## [0.3.19] — 2026-07-12
 
-The honesty release. Every error in here was already *technically* true and practically useless — so this round went after the lies the app tells when something goes wrong. "Can't reach the local VoiceStudio backend" no longer fires while the backend is simply still starting; a dead Hugging Face mirror no longer strands the setup wizard with advice it can't follow; and a dub that dies mid-transcription now names the actual cause instead of guessing at it. Alongside that: generated speech starts playing on the *first* chunk instead of the last, and there's finally a real uninstaller.
+The honesty release. Every error in here was already *technically* true and practically useless — so this round went after the lies the app tells when something goes wrong. "Can't reach the local Sado backend" no longer fires while the backend is simply still starting; a dead Hugging Face mirror no longer strands the setup wizard with advice it can't follow; and a dub that dies mid-transcription now names the actual cause instead of guessing at it. Alongside that: generated speech starts playing on the *first* chunk instead of the last, and there's finally a real uninstaller.
 
 ### Added
 
 - **Generated speech starts playing on the first chunk, instead of after the last one.** Long text is synthesized in chunks, but you used to sit through the entire render before hearing anything. The Studio now streams the preview: audio begins the moment the first chunk is ready and the rest arrives as it renders, so a long passage is audible in about the time the first sentence takes. The take saved to your history is **byte-identical** to the non-streaming render — streaming is a delivery channel, not a different synthesis path — and if a stream fails mid-flight the app falls back to the classic whole-file flow with nothing half-written to disk. (#1088)
 
-- **A clean uninstaller + a straight answer to "where's my data?"** VoiceStudio is fully local, so removing it is just deleting the folders it wrote — but until now users had to guess which ones. New `scripts/uninstall.sh` (macOS/Linux) and `scripts/uninstall.ps1` (Windows) find every VoiceStudio folder — app data, the multi-GB managed Python env, config, logs, and (separately, because it's shared) the Hugging Face model cache — print each with its size as a **dry-run first**, and delete only on `--yes`. They honor your custom locations (`OMNIVOICE_DATA_DIR`, `HF_HOME`, portable mode) and never touch the app binary. The complete per-platform path list lives in the new `docs/install/uninstall.md`, linked from the README FAQ, SUPPORT, and troubleshooting. (#1089)
+- **A clean uninstaller + a straight answer to "where's my data?"** Sado is fully local, so removing it is just deleting the folders it wrote — but until now users had to guess which ones. New `scripts/uninstall.sh` (macOS/Linux) and `scripts/uninstall.ps1` (Windows) find every Sado folder — app data, the multi-GB managed Python env, config, logs, and (separately, because it's shared) the Hugging Face model cache — print each with its size as a **dry-run first**, and delete only on `--yes`. They honor your custom locations (`OMNIVOICE_DATA_DIR`, `HF_HOME`, portable mode) and never touch the app binary. The complete per-platform path list lives in the new `docs/install/uninstall.md`, linked from the README FAQ, SUPPORT, and troubleshooting. (#1089)
 
 ### Fixed
 
 - **A dub that dies mid-transcription now says what actually happened instead of guessing.** "Transcribe stream dropped before emitting any segments. Likely ASR backend failed to load" was a *guess* — and usually the wrong one. The backend is contract-bound to emit a terminal event on every stream even when it fails, so a stream that simply goes silent means the backend **process died underneath it** — on smaller GPUs, almost always a native out-of-memory abort while loading the ASR model on top of a still-resident TTS model. The app now consults the desktop shell's crash forensics and tells you that: the exit code, when it happened, a one-click "View crash details" with the captured error output, and the actual next step (free VRAM / pick a smaller ASR model) rather than "check the backend log". With no crash recorded, the original message still stands. (#1062)
 
-- **"Can't reach the local VoiceStudio backend" stopped crying wolf during startups and restarts.** A real backend start or auto-restart takes 10–20+ seconds (Python spawn plus the PyTorch import), but the app's transport retry only bridged ~3 seconds — every click inside that window dead-ended with the scary toast, over and over, even though the backend healed itself moments later. The app now asks the desktop shell whether a start/restart is actually in progress and simply waits for it (up to the shell's own 2-minute restart budget), and shows a single "backend is restarting — hang tight" banner with a "back — carrying on" confirmation — the reconnecting affordance the supervisor has promised since #567. A truly dead backend (or a non-desktop deployment) still errors promptly, and the crash notice keeps telling the honest story.
+- **"Can't reach the local Sado backend" stopped crying wolf during startups and restarts.** A real backend start or auto-restart takes 10–20+ seconds (Python spawn plus the PyTorch import), but the app's transport retry only bridged ~3 seconds — every click inside that window dead-ended with the scary toast, over and over, even though the backend healed itself moments later. The app now asks the desktop shell whether a start/restart is actually in progress and simply waits for it (up to the shell's own 2-minute restart budget), and shows a single "backend is restarting — hang tight" banner with a "back — carrying on" confirmation — the reconnecting affordance the supervisor has promised since #567. A truly dead backend (or a non-desktop deployment) still errors promptly, and the crash notice keeps telling the honest story.
 
 - **A dead Hugging Face mirror can no longer strand the first-run wizard.** When a model download failed because the *configured* mirror was unreachable, the error pointed at Settings — which first-run users can't open (the wizard gates the studio) — and falsely claimed the mirror setting only applies after a restart (downloads actually pick it up per call, immediately). Now the wizard shows the mirror quick-pick (including "Hugging Face (official)") right next to the failed download and retries it the moment you switch; the corrected hint says retry-first, restart only if it still fails. Two backend holes in the same flow are closed too: switching endpoints clears the "failed recently" retry cooldown (no more 429 on the immediate retry), and clearing to official also removes the legacy `hf_endpoint` pref, which used to silently keep the dead mirror in effect.
 
 ### Changed
 
-- **The first-run wizard shows the app version in its masthead**, next to the VoiceStudio title — so setup-time screenshots and bug reports identify the build at a glance (the install splash already did).
+- **The first-run wizard shows the app version in its masthead**, next to the Sado title — so setup-time screenshots and bug reports identify the build at a glance (the install splash already did).
 
 - **Repo root decluttered.** Retired the finished planning archives (`.planning/`, `specs/`), the pre-React design mockups (`design/`), the legacy research dir (`research/`), and stale third-party agent rules (`.agents/`) — ~110 files of process noise gone; everything stays in git history, and the four load-bearing engine decision docs moved to `docs/adr/`. Contributor-facing only; the app is unchanged.
 
@@ -1663,7 +1664,7 @@ The community-fixes release. Two contributors didn't just report bugs — they d
 
 ### Added
 
-- **A path to Qwen3-ASR today: generic OpenAI-compatible transcription.** The direct integration is still blocked on `transformers>=5.13` stabilizing upstream, but a community member proposed splitting the work — add a backend that talks to any OpenAI-compatible transcription server right now. Point VoiceStudio at a self-hosted Qwen3-ASR/FunASR/SenseVoice server, or OpenAI's own API, configured in Settings → Models. No install; audio does leave your machine to whichever server you configure, unlike every other ASR engine. (#877)
+- **A path to Qwen3-ASR today: generic OpenAI-compatible transcription.** The direct integration is still blocked on `transformers>=5.13` stabilizing upstream, but a community member proposed splitting the work — add a backend that talks to any OpenAI-compatible transcription server right now. Point Sado at a self-hosted Qwen3-ASR/FunASR/SenseVoice server, or OpenAI's own API, configured in Settings → Models. No install; audio does leave your machine to whichever server you configure, unlike every other ASR engine. (#877)
 
 ### Fixed
 
@@ -1679,7 +1680,7 @@ The community-fixes release. Two contributors didn't just report bugs — they d
 
 ### Changed
 
-- **Removed the donate heart from the nav rail.** Support VoiceStudio is still one click away from Settings and the Contact page.
+- **Removed the donate heart from the nav rail.** Support Sado is still one click away from Settings and the Contact page.
 
 ### CI
 
@@ -1696,14 +1697,14 @@ A community-issue sweep — nineteen open reports triaged in one pass, most fixe
 ### Fixed
 
 - **First-run no longer dead-ends behind restricted networks (e.g. China).** The system check probed hardcoded huggingface.co, and any failure locked the Continue button — users behind the Great Firewall were stuck on the very first screen, even when they had already configured a working mirror. The check now probes the Hugging Face endpoint actually in effect, an unreachable endpoint is a warning instead of a blocker (models already on disk keep working offline), and when huggingface.co is blocked but the hf-mirror.com community mirror answers, the wizard says so and offers a one-click mirror switch right on the check screen — no restart needed. (#984)
-- **Installs behind a corporate or antivirus TLS-inspecting proxy no longer fail with a raw SSL error.** `SSLV3_ALERT_HANDSHAKE_FAILURE` happens when a proxy re-signs HTTPS traffic with a root CA your OS trusts but Python's bundled certificate list doesn't — a different failure mode from the network-blocking case above. VoiceStudio now trusts your OS's certificate store directly, which should resolve the handshake outright rather than just explain it better. (#976)
-- **The loaded-models panel now says when a resident model is not your active engine.** Switching TTS engines keeps the previous model in VRAM (so switching back is instant) — but the panel showed it with no context, so "VoiceStudio TTS — 1.9 GB" after selecting VoxCPM2 looked like the selection was ignored. A field report confirmed the confusion. Resident-but-inactive models are now tagged "not active — safe to unload", and the API self-describes each entry's engine. (#985)
+- **Installs behind a corporate or antivirus TLS-inspecting proxy no longer fail with a raw SSL error.** `SSLV3_ALERT_HANDSHAKE_FAILURE` happens when a proxy re-signs HTTPS traffic with a root CA your OS trusts but Python's bundled certificate list doesn't — a different failure mode from the network-blocking case above. Sado now trusts your OS's certificate store directly, which should resolve the handshake outright rather than just explain it better. (#976)
+- **The loaded-models panel now says when a resident model is not your active engine.** Switching TTS engines keeps the previous model in VRAM (so switching back is instant) — but the panel showed it with no context, so "Sado TTS — 1.9 GB" after selecting VoxCPM2 looked like the selection was ignored. A field report confirmed the confusion. Resident-but-inactive models are now tagged "not active — safe to unload", and the API self-describes each entry's engine. (#985)
 - **Voices no longer ship with a hidden echo.** Every non-raw synthesis was getting a small room reverb baked in by the mastering pre-stage — on top of whatever effect preset you chose, so even "Podcast" (which promises *no reverb*) had some, and Cinematic/Warm got it twice. A field report ("a lot of echo/reverb on some of the voices") led straight to it. The mastering stage is now highpass + compressor only; reverb happens only when a preset explicitly declares it. Also documented: cloned voices reproduce the reference clip's room acoustics — dry, close-mic references clone cleanest. (#986)
-- **Your engine selection now actually applies to Dubbing and Batch TTS.** Both hardcoded VoiceStudio regardless of what was picked in Settings → Engines — pick VoxCPM2, dub anyway with VoiceStudio, no error. Both now resolve the active engine up front; an engine that can't clone from reference audio (KittenTTS, Sherpa-ONNX, Supertonic 3 — fixed preset voices only) fails the job immediately with a clear message naming which engines do support it, instead of silently substituting VoiceStudio or mis-cloning every speaker into one voice. Batch only requires cloning when a specific voice is pinned — an unpinned batch job runs on any engine. (#987)
+- **Your engine selection now actually applies to Dubbing and Batch TTS.** Both hardcoded Sado regardless of what was picked in Settings → Engines — pick VoxCPM2, dub anyway with Sado, no error. Both now resolve the active engine up front; an engine that can't clone from reference audio (KittenTTS, Sherpa-ONNX, Supertonic 3 — fixed preset voices only) fails the job immediately with a clear message naming which engines do support it, instead of silently substituting Sado or mis-cloning every speaker into one voice. Batch only requires cloning when a specific voice is pinned — an unpinned batch job runs on any engine. (#987)
 - **AMD ROCm torch install no longer silently falls back to CPU.** A community member (Kaihui-AMD) diagnosed it precisely: the ROCm wheel index we pointed at tops out at PyTorch 2.5.1, but the app pins `torch==2.8.0` — the reinstall was unsatisfiable and silently kept the default CUDA build, which runs on CPU on an AMD GPU. Bumped the default index to one that actually carries the pinned version. (#972)
 - **mlx-audio no longer crashes on unsupported languages.** Selecting a language like Dutch, Spanish, or Portuguese with mlx-audio's Kokoro model crashed with a raw, unreadable internal-details dump instead of a real error — the code was guessing an ISO language code by truncating the language name, which only worked by coincidence for a few languages. Unsupported languages now fail cleanly with a message naming what's actually supported, and no engine can leak a raw crash-internals dump into an error message again. (#977)
 - **The voice-design panel no longer crashes on certain saved voice profiles.** A genuine regression: an earlier translation fix accidentally introduced a crash when a saved design profile's data was incomplete (possible from an older app version or a partial save). Fixed at every layer — the render no longer crashes, both places that restore saved data complete it first, and profiles can no longer be *saved* with incomplete data in the first place. (#983)
-- **Windows: the dictation pill no longer steals focus.** Pressing the dictation shortcut activated the pill window, which meant the auto-paste landed back in VoiceStudio instead of whatever app you were dictating into, and the pill would get stuck on screen. Precisely diagnosed by a community reporter; fixed to match how this already worked on macOS. (#982)
+- **Windows: the dictation pill no longer steals focus.** Pressing the dictation shortcut activated the pill window, which meant the auto-paste landed back in Sado instead of whatever app you were dictating into, and the pill would get stuck on screen. Precisely diagnosed by a community reporter; fixed to match how this already worked on macOS. (#982)
 - **The nemo-parakeet ASR engine's install hint no longer breaks your backend.** Following the in-app "pip install nemo_toolkit[asr]" instruction silently downgraded core packages your backend needs to start — the install reported success, and the breakage only showed up on the next restart. The hint now says plainly that this isn't safe to install into the shared environment. (#974)
 - **A stuck generate now tells you the actual fix.** When a job times out from GPU/VRAM contention, the error explained why but never mentioned Flush/Unload — the one action that actually resolves it, and one the sibling ASR-timeout error already recommended. (#939)
 
@@ -1753,15 +1754,15 @@ The dictation release — and a deep reliability pass driven by live-testing the
 
 ### Added
 
-- **Sponsor VoiceStudio.** A new `SPONSORS.md` (tiers, logo guidelines, how to sponsor), a README Sponsors section, and an in-app Sponsors area (Support page + a footer link) let people back the project — with a one-click "Become a sponsor" that opens a structured GitHub issue form, no account or token needed. Sponsorship is a thank-you, not a paywall: VoiceStudio stays free and AGPL-3.0. (#923, #924)
-- **OpenAPI reference in Settings.** A new Settings → OpenAPI page embeds an interactive Scalar reference for VoiceStudio's local backend API, with a one-click footer button. Fully local — Scalar is bundled, not loaded from a CDN, and phones home to nothing. (#928)
+- **Sponsor Sado.** A new `SPONSORS.md` (tiers, logo guidelines, how to sponsor), a README Sponsors section, and an in-app Sponsors area (Support page + a footer link) let people back the project — with a one-click "Become a sponsor" that opens a structured GitHub issue form, no account or token needed. Sponsorship is a thank-you, not a paywall: Sado stays free and AGPL-3.0. (#923, #924)
+- **OpenAPI reference in Settings.** A new Settings → OpenAPI page embeds an interactive Scalar reference for Sado's local backend API, with a one-click footer button. Fully local — Scalar is bundled, not loaded from a CDN, and phones home to nothing. (#928)
 - **Engine Self-test.** The Engines matrix gains a "Self-test" button for in-process TTS engines that runs a tiny real synthesis and reports duration + sample rate — proving an engine actually makes audio, not just imports — plus a copy-paste `export OMNIVOICE_*_DIR=…` setup line for opt-in engines right in the "Why unavailable?" panel. (#930)
 - **One canonical HuggingFace-token store + incomplete-download visibility.** The Model Store token field now saves to and is cleared from the same encrypted store as Settings → Credentials (no more two-stores split), and a truncated model cache shows an "incomplete · N MB" state with one-click Repair and Delete instead of masquerading as "not installed". (#927)
 - **Launchpad, reimagined as a deck of cards.** The seven feature cards now fan out with animated waveform faces in each card's accent color; hover or keyboard-focus any card and it comes forward while the rest tuck underneath, and the layout stays usable down to the minimum window size. (#904)
-- **See exactly what VoiceStudio keeps on disk — and get warned before space runs out.** Settings → Storage shows real usage for the model cache (with your largest models), app data, engine environments and temp files, plus a free-space gauge and low-disk / near-full-volume warnings with one-click paths to open folders or reclaim space. (#906)
+- **See exactly what Sado keeps on disk — and get warned before space runs out.** Settings → Storage shows real usage for the model cache (with your largest models), app data, engine environments and temp files, plus a free-space gauge and low-disk / near-full-volume warnings with one-click paths to open folders or reclaim space. (#906)
 - **A "What's new" changelog reader in Settings → Updates.** The available update's real release notes now render in-app, alongside an offline changelog viewer and a one-time "what's new" note after each update. (#909)
 - **Route each AI feature to its own LLM — or switch it off.** A new Settings → LLM Skills panel lists every LLM-powered capability (Cinematic/Autofit translation, slot fitting, glossary auto-extract, direction parsing, dictation cleanup) with a per-skill toggle and provider picker, so sensitive work can stay on a local model while heavier jobs use a remote one. Disabled skills fall back to the exact non-LLM behavior. (#912)
-- **A small thank-you moment, done right.** After a successful export, dub, audiobook, or batch run, VoiceStudio may — rarely — show a friendly, dismissible note by the footer heart about supporting development: never more than once a session, at most every 7 days, never for brand-new users, with a permanent "don't ask again". The logs bar also gained an icon and the footer icons now share one size. (#898)
+- **A small thank-you moment, done right.** After a successful export, dub, audiobook, or batch run, Sado may — rarely — show a friendly, dismissible note by the footer heart about supporting development: never more than once a session, at most every 7 days, never for brand-new users, with a permanent "don't ask again". The logs bar also gained an icon and the footer icons now share one size. (#898)
 
 - **Dictation, rebuilt.** The dictation pill now shows a live waveform the moment the mic opens, streams words as you speak with real download/loading progress on first use, and finishes what you say in about half a second of silence instead of two-and-a-half. Transcripts come out properly capitalized and punctuated. Text insertion is now honest and safe: your clipboard is preserved and restored, failures show what to do (including a one-click jump to macOS Accessibility settings when permission is missing) instead of a false "Pasted", and Esc cancels cleanly at any point. The dictation model also pre-warms in the background after launch, so the first press of the hotkey no longer sits on a cold model load.
 
@@ -1770,7 +1771,7 @@ The dictation release — and a deep reliability pass driven by live-testing the
 ### Changed
 
 - **A "Get in touch" page that actually guides you.** The Contact page is now clearly-labelled cards (report a bug, request a feature, get community help, support the project, report a security issue) with a sentence each on when to use them, instead of a flat link list. (#925)
-- **Release titles are version-first.** GitHub's release-list sidebar truncates the title, so "VoiceStudio v0.3.8" hid the version; releases are now named "vX.Y.Z — VoiceStudio" so the version is always visible. (#922)
+- **Release titles are version-first.** GitHub's release-list sidebar truncates the title, so "Sado v0.3.8" hid the version; releases are now named "vX.Y.Z — Sado" so the version is always visible. (#922)
 - **Launchpad feature cards now fill the window.** The seven cards (Voice Clone, Voice Design, Video Dubbing, Stories, Audiobook, Voice Gallery, Transcripts) span the full content width on a maximized display instead of a fixed ~780px fan, and reflow responsively (7→3→1 columns) down to the 900×600 minimum — driven by the shell's own width, keeping the animated card faces, hover/keyboard-focus raise, and reduced-motion fallback. (#915)
 - **LLM Providers settings, de-confused.** The old inline "LLM endpoint" box in Translation is gone — LLM Providers is now the one place that owns it. Fields pinned by an environment variable are shown disabled with an explainer instead of silently reverting, the make-active button explains when a provider is env-pinned, and the Cloudflare Account ID is remembered and editable. (#907)
 - **Intel Macs: honestly unsupported for the local backend.** PyTorch no longer ships Intel-Mac builds, so the backend cannot run there; instead of a cryptic dependency error, Intel users now get a clear explanation up front (with the remote-backend option), and the README/docs say so plainly. (#889, #891)
@@ -1800,7 +1801,7 @@ The dictation release — and a deep reliability pass driven by live-testing the
 
 - **Parakeet TDT transcription now works without an NVIDIA GPU.** The `nemo-parakeet` ASR engine (parakeet-tdt-0.6b-v3, 25 languages, word timestamps) was hard-gated behind CUDA — but a live measurement on an Apple Silicon M2 shows it transcribing at ~10× realtime *on CPU*, roughly 20× faster than the default whisper-large-v3 on the same machine at equal accuracy. The false GPU gate is removed, so Mac and CPU-only users can now pick the dramatically faster engine in Settings → Engines.
 
-- **8 GB GPUs: voice-clone/dub transcription no longer kills the backend.** On cards where the TTS model already held most of the VRAM (e.g. RTX 4060 Ti 8 GB), loading whisper `large-v3` in float16 for a reference-clip or dub transcription died as a *native* CUDA out-of-memory abort — the whole backend process vanished with no error logged, and the app showed "Can't reach the local VoiceStudio backend." A new VRAM preflight re-checks free GPU memory right before the ASR load and steps down float16 → int8 → CPU instead of attempting a load that can't fit (opt-out: `OMNIVOICE_ASR_VRAM_PREFLIGHT=0`). (#723)
+- **8 GB GPUs: voice-clone/dub transcription no longer kills the backend.** On cards where the TTS model already held most of the VRAM (e.g. RTX 4060 Ti 8 GB), loading whisper `large-v3` in float16 for a reference-clip or dub transcription died as a *native* CUDA out-of-memory abort — the whole backend process vanished with no error logged, and the app showed "Can't reach the local Sado backend." A new VRAM preflight re-checks free GPU memory right before the ASR load and steps down float16 → int8 → CPU instead of attempting a load that can't fit (opt-out: `OMNIVOICE_ASR_VRAM_PREFLIGHT=0`). (#723)
 
 ### CI
 
@@ -2023,9 +2024,9 @@ across dub, generate, and design (a corrupt-binary failure no longer poses as
 
 - **Dubbing a video URL no longer fails with "ffmpeg is not installed."** yt-dlp
   downloads video and audio as separate streams and muxes them with ffmpeg, but
-  it only looked on PATH — so on Windows (where VoiceStudio's ffmpeg is a bundled
+  it only looked on PATH — so on Windows (where Sado's ffmpeg is a bundled
   sidecar / `imageio-ffmpeg` binary off PATH) the merge aborted before the dub
-  could start. yt-dlp is now pointed at the same ffmpeg VoiceStudio resolves. (#712)
+  could start. yt-dlp is now pointed at the same ffmpeg Sado resolves. (#712)
 - **A synth that succeeded no longer 500s because of a history-logging hiccup.**
   If the local database somehow missed schema init, recording the clip to
   generation history failed with *"no such table: generation_history"* and
@@ -2123,7 +2124,7 @@ across dub, generate, and design (a corrupt-binary failure no longer poses as
 - **Dubbing a URL no longer fails with `[Errno 22] Invalid argument` on Windows.**
   yt-dlp stamps the downloaded file's modified-time with the video's upload
   date; an out-of-range/invalid timestamp makes the `os.utime` call raise
-  `[Errno 22]` and aborts the whole URL ingest. VoiceStudio downloads to a throwaway
+  `[Errno 22]` and aborts the whole URL ingest. Sado downloads to a throwaway
   file and never uses its mtime, so it now skips the stamp entirely
   (`updatetime=False`). (#642)
 
@@ -2220,7 +2221,7 @@ across dub, generate, and design (a corrupt-binary failure no longer poses as
   field now owns its own height (starts taller, and the corner grip grows it
   reliably on every platform). (#595)
 - **An interrupted model download now self-repairs instead of dead-ending.**
-  When the VoiceStudio TTS cache was missing weight shards (the usual aftermath of
+  When the Sado TTS cache was missing weight shards (the usual aftermath of
   an interrupted first download), the next synthesize failed with a 500 and a
   "delete the model and install it again" instruction — a manual dead-end. The
   backend now detects the truncated-cache error on load, re-fetches just the
@@ -2498,7 +2499,7 @@ first-run, and install reliability all get a pass too.
 - **Portable personas (`.ovsvoice`).** Export any voice as a self-contained,
   fully-local persona bundle — identity, optional reference clip, consent
   attestation, SPDX license, and a watermarked preview — and import it back into
-  another VoiceStudio install. A privacy toggle ships a **preview-only** bundle so
+  another Sado install. A privacy toggle ships a **preview-only** bundle so
   no raw recording of your voice has to travel. Verified-own-voice status can't
   be forged by hand-editing a bundle (real recording + consent text + attestation
   required). Legacy `.omnivoice` files still import. See
@@ -2510,7 +2511,7 @@ first-run, and install reliability all get a pass too.
   active engine's GPU verdict (accelerated / caveat / CPU-fallback /
   unavailable). At synth time every TTS entry point (`/generate`,
   `/v1/audio/speech`) enforces the same routing — an engine that can't use this
-  host's GPU returns an explicit error or an `X-VoiceStudio-Routing` header instead
+  host's GPU returns an explicit error or an `X-Sado-Routing` header instead
   of silently dropping to CPU or dying mid-synth. (#21)
 - **Diagnostics suite.** New self-check tooling for when something's wrong: a
   `/system/diagnose` report (and matching backend `--diagnose`), a persistent
@@ -2552,7 +2553,7 @@ first-run, and install reliability all get a pass too.
   crossfade removes the per-generation length cap, and a new sentence-by-sentence
   `/ws/tts` streams audio as it's produced. An inline `[pause Nms]` marker
   inserts measured silence in generated speech. (#276, #357, #358)
-- **MCP server v1.** VoiceStudio mounts an MCP server on `/mcp` (with a stdio shim
+- **MCP server v1.** Sado mounts an MCP server on `/mcp` (with a stdio shim
   and per-agent voice binding) so it can act as a local TTS/STT provider for
   agentic pipelines. (#368)
 - **Remote-backend access.** Point the desktop UI at a remote backend URL with a
@@ -2568,7 +2569,7 @@ first-run, and install reliability all get a pass too.
 ### Fixed
 
 - **Transcription/dubbing failed when ffmpeg wasn't on `PATH`** (notably on
-  Windows). WhisperX now decodes audio through VoiceStudio's own validated ffmpeg
+  Windows). WhisperX now decodes audio through Sado's own validated ffmpeg
   binary instead of a bare `PATH` lookup, so ASR works without a system ffmpeg
   install. (#479)
 - **Translation defaulted the source language to English.** Dubbing/translation

@@ -213,7 +213,7 @@ def _refuse_when_env_pinned(worker_agent) -> None:
             status_code=409,
             detail=(
                 "OMNIVOICE_WORKER_MODE controls this machine's worker mode. Unset it "
-                "and restart VoiceStudio to manage it from here."
+                "and restart Sado to manage it from here."
             ),
         )
 
@@ -703,7 +703,7 @@ async def set_inbound_enabled(request: InboundEnableRequest) -> dict:
             status_code=409,
             detail=(
                 "Accept connections is controlled by OMNIVOICE_INBOUND_NODE on this "
-                "machine. Change that environment setting and restart VoiceStudio."
+                "machine. Change that environment setting and restart Sado."
             ),
         )
 

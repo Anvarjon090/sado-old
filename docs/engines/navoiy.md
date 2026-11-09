@@ -1,4 +1,4 @@
-# VoiceStudio — Navoiy-TTS (Uzbek)
+# Sado — Navoiy-TTS (Uzbek)
 
 [Navoiy-TTS](https://huggingface.co/aisha-org/navoiy-tts) (Apache-2.0) is an
 Uzbek text-to-speech checkpoint: **CosyVoice2-0.5B** fine-tuned on roughly
@@ -71,7 +71,7 @@ OMNIVOICE_NAVOIY_DIR=D:/omni-navoiy
 ```
 
 Set it in **Settings → Environment** (or the OS environment) and restart
-VoiceStudio. **Model Catalogue → Navoiy-TTS** then shows the engine as
+Sado. **Model Catalogue → Navoiy-TTS** then shows the engine as
 available; pick it before generating, or pin it with
 `OMNIVOICE_TTS_BACKEND=navoiy`.
 

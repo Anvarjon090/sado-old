@@ -1,9 +1,9 @@
 ---
-name: voicestudio-maintainer
-description: Triage GitHub issues, review contributor pull requests, diagnose CI, and prepare explicitly requested releases for VoiceStudio's Electron desktop app and Python backend. Use for repository maintenance work, not ordinary VoiceStudio audio generation.
+name: sado-maintainer
+description: Triage GitHub issues, review contributor pull requests, diagnose CI, and prepare explicitly requested releases for Sado's Electron desktop app and Python backend. Use for repository maintenance work, not ordinary Sado audio generation.
 ---
 
-# VoiceStudio maintenance
+# Sado maintenance
 
 Read the target repository's AGENTS.md, CLAUDE.md, contribution guide, and release documentation first. Their policies override this general workflow. Installing this skill does not authorize merges, releases, issue closures, or messages to contributors.
 
@@ -32,9 +32,9 @@ Use the repository's version source of truth, changelog format, supported platfo
 
 Lead with the outcome and evidence. Credit concrete contributor work. Do not close stale issues merely because of age, or claim reporter confirmation that has not occurred. For authorized closures, give the resolution and what evidence would justify reopening.
 
-## VoiceStudio-specific routing
+## Sado-specific routing
 
-When maintaining debpalash/VoiceStudio, consult its current rules rather than old architecture assumptions:
+When maintaining Anvarjon090/sado, consult its current rules rather than old architecture assumptions:
 - Electron development and packaging: `electron/README.md`, `electron/package.json`, and `.github/workflows/`.
 - Backend contracts: running `/openapi.json`, `backend/api/`, and targeted tests.
 - Release channels and version ownership: `docs/RELEASING.md` and CLAUDE.md. Never infer a version bump from a fix request.

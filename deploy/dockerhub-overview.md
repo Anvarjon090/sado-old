@@ -1,4 +1,4 @@
-# VoiceStudio
+# Sado
 
 **The open-source ElevenLabs alternative.** Real-time dictation, zero-shot voice
 cloning, and cinematic video dubbing — fully local, with no cloud API keys or accounts.
@@ -6,15 +6,15 @@ cloning, and cinematic video dubbing — fully local, with no cloud API keys or 
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/palashdeb/omnivoice-studio?logo=docker&color=2496ED)](https://hub.docker.com/r/palashdeb/omnivoice-studio)
 [![Image Size](https://img.shields.io/docker/image-size/palashdeb/omnivoice-studio/latest?logo=docker&label=image%20size)](https://hub.docker.com/r/palashdeb/omnivoice-studio/tags)
-[![GitHub Stars](https://img.shields.io/github/stars/debpalash/VoiceStudio?logo=github&color=f59e0b)](https://github.com/debpalash/VoiceStudio)
+[![GitHub Stars](https://img.shields.io/github/stars/Anvarjon090/sado?logo=github&color=f59e0b)](https://github.com/Anvarjon090/sado)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue)](https://github.com/debpalash/VoiceStudio/blob/main/LICENSE)
 [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/bzQavDfVV9)
 
-[![debpalash/VoiceStudio on Trendshift](https://trendshift.io/api/badge/trendshift/repositories/28176/daily?language=Python)](https://trendshift.io/repositories/28176?utm_source=trendshift-badge&utm_medium=badge&utm_campaign=badge-trendshift-28176)
+[![Anvarjon090/sado on Trendshift](https://trendshift.io/api/badge/trendshift/repositories/28176/daily?language=Python)](https://trendshift.io/repositories/28176?utm_source=trendshift-badge&utm_medium=badge&utm_campaign=badge-trendshift-28176)
 
-![VoiceStudio — the open-source ElevenLabs alternative](https://raw.githubusercontent.com/debpalash/VoiceStudio/main/.github/assets/social-preview.png)
+![Sado — the open-source ElevenLabs alternative](https://raw.githubusercontent.com/Anvarjon090/sado/main/.github/assets/social-preview.png)
 
-VoiceStudio runs entirely on your own hardware (CUDA / ROCm / CPU
+Sado runs entirely on your own hardware (CUDA / ROCm / CPU
 auto-detect). Nothing leaves the machine without your explicit yes: product
 analytics are opt-in (PostHog, content-free usage metadata only) behind a
 first-run consent prompt — declining or skipping keeps them off, and
@@ -43,11 +43,11 @@ the entire pipeline runs on CPU, just slower. Pull size: ~5 GB compressed
 
 ## See it in action
 
-![Switching TTS engines from the VoiceStudio status bar](https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/quick-switch.gif)
+![Switching TTS engines from the Sado status bar](https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/quick-switch.gif)
 
 | Model catalogue | Save a gallery voice |
 |---|---|
-| ![VoiceStudio Model Catalogue](https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/catalogue.png) | ![Saving a gallery voice as a local profile](https://raw.githubusercontent.com/debpalash/VoiceStudio/main/docs/media/0.5.0/gallery-save.png) |
+| ![Sado Model Catalogue](https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/catalogue.png) | ![Saving a gallery voice as a local profile](https://raw.githubusercontent.com/Anvarjon090/sado/main/docs/media/0.5.0/gallery-save.png) |
 
 ---
 
@@ -130,7 +130,7 @@ Release tags are published only when the GitHub Release is published.
 Preview builds always come from `main` and never version-sort below `:stable`,
 so upgrades flow naturally. The same images and tags
 are mirrored on GHCR at
-[`ghcr.io/debpalash/voicestudio`](https://github.com/debpalash/VoiceStudio/pkgs/container/voicestudio).
+[`ghcr.io/debpalash/sado`](https://github.com/Anvarjon090/sado/pkgs/container/sado).
 The former `ghcr.io/debpalash/omnivoice-studio` path remains a compatible alias.
 
 ---
@@ -144,7 +144,7 @@ The former `ghcr.io/debpalash/omnivoice-studio` path remains a compatible alias.
 - **🔊 Vocal Isolation** — Demucs splits speech from music and keeps the background.
 - **👥 Speaker Diarization** — Pyannote + WhisperX auto-identify who said what.
 - **📦 Batch Queue** — drop 50 videos and walk away; per-job progress.
-- **🤖 MCP Server** — drive VoiceStudio from Claude, Cursor, or any MCP client.
+- **🤖 MCP Server** — drive Sado from Claude, Cursor, or any MCP client.
 - **🛡️ AI Watermark** — invisible AudioSeal (Meta) marking that survives compression.
 - **⚡ GPU Auto-Detect** — CUDA · ROCm · CPU, with auto-offload on ≤8 GB cards.
 - **🧩 Extensible** — subclass `TTSBackend` to add any engine in ~50 lines.
@@ -185,7 +185,7 @@ adds there are root-owned).
   [API authentication guide](https://github.com/debpalash/VoiceStudio/blob/main/docs/api-auth.md).
 
 > **Security:** Loopback-only publishing is the safe default. Before exposing
-> VoiceStudio on a trusted LAN, configure `OMNIVOICE_API_KEY`. On any untrusted
+> Sado on a trusted LAN, configure `OMNIVOICE_API_KEY`. On any untrusted
 > network, plain HTTP is not safe for the API key or session cookie. Keep the
 > backend on an encrypted private overlay such as Tailscale/ZeroTier; do not
 > expose it directly to the public internet.
@@ -194,9 +194,9 @@ adds there are root-owned).
 
 ## Links
 
-- **Source & full install docs:** <https://github.com/debpalash/VoiceStudio>
+- **Source & full install docs:** <https://github.com/Anvarjon090/sado>
 - **Docker guide:** <https://github.com/debpalash/VoiceStudio/blob/main/docs/install/docker.md>
 - **Troubleshooting:** <https://github.com/debpalash/VoiceStudio/blob/main/docs/install/troubleshooting.md>
 - **Community / support:** [Discord](https://discord.gg/bzQavDfVV9)
 
-VoiceStudio is in active beta and licensed under AGPL-3.0.
+Sado is in active beta and licensed under AGPL-3.0.

@@ -13,7 +13,7 @@ export function n8nSetup(slug: string, baseUrl: string) {
   const request = workflow.nodes.find((node) => node.type === 'n8n-nodes-base.httpRequest')!;
   request.parameters.url = url;
   return {
-    file: 'voicestudio-n8n.json',
+    file: 'sado-n8n.json',
     docs: 'https://github.com/debpalash/VoiceStudio/blob/main/docs/integrations/n8n.md',
     text: JSON.stringify(workflow, null, 2),
   };

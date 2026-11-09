@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────
-//  VoiceStudio design-system barrel
+//  Sado design-system barrel
 //
 //  Import from here, not the individual files:
 //    import { Button, Panel, Field, Input, Select, Dialog, Slider, Badge } from '../ui';

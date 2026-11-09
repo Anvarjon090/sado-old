@@ -5,7 +5,7 @@
  * machine could only become a worker by launching with OMNIVOICE_WORKER_MODE
  * and OMNIVOICE_WORKER_TOKEN in its environment. So the control plane happily
  * minted join codes that, on the other machine, had nowhere to go — the panel
- * said "paste it into VoiceStudio on the other machine" and there was nothing
+ * said "paste it into Sado on the other machine" and there was nothing
  * to paste it into. This is that box.
  *
  * Sits under the same master toggle as the rest of Remote workers because "off
@@ -74,7 +74,7 @@ export default function JoinWorkerPanel({ request }) {
       title={t('settings.worker_join_title', { defaultValue: "Lend this machine's GPU" })}
       description={t('settings.worker_join_desc', {
         defaultValue:
-          'Let another copy of VoiceStudio send jobs to this machine. Paste the join code it showed you — or scan its QR with your phone and paste it here.',
+          'Let another copy of Sado send jobs to this machine. Paste the join code it showed you — or scan its QR with your phone and paste it here.',
       })}
       actions={
         joined ? (

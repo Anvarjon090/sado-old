@@ -35,7 +35,7 @@ try {
         models: [
           {
             repo_id: 'k2-fsa/OmniVoice',
-            label: 'VoiceStudio TTS',
+            label: 'Sado TTS',
             role: 'TTS',
             size_gb: 2.4,
             required: true,
@@ -57,13 +57,13 @@ try {
     }),
   );
 
-  const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902';
+  const base = process.env.SADO_UI_URL || 'http://localhost:3902';
   await page.goto(base + '/#/settings/models');
   await page
     .getByRole('heading', { name: t('models.reco_for').replace('{{device}}', device) })
     .waitFor();
   await page.getByRole('alert').filter({ hasText: '5.3' }).waitFor();
-  assert.equal(await page.getByText('VoiceStudio TTS', { exact: true }).count(), 1);
+  assert.equal(await page.getByText('Sado TTS', { exact: true }).count(), 1);
   assert.equal(await page.getByText('Whisper large-v3', { exact: true }).count(), 1);
 
   await page.setViewportSize({ width: 640, height: 720 });
@@ -79,10 +79,10 @@ try {
 
   await page
     .getByRole('button', {
-      name: t('models.reco_install_one').replace('{{label}}', 'VoiceStudio TTS'),
+      name: t('models.reco_install_one').replace('{{label}}', 'Sado TTS'),
     })
     .click();
-  await page.waitForFunction(() => document.body.textContent?.includes('VoiceStudio TTS'));
+  await page.waitForFunction(() => document.body.textContent?.includes('Sado TTS'));
   assert.deepEqual(requested, [{ repo_id: 'k2-fsa/OmniVoice', target: 'gpu2' }]);
   assert.deepEqual(errors, []);
   console.log('PASS: device recommendations, low-disk warning, and scoped install action');

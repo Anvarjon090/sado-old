@@ -13,12 +13,12 @@ afterEach(async () => {
 });
 
 async function fixture(): Promise<UninstallRoots & { root: string }> {
-  const root = await mkdtemp(join(tmpdir(), 'VoiceStudio-uninstall-test-'));
+  const root = await mkdtemp(join(tmpdir(), 'Sado-uninstall-test-'));
   created.push(root);
   const roots = {
     root,
     data: join(root, 'OmniVoice', 'data'),
-    environment: join(root, 'VoiceStudio', 'shell'),
+    environment: join(root, 'Sado', 'shell'),
     logs: join(root, 'OmniVoice', 'logs'),
     userEnvironment: join(root, '.config', 'omnivoice'),
     models: join(root, '.cache', 'huggingface'),

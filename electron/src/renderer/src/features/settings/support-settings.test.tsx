@@ -35,11 +35,11 @@ it('opens only the explicit destination and applies selected amounts only to Pay
   expect(mock.open).toHaveBeenCalledWith('https://paypal.me/palashCoder/20');
   expect(screen.getByRole('link', { name: 'contact.security_cta' })).toHaveAttribute(
     'href',
-    'https://github.com/debpalash/VoiceStudio/security/advisories/new',
+    'https://github.com/Anvarjon090/sado/security/advisories/new',
   );
   expect(screen.getByRole('link', { name: 'support.sponsors_become' })).toHaveAttribute(
     'href',
-    'https://github.com/debpalash/VoiceStudio/issues/new?template=sponsor.yml',
+    'https://github.com/Anvarjon090/sado/issues/new?template=sponsor.yml',
   );
   fireEvent.click(screen.getByRole('button', { name: 'supportPlans.get_pro' }));
   expect(mock.navigate).toHaveBeenCalledWith({ to: '/pro' });

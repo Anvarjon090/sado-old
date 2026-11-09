@@ -32,7 +32,7 @@ import toast from 'react-hot-toast';
 
 const MINIMAL_SPEC = {
   openapi: '3.1.0',
-  info: { title: 'VoiceStudio', version: '0.0.0' },
+  info: { title: 'Sado', version: '0.0.0' },
   paths: {},
 };
 
@@ -114,7 +114,7 @@ describe('OpenApiPanel', () => {
 
     render(<OpenApiPanel />);
 
-    expect(screen.getByRole('heading', { name: 'VoiceStudio API' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sado API' })).toBeInTheDocument();
     expect(screen.queryByText('OpenAPI Reference')).not.toBeInTheDocument();
 
     // The spec is fetched from the backend root route (not under /api).

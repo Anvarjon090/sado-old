@@ -1,6 +1,6 @@
 # Remote GPU workers
 
-Run VoiceStudio on this machine, but hand individual jobs to GPUs on your other
+Run Sado on this machine, but hand individual jobs to GPUs on your other
 machines. Results come back here.
 
 This is **opt-in and off by default**. Until you turn it on and approve a
@@ -23,7 +23,7 @@ administration.
 
 ## What you need
 
-* VoiceStudio builds with a compatible worker protocol on both machines. The
+* Sado builds with a compatible worker protocol on both machines. The
   durable-enrollment v2 boundary requires updating both sides; the app refuses
   an unsafe pairing with an update instruction before any task runs.
 * The worker machine must be able to **reach** this one over the network. Same
@@ -57,7 +57,7 @@ Use the host's LAN or private-overlay address, not the container's bridge IP.
 The worker port is published on loopback by default; setting
 `OMNIVOICE_WORKER_PUBLISH_HOST=0.0.0.0` is the explicit opt-in that makes it
 reachable from the LAN. Keep the default when a host-side tunnel or proxy
-provides reachability. Until remote workers are enabled in VoiceStudio, the
+provides reachability. Until remote workers are enabled in Sado, the
 container has no process listening on the published control-plane port.
 
 **2. Generate a join code.**
@@ -168,7 +168,7 @@ connection string is still valid. To stop someone for good, remove their
 connection string instead.
 
 > **Keep the connection string private.** It contains the API key and the GPU
-> machine's certificate fingerprint. VoiceStudio checks that fingerprint before
+> machine's certificate fingerprint. Sado checks that fingerprint before
 > sending credentials, audio, or jobs; a mismatch fails closed. Every inbound
 > connection uses TLS with no plaintext fallback. The design is recorded in
 > [the decision record](adr/inbound-node-mode.md).
@@ -183,7 +183,7 @@ connection string instead.
 | Remove | Revoke its key — it cannot reconnect without a new token |
 
 That is the whole surface, deliberately. **Preferred** pins new work to that
-worker; if it is asleep, VoiceStudio names that worker instead of silently
+worker; if it is asleep, Sado names that worker instead of silently
 sending the job elsewhere. There are no routing weights or per-model
 concurrency settings: concurrency is measured from free VRAM at runtime because
 a configured value silently corrupts output on compiled models and crashes
@@ -228,7 +228,7 @@ API and goes away once generation routes itself.
 
 A task goes to a worker that is connected, approved, enabled, has the engine,
 has a free slot, and is not paused. An explicitly preferred worker is a hard
-choice. Without one, VoiceStudio chooses the least-busy eligible worker and
+choice. Without one, Sado chooses the least-busy eligible worker and
 breaks ties in favour of a worker that already has the model loaded — a warm
 model is seconds away where a cold one can be minutes.
 Model identities are stable scheduling keys; the worker reports a separate
@@ -263,7 +263,7 @@ The row tells you what happened in words — "Paused after 3 failures … retryi
 in 45s" — and **Resume** clears it immediately when you've fixed the machine.
 
 **You quit the app mid-task.** Remote work keeps running on the worker. On next
-launch VoiceStudio recovers those tasks and reconciles with each worker about
+launch Sado recovers those tasks and reconciles with each worker about
 what is genuinely still in flight.
 
 **Version or feature mismatch.** Release numbers alone do not prove that a
@@ -355,14 +355,14 @@ same model and they are configured separately:
 
 | Timer | Default | Set with |
 |---|---|---|
-| Engine registry — drops the cached engine instance and, for VoiceStudio, the shared model with it | 600 s | `OMNIVOICE_ENGINE_IDLE_UNLOAD_SECONDS` |
+| Engine registry — drops the cached engine instance and, for Sado, the shared model with it | 600 s | `OMNIVOICE_ENGINE_IDLE_UNLOAD_SECONDS` |
 | In-process model reaper — the backstop, also releases the dictation ASR and the watermark models | 900 s | `OMNIVOICE_IDLE_TIMEOUT` (or Settings) |
 
 In practice the first one gets there first and the second finds nothing to do.
 Shortening only `OMNIVOICE_ENGINE_IDLE_UNLOAD_SECONDS` is the right move when
 testing; the backstop is not worth touching.
 
-Only one VoiceStudio instance can accept remote workers on a given port. If
+Only one Sado instance can accept remote workers on a given port. If
 another instance already owns the configured port, the app continues running
 with remote workers unavailable and shows the conflict in Settings. Close the
 other instance, or give this one a different `OMNIVOICE_WORKER_PORT` and
@@ -382,7 +382,7 @@ scripts/verify-remote-worker.sh \
   --ssh-target '<user@worker-host>'
 ```
 
-`WORKER_ID`, `WORKER_SSH_TARGET`, `WORKER_START_COMMAND`, `VOICESTUDIO_API`,
+`WORKER_ID`, `WORKER_SSH_TARGET`, `WORKER_START_COMMAND`, `SADO_API`,
 and `WORKER_CONTROL_PORT` are equivalent environment variables. Pass
 `--worker-start-command` (or its environment equivalent) when the worker does
 not use the headless command documented above; it is printed only in the manual

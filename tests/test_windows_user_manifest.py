@@ -11,16 +11,16 @@ SPEC.loader.exec_module(MODULE)
 
 def test_per_user_manifest_points_only_to_scoped_signed_msi():
     manifest = MODULE.build_manifest(
-        repo="debpalash/VoiceStudio",
+        repo="Anvarjon090/sado",
         tag="v1.2.3",
         version="1.2.3",
-        asset="VoiceStudio_Current_User_1.2.3_x64_en-US.msi",
+        asset="Sado_Current_User_1.2.3_x64_en-US.msi",
         signature="signed\n",
     )
     entry = manifest["platforms"]["windows-x86_64"]
     assert manifest["version"] == "1.2.3"
     assert entry["signature"] == "signed"
-    assert entry["url"].endswith("/VoiceStudio_Current_User_1.2.3_x64_en-US.msi")
+    assert entry["url"].endswith("/Sado_Current_User_1.2.3_x64_en-US.msi")
     assert set(manifest["platforms"]) == {
         "windows-x86_64",
         "windows-x86_64-msi",

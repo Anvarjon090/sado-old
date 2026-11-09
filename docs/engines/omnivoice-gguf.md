@@ -1,4 +1,4 @@
-# VoiceStudio — OmniVoice GGUF Engine
+# Sado — OmniVoice GGUF Engine
 
 OmniVoice GGUF runs the same OmniVoice model as the [default
 engine](omnivoice.md), but through a bundled native binary
@@ -41,7 +41,7 @@ generation to be quick; a long first render is the download, not a hang.
 **Source checkouts:** the repo ships zero-byte placeholders in `bin/` — real
 binaries come from CI or the installer. The engine detects a placeholder and
 reports unavailable with instructions
-([#1172](https://github.com/debpalash/VoiceStudio/issues/1172)) instead of
+([#1172](https://github.com/Anvarjon090/sado/issues/1172)) instead of
 failing at spawn time; build one with
 `scripts/build-omnivoice-tts.sh --platform <slug>` or use the default
 in-process engine.
@@ -61,10 +61,10 @@ Before reporting ready, the engine:
 
 - verifies the binary against the SHA-256 manifest (`bin/checksums.sha256`);
 - detects macOS Gatekeeper quarantine and prints the exact
-  `xattr -cr '/Applications/VoiceStudio.app'` fix;
+  `xattr -cr '/Applications/Sado.app'` fix;
 - restores a missing execute bit (a git clone or zip extract on POSIX can
   drop `+x`, which used to surface as a permission error mislabeled as
-  out-of-memory — [#437](https://github.com/debpalash/VoiceStudio/issues/437)).
+  out-of-memory — [#437](https://github.com/Anvarjon090/sado/issues/437)).
   The chmod runs only after the SHA check confirms it's the right file.
 
 ## Behaviour notes

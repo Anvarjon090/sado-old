@@ -1,7 +1,7 @@
-# VoiceStudio Examples
+# Sado Examples
 
 This directory contains integration examples plus scripts and configs for
-training, fine-tuning, and evaluating VoiceStudio.
+training, fine-tuning, and evaluating Sado.
 
 | Use Case | Script | Description |
 |---|---|---|

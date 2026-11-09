@@ -1,10 +1,10 @@
 /** The preload contract, reached through the global augmentation in src/preload/index.d.ts. */
-export type VoiceStudioBridge = Window['voicestudio'];
+export type SadoBridge = Window['sado'];
 
 /** The preload bridge, or null outside Electron (vitest, a plain browser tab). */
-export function getBridge(): VoiceStudioBridge | null {
+export function getBridge(): SadoBridge | null {
   if (typeof window === 'undefined') return null;
-  return 'voicestudio' in window && window.voicestudio ? window.voicestudio : null;
+  return 'sado' in window && window.sado ? window.sado : null;
 }
 
 export function appVersion(): string {

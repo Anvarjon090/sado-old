@@ -1,6 +1,6 @@
 # Sado — o'zbek ovozi studiyasi
 
-**Sado** — VoiceStudio (AGPL-3.0) asosidagi, o'zbek tiliga moslangan lokal ovoz
+**Sado** — Sado (AGPL-3.0) asosidagi, o'zbek tiliga moslangan lokal ovoz
 studiyasi. Hammasi shu kompyuterda ishlaydi: bulut, akkaunt va API kalit talab
 qilinmaydi.
 
@@ -55,5 +55,5 @@ ovoz bo'limida esa dvigatelni qo'lda tanlaysiz.
 
 ## Litsenziya
 
-AGPL-3.0 — asl loyiha [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio).
+AGPL-3.0 — asl loyiha [Anvarjon090/sado](https://github.com/Anvarjon090/sado).
 O'zbekcha moslashtirish va Sado brendingi shu repozitoriyda.

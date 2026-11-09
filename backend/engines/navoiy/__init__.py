@@ -92,7 +92,7 @@ class NavoiyBackend(SubprocessBackend):
         if not bootstrap.NAVOIY_SIDECAR_SCRIPT.is_file():
             return False, (
                 "Navoiy-TTS sidecar script missing at "
-                f"{bootstrap.NAVOIY_SIDECAR_SCRIPT} — reinstall VoiceStudio."
+                f"{bootstrap.NAVOIY_SIDECAR_SCRIPT} — reinstall Sado."
             )
         return True, "ready (Uzbek only, reference clip required)"
 

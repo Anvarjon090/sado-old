@@ -60,7 +60,7 @@ def test_installed_revision_round_trips_for_repair(tmp_path):
 def test_missing_or_invalid_marker_falls_back_to_reviewed_pin(tmp_path):
     repo_id = "k2-fsa/OmniVoice"
     assert hf_revisions.installed_revision(repo_id, str(tmp_path)) == hf_revisions.revision_for(repo_id)
-    marker = tmp_path / "models--k2-fsa--OmniVoice" / "voicestudio-revision"
+    marker = tmp_path / "models--k2-fsa--OmniVoice" / "sado-revision"
     marker.parent.mkdir(parents=True)
     marker.write_text("main\n", encoding="ascii")
     assert hf_revisions.installed_revision(repo_id, str(tmp_path)) == hf_revisions.revision_for(repo_id)
@@ -77,7 +77,7 @@ def test_existing_hub_main_ref_is_preserved_for_upgrade_repair(tmp_path):
 
 def test_unknown_repo_cannot_start_a_network_repair(tmp_path):
     repo_dir = tmp_path / "models--attacker--unreviewed"
-    for marker in (repo_dir / "voicestudio-revision", repo_dir / "refs" / "main"):
+    for marker in (repo_dir / "sado-revision", repo_dir / "refs" / "main"):
         marker.parent.mkdir(parents=True, exist_ok=True)
         marker.write_text("a" * 40 + "\n", encoding="ascii")
     try:

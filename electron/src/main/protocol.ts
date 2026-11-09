@@ -5,7 +5,7 @@ import { Readable } from 'node:stream';
 import { net, protocol } from 'electron';
 
 export const APP_SCHEME = 'app';
-export const APP_HOST = 'voicestudio';
+export const APP_HOST = 'sado';
 export const APP_ORIGIN = `${APP_SCHEME}://${APP_HOST}`;
 const API_PREFIX = '/api';
 

@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
-const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3912';
+const base = process.env.SADO_UI_URL || 'http://localhost:3912';
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const errors = [];
@@ -64,7 +64,7 @@ await page.route((url) => url.pathname.startsWith('/api/'), async (route) => {
   return route.fulfill({ status: json === undefined ? 404 : 200, json: json ?? { detail: 'Unavailable in fixture' } });
 });
 try {
-  await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
+  await page.addInitScript(() => localStorage.setItem('sado.setup.complete.v1', '1'));
   await page.goto(base + '/#/calls');
   await page.getByRole('button', { name: 'Batch narration · Normalize audio', exact: true }).click();
   await page.getByLabel('Scripts', { exact: true }).fill('First lesson\n---\nSecond lesson');
@@ -85,7 +85,7 @@ try {
   assert.equal(generated, 2, 'resume must reuse the first generated clip');
   assert.equal(normalized, 3, 'failed step retried, then second clip normalized');
   assert.equal(await page.locator('.workflow-run-output audio').count(), 2);
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-execution.png') });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-execution.png') });
   const download = page.waitForEvent('download');
   await page.locator('.workflow-run-output').first().getByRole('button', { name: 'Export' }).click();
   assert((await download).suggestedFilename().endsWith('-01-1.wav'));
@@ -134,18 +134,18 @@ try {
   assert.equal(transcribed, 2);
   assert.equal(translated, 1);
   assert.equal(generated, 3);
-  await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-localization.png') });
+  await page.screenshot({ path: join(tmpdir(), 'sado-workflow-localization.png') });
   // Removing a source releases its blob only after the last duplicated reference.
   await page.locator('.workflow-templates').getByRole('button', { name: 'Audio to transcript', exact: true }).click();
   await page.getByLabel('Add audio', { exact: true }).setInputFiles({ name: 'remove-me.wav', mimeType: 'audio/wav', buffer: wav });
   await page.getByText('remove-me.wav', { exact: true }).waitFor();
   await page.getByLabel('Name', { exact: true }).fill('Source cleanup');
   const sourceId = await page.evaluate(() => {
-    const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
+    const library = JSON.parse(localStorage.getItem('sado.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
   const hasSource = (id) => page.evaluate((id) => new Promise((resolve, reject) => {
-    const open = indexedDB.open('voicestudio.workflow-runs', 1);
+    const open = indexedDB.open('sado.workflow-runs', 1);
     open.onerror = () => reject(open.error);
     open.onsuccess = () => {
       const db = open.result; const request = db.transaction('runs').objectStore('runs').get('media:' + id);
@@ -164,14 +164,14 @@ try {
   await page.getByLabel('Add audio', { exact: true }).setInputFiles({ name: 'delete-workflow.wav', mimeType: 'audio/wav', buffer: wav });
   await page.getByText('delete-workflow.wav', { exact: true }).waitFor();
   const deletedId = await page.evaluate(() => {
-    const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
+    const library = JSON.parse(localStorage.getItem('sado.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
   await page.evaluate(() => { IDBObjectStore.prototype.delete = function () { throw new Error('Temporary storage failure'); }; });
   await page.getByRole('complementary', { name: 'Step details' }).getByRole('button', { name: 'Delete', exact: true }).click();
   await page.getByRole('alert').filter({ hasText: 'Temporary storage failure' }).waitFor();
   assert.equal(await hasSource(deletedId), true);
-  assert(await page.evaluate(() => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).cleanup.length > 0));
+  assert(await page.evaluate(() => JSON.parse(localStorage.getItem('sado.workflows.v1')).cleanup.length > 0));
   await page.reload(); // Reload restores IndexedDB and retries the persisted deletion queue.
   await page.getByRole('heading', { name: 'Design a voice workflow' }).waitFor();
   for (let i = 0; i < 40 && await hasSource(deletedId); i++) await page.waitForTimeout(50);
@@ -180,7 +180,7 @@ try {
   await page.getByLabel('Add audio', { exact: true }).setInputFiles({ name: 'last.wav', mimeType: 'audio/wav', buffer: wav });
   await page.getByText('last.wav', { exact: true }).waitFor();
   const lastId = await page.evaluate(() => {
-    const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
+    const library = JSON.parse(localStorage.getItem('sado.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
   await page.locator('.workflow-intro').getByRole('button', { name: 'Delete', exact: true }).click();

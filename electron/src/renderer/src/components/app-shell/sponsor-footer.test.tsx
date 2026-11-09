@@ -32,7 +32,7 @@ it('places Discord before X and donate before the collapse control', async () =>
   expect(screen.queryByRole('link', { name: 'support.star_github' })).not.toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'contact.website' })).toHaveAttribute(
     'href',
-    'https://voicestudio.sh',
+    'https://sado.sh',
   );
   expect(screen.queryByRole('img')).toBeNull();
   const discord = screen.getByRole('link', { name: 'support.join_discord' });
@@ -42,11 +42,11 @@ it('places Discord before X and donate before the collapse control', async () =>
   await waitFor(() => expect(mock.open).toHaveBeenCalledWith('https://discord.gg/bzQavDfVV9'));
 });
 
-it.each(['idebpalash', 'voicestudiosh'])('opens @%s in the external browser', async (handle) => {
+it.each(['idebpalash', 'sadosh'])('opens @%s in the external browser', async (handle) => {
   render(<SponsorFooter />);
   fireEvent.click(screen.getByRole('button', { name: 'contact.follow_cta' }));
   expect(await screen.findByText('Palash')).toBeVisible();
-  expect(screen.getByText('VoiceStudio')).toBeVisible();
+  expect(screen.getByText('Sado')).toBeVisible();
   const link = screen.getByRole('link', { name: `contact.follow_cta · @${handle}` });
   expect(link).toHaveAttribute('href', `https://x.com/${handle}`);
   fireEvent.click(link);
@@ -66,7 +66,7 @@ it('opens compact support links from the heart and links to the full page', asyn
   );
   expect(screen.getByRole('link', { name: 'support.star_github' })).toHaveAttribute(
     'href',
-    'https://github.com/debpalash/VoiceStudio',
+    'https://github.com/Anvarjon090/sado',
   );
   expect(screen.getByRole('link', { name: 'support.join_discord' })).toHaveAttribute(
     'href',
@@ -125,6 +125,6 @@ it('keeps the email fallback available from the booking form', async () => {
     target: { value: 'My brand and website' },
   });
   fireEvent.click(screen.getByRole('button', { name: 'sponsorSlot.copy_email' }));
-  await waitFor(() => expect(writeText).toHaveBeenCalledWith('partner@voicestudio.sh'));
+  await waitFor(() => expect(writeText).toHaveBeenCalledWith('partner@sado.sh'));
   expect(screen.getByRole('textbox')).toHaveValue('My brand and website');
 });

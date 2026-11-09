@@ -1,6 +1,6 @@
 import { restoreExportPreferences } from './dub-export';
 import type { DubSession } from './dub-session';
-export const DUB_DRAFT_KEY = 'voicestudio.dub.session.v1';
+export const DUB_DRAFT_KEY = 'sado.dub.session.v1';
 
 function isProviderErrorText(value: unknown): value is string {
   return (

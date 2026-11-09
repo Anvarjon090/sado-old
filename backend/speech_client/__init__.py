@@ -1,1 +1,1 @@
-"""Dependency-free client for VoiceStudio's local speech platform."""
+"""Dependency-free client for Sado's local speech platform."""

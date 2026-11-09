@@ -1388,7 +1388,7 @@ async def test_server_refuses_an_occupied_control_plane_port(monkeypatch):
     )
     monkeypatch.setattr(grpc, "ssl_server_credentials", lambda *_args: object())
 
-    with pytest.raises(ControlPlaneBindError, match="Another VoiceStudio instance"):
+    with pytest.raises(ControlPlaneBindError, match="Another Sado instance"):
         await serve(
             object(),
             port=7443,

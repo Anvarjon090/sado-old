@@ -8,7 +8,7 @@ temporarily shared by Electron; they are not a runnable app. New UI, IPC, setup
 instructions, tests, and browser assets belong in Electron; validate Electron on
 macOS, Windows and Linux.
 
-# Agent Rules — VoiceStudio
+# Agent Rules — Sado
 
 Binding for every AI agent (Claude, Codex, Cursor, review bots, …). CLAUDE.md is the full constitution; this is the operating contract. When they conflict, CLAUDE.md wins.
 
@@ -58,7 +58,7 @@ Repository rules and tracker mappings override generic skill guidance.
 
 ### Issue tracker
 
-GitHub Issues on `debpalash/VoiceStudio`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+GitHub Issues on `Anvarjon090/sado`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

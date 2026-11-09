@@ -81,7 +81,7 @@ try {
       } else received();
     });
   });
-  const base = process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902';
+  const base = process.env.SADO_UI_URL || 'http://localhost:3902';
   await page.goto(base + '/#/transcriptions');
   const worklet = await page.request.get(base + '/aec-worklet.js');
   assert.equal(worklet.status(), 200);

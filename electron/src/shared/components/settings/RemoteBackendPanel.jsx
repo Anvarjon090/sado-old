@@ -1,7 +1,7 @@
 /**
  * Settings → Sharing → Remote backend panel (parity program Wave 2.3).
  *
- * Point this app at a VoiceStudio backend running elsewhere (a GPU box over
+ * Point this app at a Sado backend running elsewhere (a GPU box over
  * Tailscale, a Docker deployment). Persists only the URL. A supplied master
  * credential is exchanged for a short-lived session and removed from the UI;
  * it never enters localStorage or an ordinary health request.

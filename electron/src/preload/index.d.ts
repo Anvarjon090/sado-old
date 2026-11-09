@@ -1,5 +1,5 @@
 /**
- * The contextBridge surface exposed to the renderer as `window.voicestudio`.
+ * The contextBridge surface exposed to the renderer as `window.sado`.
  *
  * Keep this file the single contract between main (src/main), preload
  * (src/preload/index.ts) and the renderer. Both tsconfigs include it.
@@ -283,7 +283,7 @@ export interface UninstallTarget {
   shared: boolean;
 }
 
-export interface VoiceStudioBridge {
+export interface SadoBridge {
   browser: import('../shared/site-browser').SiteBrowserBridge;
   pro: {
     status(): Promise<{
@@ -426,7 +426,7 @@ export interface VoiceStudioBridge {
 
 declare global {
   interface Window {
-    voicestudio: VoiceStudioBridge;
+    sado: SadoBridge;
   }
 }
 

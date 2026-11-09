@@ -114,7 +114,7 @@ function SponsorLogo({ sponsor }) {
       }}
       title={sponsor.name}
       aria-label={t('support.sponsors_logo_aria', {
-        defaultValue: 'Visit {{name}}, a VoiceStudio sponsor',
+        defaultValue: 'Visit {{name}}, a Sado sponsor',
         name: sponsor.name,
       })}
       className="flex min-h-11 items-center justify-center rounded-md border border-border bg-transparent px-3 py-2 transition-colors hover:border-transparent hover:bg-[var(--chrome-hover-bg)]"
@@ -156,7 +156,7 @@ function SponsorsSection() {
           <span className="min-w-[150px] flex-1">
             <span className="block font-serif text-[0.9rem] leading-tight text-[var(--chrome-fg)]">
               {t('support.sponsors_empty_title', {
-                defaultValue: 'Be the first to sponsor VoiceStudio',
+                defaultValue: 'Be the first to sponsor Sado',
               })}
             </span>
             <span className="block font-mono text-[0.6rem] uppercase tracking-[var(--chrome-label-track)] text-[var(--chrome-fg-dim)]">
@@ -342,7 +342,7 @@ function SupportView() {
                 variant="subtle"
                 size="sm"
                 leading={<Star size={13} />}
-                onClick={() => openExternal('https://github.com/debpalash/VoiceStudio')}
+                onClick={() => openExternal('https://github.com/Anvarjon090/sado')}
               >
                 {t('support.star_github')}
               </Button>
@@ -363,10 +363,10 @@ function SupportView() {
 }
 
 /* ── Commercial License panel ─────────────────────────────────────────── */
-const LICENSE_EMAIL = 'hi@voicestudio.sh';
+const LICENSE_EMAIL = 'hi@sado.sh';
 const LICENSE_MAILTO =
-  'mailto:hi@voicestudio.sh?subject=VoiceStudio Commercial License Inquiry' +
-  '&body=Hi Palash,%0A%0AI%27d like to talk about a commercial license for VoiceStudio.%0A%0AOrganization:%0ATeam size:%0AUse case:%0A';
+  'mailto:hi@sado.sh?subject=Sado Commercial License Inquiry' +
+  '&body=Hi Palash,%0A%0AI%27d like to talk about a commercial license for Sado.%0A%0AOrganization:%0ATeam size:%0AUse case:%0A';
 
 function LicenseView() {
   const { t } = useTranslation();
@@ -388,7 +388,7 @@ function LicenseView() {
         <p className="mx-auto mt-3 max-w-[680px] font-sans text-[0.78rem] leading-[1.5] text-[var(--chrome-fg-muted)]">
           {t('enterprise.hero_simple', {
             defaultValue:
-              'VoiceStudio is free and open-source under the AGPL-3.0 — including for commercial and internal business use. You only need a commercial license to embed it in a closed-source product without AGPL’s copyleft obligations.',
+              'Sado is free and open-source under the AGPL-3.0 — including for commercial and internal business use. You only need a commercial license to embed it in a closed-source product without AGPL’s copyleft obligations.',
           })}
         </p>
       </header>

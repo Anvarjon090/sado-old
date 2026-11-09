@@ -14,12 +14,12 @@ import {
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const APP_NAME = 'VoiceStudio';
+const APP_NAME = 'Sado';
 const here = dirname(fileURLToPath(import.meta.url));
 const electronRoot = resolve(here, '..');
 const repoRoot = resolve(electronRoot, '..');
 const require = createRequire(import.meta.url);
-const defaultCacheRoot = join(electronRoot, 'node_modules', '.cache', 'voicestudio-electron-dev');
+const defaultCacheRoot = join(electronRoot, 'node_modules', '.cache', 'sado-electron-dev');
 
 export function createMacDevBundlePlan({
   electronExecutable,
@@ -111,7 +111,7 @@ export function prepareMacDevElectron({
     const infoPlist = join(stagingBundle, 'Contents', 'Info.plist');
     replacePlistValue(infoPlist, 'CFBundleDisplayName', APP_NAME);
     replacePlistValue(infoPlist, 'CFBundleName', APP_NAME);
-    replacePlistValue(infoPlist, 'CFBundleIdentifier', 'com.voicestudio.desktop.dev');
+    replacePlistValue(infoPlist, 'CFBundleIdentifier', 'com.sado.desktop.dev');
     replacePlistValue(infoPlist, 'CFBundleIconFile', `${APP_NAME}.icns`);
     replacePlistValue(infoPlist, 'CFBundleShortVersionString', appVersion);
     replacePlistValue(infoPlist, 'CFBundleVersion', appVersion);

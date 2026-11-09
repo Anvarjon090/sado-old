@@ -1,7 +1,7 @@
 """Navoiy-TTS install probe: which interpreter, which weights.
 
 Navoiy-TTS (`aisha-org/navoiy-tts`) is an Uzbek CosyVoice2-0.5B fine-tune. It
-cannot live in VoiceStudio's interpreter: it needs ``transformers==4.51.3``
+cannot live in Sado's interpreter: it needs ``transformers==4.51.3``
 (the parent runs transformers 5, where the model's LLM loses its
 end-of-speech and the audio degenerates into repeated syllables — measured
 2026-11-06), and it is built for Python 3.10 with torch 2.7.
@@ -130,7 +130,7 @@ def missing_message() -> str:
         return (
             "Navoiy-TTS is not configured. Set OMNIVOICE_NAVOIY_DIR to your "
             "install root (the folder with CosyVoice/, base/ and navoiy/) and "
-            "restart VoiceStudio — see docs/engines/navoiy.md."
+            "restart Sado — see docs/engines/navoiy.md."
         )
     if not root.is_dir():
         return f"{NAVOIY_DIR_ENV} points at {root}, which does not exist."

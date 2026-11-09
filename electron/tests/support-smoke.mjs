@@ -5,7 +5,7 @@ const page = await browser.newPage({ viewport: { width: 1100, height: 760 } });
 try {
   await page.goto('http://localhost:3912/#/settings/appearance');
   await page.getByRole('link', { name: 'Support', exact: true }).click();
-  await page.getByRole('heading', { name: 'Support VoiceStudio', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Support Sado', exact: true }).waitFor();
   await page.getByRole('progressbar').waitFor();
   assert.equal(await page.getByRole('progressbar').getAttribute('aria-valuenow'), '5');
   assert.equal(
@@ -20,7 +20,7 @@ try {
   await page.getByRole('button', { name: 'Custom', exact: true }).click();
   assert.equal(
     await page.getByRole('link', { name: 'Report privately', exact: true }).getAttribute('href'),
-    'https://github.com/debpalash/VoiceStudio/security/advisories/new',
+    'https://github.com/Anvarjon090/sado/security/advisories/new',
   );
   console.log(
     'Support navigation, amount selection and private security destination passed; no external page opened.',

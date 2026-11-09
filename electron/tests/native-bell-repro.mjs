@@ -19,8 +19,8 @@ const app = await electron.launch({
 try {
   const page = await app.firstWindow();
   await page.addInitScript(() => {
-    localStorage.setItem('voicestudio.setup.complete.v1', '1');
-    window.voicestudio = {
+    localStorage.setItem('sado.setup.complete.v1', '1');
+    window.sado = {
       app: {
         platform: 'darwin',
         version: 'test',
@@ -34,7 +34,7 @@ try {
       },
     };
   });
-  await page.goto((process.env.VOICESTUDIO_UI_URL || 'http://localhost:3902') + '/#/clone');
+  await page.goto((process.env.SADO_UI_URL || 'http://localhost:3902') + '/#/clone');
   const bell = page.locator('[data-slot=macos-system-notifications] button');
   await bell.waitFor();
   const rect = await bell.boundingBox();

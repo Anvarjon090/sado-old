@@ -31,7 +31,7 @@ import { installAppIdentity, installMacApplicationMenu } from './app-identity';
 process.stdout?.on('error', () => {});
 process.stderr?.on('error', () => {});
 
-const APP_USER_MODEL_ID = 'com.voicestudio.desktop';
+const APP_USER_MODEL_ID = 'com.sado.desktop';
 const here = dirname(fileURLToPath(import.meta.url));
 const PRELOAD_PATH = join(here, '../preload/index.mjs');
 const RENDERER_DIR = join(here, '../renderer');
@@ -225,7 +225,7 @@ async function openOutside(url: string): Promise<void> {
   }
 }
 
-if (process.env.VOICESTUDIO_ALLOW_MULTIPLE_INSTANCES !== '1' && !app.requestSingleInstanceLock()) {
+if (process.env.SADO_ALLOW_MULTIPLE_INSTANCES !== '1' && !app.requestSingleInstanceLock()) {
   app.quit();
 } else {
   app.on('second-instance', () => {
@@ -271,7 +271,7 @@ if (process.env.VOICESTUDIO_ALLOW_MULTIPLE_INSTANCES !== '1' && !app.requestSing
         const proxy = await startDevBackendProxy(
           () => backend.baseUrl,
           () => backend.requestHeaders(),
-          Number(process.env.VOICESTUDIO_ELECTRON_PROXY_PORT) || 3903,
+          Number(process.env.SADO_ELECTRON_PROXY_PORT) || 3903,
         );
         closeDevProxy = proxy.close;
       }
@@ -307,7 +307,7 @@ if (process.env.VOICESTUDIO_ALLOW_MULTIPLE_INSTANCES !== '1' && !app.requestSing
       const icon = nativeImage.createFromPath(brandIconPath('icon.png'));
       if (process.platform === 'darwin') app.dock?.setIcon(icon);
       tray = new Tray(createTrayIcon(brandIconPath('32x32.png')));
-      tray.setToolTip('VoiceStudio');
+      tray.setToolTip('Sado');
       closeCapture = installNativeCapture(PRELOAD_PATH, tray, () => mainWindow);
       tray.on('click', () => {
         if (!isLiveWindow(mainWindow)) mainWindow = createWindow();
